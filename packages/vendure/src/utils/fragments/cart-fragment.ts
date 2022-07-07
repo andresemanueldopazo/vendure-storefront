@@ -1,7 +1,10 @@
+import { orderAddressFragment } from './order-address-fragment'
+
 export const cartFragment = /* GraphQL */ `
   fragment Cart on Order {
     id
     code
+    state
     createdAt
     totalQuantity
     subTotal
@@ -11,6 +14,12 @@ export const cartFragment = /* GraphQL */ `
     currencyCode
     customer {
       id
+    }
+    shippingAddress {
+      ...OrderAddressFragment
+    }
+    billingAddress {
+      ...OrderAddressFragment
     }
     lines {
       id
@@ -41,4 +50,5 @@ export const cartFragment = /* GraphQL */ `
       }
     }
   }
+  ${orderAddressFragment}
 `
