@@ -951,6 +951,11 @@
     tslib "~2.4.0"
     value-or-promise "1.0.11"
 
+"@greatsumini/react-facebook-login@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@greatsumini/react-facebook-login/-/react-facebook-login-3.2.0.tgz#7915ec9916931d74836be292407f0ebbe56a6781"
+  integrity sha512-b8Zvl6Q7HPLqvkqg8URkVLIlInaqwQ5pVSk2WIkQt/8YxbMErgjTVdq5oP8/0HElfgyb8V8mDpLMqh6crtPZdg==
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"

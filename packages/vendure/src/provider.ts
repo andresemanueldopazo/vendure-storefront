@@ -5,6 +5,7 @@ import { handler as useRemoveItem } from './cart/use-remove-item'
 import { handler as useCustomer } from './customer/use-customer'
 import { handler as useSearch } from './product/use-search'
 import { handler as useLogin } from './auth/use-login'
+import { handler as useFacebookLogin } from './auth/use-facebook-login'
 import { handler as useLogout } from './auth/use-logout'
 import { handler as useSignup } from './auth/use-signup'
 import { handler as useCheckout } from './checkout/use-checkout'
@@ -36,7 +37,7 @@ export const vendureProvider = {
     useCheckout,
     useSubmitCheckout,
   },
-  auth: { useLogin, useLogout, useSignup },
+  auth: { useLogin, useFacebookLogin, useLogout, useSignup },
 }
 
 export type VendureProvider = typeof vendureProvider
