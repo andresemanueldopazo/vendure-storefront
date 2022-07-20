@@ -22,15 +22,33 @@ const FacebookLogin: React.FC = () => {
   }
 
   return (
-    <div className="w-80 flex flex-col justify-between p-3">
-      <FacebookLoginButton
-        appId={process.env.NEXT_PUBLIC_APP_ID_FACEBOOK_LOGIN!}
-        fields="name,email,picture"
-        scope="public_profile,email,user_friends"
-        onSuccess={handleOnSuccessFacebook}
-        onFail={e => console.log('FB login failed:', e.status)}
-      />
-    </div>
+    <FacebookLoginButton
+      appId={process.env.NEXT_PUBLIC_APP_ID_FACEBOOK_LOGIN!}
+      fields="name,email,picture"
+      scope="public_profile,email,user_friends"
+      onSuccess={handleOnSuccessFacebook}
+      onFail={e => console.log("FB login failed:", e.status)}
+      render={({ onClick }) =>
+        <div className="flex flex-col">
+          <Button
+            className="gap-2"
+            onClick={onClick}
+            variant="slim"
+            style={{
+              backgroundColor: "#4267b2",
+              color: "white"
+            }}
+          >
+            <div>
+              <img src="f-logo-35x35.png" />
+            </div>
+            <div>
+              Log In with Facebook
+            </div>
+          </Button>
+        </div>
+      }
+    />
   )
 }
 
