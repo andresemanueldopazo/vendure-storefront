@@ -4,6 +4,7 @@ import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import { Logo, Button, Input } from '@components/ui'
 import useSignup from '@framework/auth/use-signup'
+import useLogin from '@framework/auth/use-login'
 
 interface Props {}
 
@@ -19,6 +20,7 @@ const SignUpView: FC<Props> = () => {
   const [disabled, setDisabled] = useState(false)
 
   const signup = useSignup()
+  const login = useLogin()
   const { setModalView, closeModal } = useUI()
 
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
@@ -38,10 +40,15 @@ const SignUpView: FC<Props> = () => {
         lastName,
         password,
       })
+      await login({
+        email,
+        password,
+      })
       setLoading(false)
       closeModal()
-    } catch ({ errors }) {
-      setMessage(errors[0].message)
+    } catch (e: any) {
+      console.log(e.message)
+      setMessage(e.message)
       setLoading(false)
     }
   }
