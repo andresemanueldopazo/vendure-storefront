@@ -15,6 +15,7 @@ import type {
   Signup,
   Login,
   FacebookLogin,
+  GoogleLogin,
   Logout,
   Checkout,
 } from './types'
@@ -62,6 +63,7 @@ export type Provider = CommerceConfig & {
     useSignup?: MutationHook<Signup.SignupHook>
     useLogin?: MutationHook<Login.LoginHook>
     useFacebookLogin?: MutationHook<FacebookLogin.FacebookLoginHook>
+    useGoogleLogin?: MutationHook<GoogleLogin.GoogleLoginHook>
     useLogout?: MutationHook<Logout.LogoutHook>
   }
 }

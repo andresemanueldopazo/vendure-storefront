@@ -4,6 +4,7 @@ import * as Common from './common'
 import * as Customer from './customer'
 import * as Login from './login'
 import * as FacebookLogin from './facebook-login'
+import * as GoogleLogin from './google-login'
 import * as Logout from './logout'
 import * as Page from './page'
 import * as Product from './product'
@@ -18,6 +19,7 @@ export type {
   Customer,
   Login,
   FacebookLogin,
+  GoogleLogin,
   Logout,
   Page,
   Product,

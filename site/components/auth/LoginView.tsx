@@ -4,6 +4,7 @@ import useLogin from '@framework/auth/use-login'
 import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 import FacebookLogin from './FacebookLogin'
+import GoogleLogin from './GoogleLogin'
 
 const LoginView: React.FC = () => {
   // Form State
@@ -100,6 +101,7 @@ const LoginView: React.FC = () => {
         </div>
       </form>
       <FacebookLogin/>
+      <GoogleLogin/>
     </>
   )
 }
