@@ -82,6 +82,8 @@ enum AssetType {
 }
 
 input AuthenticationInput {
+  facebook: FacebookAuthInput
+  google: GoogleAuthInput
   native: NativeAuthInput
 }
 
@@ -1380,6 +1382,10 @@ interface ErrorResult {
   message: String!
 }
 
+input FacebookAuthInput {
+  token: String!
+}
+
 type Facet implements Node {
   code: String!
   createdAt: DateTime!
@@ -1521,6 +1527,10 @@ enum GlobalFlag {
   FALSE
   INHERIT
   TRUE
+}
+
+input GoogleAuthInput {
+  token: String!
 }
 
 type HistoryEntry implements Node {
@@ -2555,6 +2565,7 @@ type Mutation {
   Create a new Customer Address
   """
   createCustomerAddress(input: CreateAddressInput!): Address!
+  createStripePaymentIntent: String
 
   """
   Delete an existing Address

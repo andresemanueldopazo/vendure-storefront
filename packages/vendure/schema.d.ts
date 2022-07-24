@@ -111,6 +111,8 @@ export enum AssetType {
 }
 
 export type AuthenticationInput = {
+  facebook?: InputMaybe<FacebookAuthInput>
+  google?: InputMaybe<GoogleAuthInput>
   native?: InputMaybe<NativeAuthInput>
 }
 
@@ -922,6 +924,10 @@ export type ErrorResult = {
   message: Scalars['String']
 }
 
+export type FacebookAuthInput = {
+  token: Scalars['String']
+}
+
 export type Facet = Node & {
   __typename?: 'Facet'
   code: Scalars['String']
@@ -1057,6 +1063,10 @@ export enum GlobalFlag {
   False = 'FALSE',
   Inherit = 'INHERIT',
   True = 'TRUE',
+}
+
+export type GoogleAuthInput = {
+  token: Scalars['String']
 }
 
 export type HistoryEntry = Node & {
@@ -1581,6 +1591,7 @@ export type Mutation = {
   authenticate: AuthenticationResult
   /** Create a new Customer Address */
   createCustomerAddress: Address
+  createStripePaymentIntent?: Maybe<Scalars['String']>
   /** Delete an existing Address */
   deleteCustomerAddress: Success
   /** Authenticates the user using the native authentication strategy. This mutation is an alias for `authenticate({ native: { ... }})` */
@@ -3193,6 +3204,7 @@ export type CartFragment = {
   __typename?: 'Order'
   id: string
   code: string
+  state: string
   createdAt: any
   totalQuantity: number
   subTotal: number
@@ -3200,39 +3212,33 @@ export type CartFragment = {
   total: number
   totalWithTax: number
   currencyCode: CurrencyCode
-  customer?: { __typename?: 'Customer'; id: string } | null | undefined
-  shippingAddress?:
-    | {
-        __typename?: 'OrderAddress'
-        fullName?: string | null | undefined
-        company?: string | null | undefined
-        streetLine1?: string | null | undefined
-        streetLine2?: string | null | undefined
-        city?: string | null | undefined
-        province?: string | null | undefined
-        postalCode?: string | null | undefined
-        country?: string | null | undefined
-        countryCode?: string | null | undefined
-        phoneNumber?: string | null | undefined
-      }
-    | null
-    | undefined
-  billingAddress?:
-    | {
-        __typename?: 'OrderAddress'
-        fullName?: string | null | undefined
-        company?: string | null | undefined
-        streetLine1?: string | null | undefined
-        streetLine2?: string | null | undefined
-        city?: string | null | undefined
-        province?: string | null | undefined
-        postalCode?: string | null | undefined
-        country?: string | null | undefined
-        countryCode?: string | null | undefined
-        phoneNumber?: string | null | undefined
-      }
-    | null
-    | undefined
+  customer?: { __typename?: 'Customer'; id: string } | null
+  shippingAddress?: {
+    __typename?: 'OrderAddress'
+    fullName?: string | null
+    company?: string | null
+    streetLine1?: string | null
+    streetLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    country?: string | null
+    countryCode?: string | null
+    phoneNumber?: string | null
+  } | null
+  billingAddress?: {
+    __typename?: 'OrderAddress'
+    fullName?: string | null
+    company?: string | null
+    streetLine1?: string | null
+    streetLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    country?: string | null
+    countryCode?: string | null
+    phoneNumber?: string | null
+  } | null
   lines: Array<{
     __typename?: 'OrderLine'
     id: string
@@ -3241,10 +3247,7 @@ export type CartFragment = {
     discountedLinePriceWithTax: number
     unitPriceWithTax: number
     discountedUnitPriceWithTax: number
-    featuredAsset?:
-      | { __typename?: 'Asset'; id: string; preview: string }
-      | null
-      | undefined
+    featuredAsset?: { __typename?: 'Asset'; id: string; preview: string } | null
     discounts: Array<{
       __typename?: 'Discount'
       description: string
@@ -3266,16 +3269,16 @@ export type CartFragment = {
 
 export type OrderAddressFragmentFragment = {
   __typename?: 'OrderAddress'
-  fullName?: string | null | undefined
-  company?: string | null | undefined
-  streetLine1?: string | null | undefined
-  streetLine2?: string | null | undefined
-  city?: string | null | undefined
-  province?: string | null | undefined
-  postalCode?: string | null | undefined
-  country?: string | null | undefined
-  countryCode?: string | null | undefined
-  phoneNumber?: string | null | undefined
+  fullName?: string | null
+  company?: string | null
+  streetLine1?: string | null
+  streetLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string | null
+  countryCode?: string | null
+  phoneNumber?: string | null
 }
 
 export type SearchResultFragment = {
@@ -3286,10 +3289,11 @@ export type SearchResultFragment = {
   slug: string
   sku: string
   currencyCode: CurrencyCode
-  productAsset?:
-    | { __typename?: 'SearchResultAsset'; id: string; preview: string }
-    | null
-    | undefined
+  productAsset?: {
+    __typename?: 'SearchResultAsset'
+    id: string
+    preview: string
+  } | null
   priceWithTax:
     | { __typename?: 'PriceRange'; min: number; max: number }
     | { __typename?: 'SinglePrice'; value: number }
@@ -3317,6 +3321,7 @@ export type AddItemToOrderMutation = {
         __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3324,39 +3329,33 @@ export type AddItemToOrderMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3365,10 +3364,11 @@ export type AddItemToOrderMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3403,19 +3403,20 @@ export type AddPaymentToOrderMutation = {
   __typename?: 'Mutation'
   addPaymentToOrder:
     | {
-        __typename?: 'IneligiblePaymentMethodError'
+        __typename: 'IneligiblePaymentMethodError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'NoActiveOrderError'
+        __typename: 'NoActiveOrderError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'Order'
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3423,39 +3424,33 @@ export type AddPaymentToOrderMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3464,10 +3459,11 @@ export type AddPaymentToOrderMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3487,22 +3483,22 @@ export type AddPaymentToOrderMutation = {
         }>
       }
     | {
-        __typename?: 'OrderPaymentStateError'
+        __typename: 'OrderPaymentStateError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'OrderStateTransitionError'
+        __typename: 'OrderStateTransitionError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'PaymentDeclinedError'
+        __typename: 'PaymentDeclinedError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'PaymentFailedError'
+        __typename: 'PaymentFailedError'
         errorCode: ErrorCode
         message: string
       }
@@ -3530,6 +3526,7 @@ export type AdjustOrderLineMutation = {
         __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3537,39 +3534,33 @@ export type AdjustOrderLineMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3578,10 +3569,11 @@ export type AdjustOrderLineMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3648,6 +3640,7 @@ export type RemoveOrderLineMutation = {
         __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3655,39 +3648,33 @@ export type RemoveOrderLineMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3696,10 +3683,11 @@ export type RemoveOrderLineMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3725,22 +3713,33 @@ export type RemoveOrderLineMutation = {
       }
 }
 
-export type SetOrderBillingAddressMutationVariables = Exact<{
-  input: CreateAddressInput
+export type SetCustomerForOrderMutationVariables = Exact<{
+  input: CreateCustomerInput
 }>
 
-export type SetOrderBillingAddressMutation = {
+export type SetCustomerForOrderMutation = {
   __typename?: 'Mutation'
-  setOrderBillingAddress:
+  setCustomerForOrder:
     | {
-        __typename?: 'NoActiveOrderError'
+        __typename: 'AlreadyLoggedInError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'Order'
+        __typename: 'EmailAddressConflictError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'NoActiveOrderError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3748,39 +3747,33 @@ export type SetOrderBillingAddressMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3789,10 +3782,11 @@ export type SetOrderBillingAddressMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3813,20 +3807,23 @@ export type SetOrderBillingAddressMutation = {
       }
 }
 
-export type SetCustomerForOrderMutationVariables = Exact<{
-  input: CreateCustomerInput
+export type SetOrderBillingAddressMutationVariables = Exact<{
+  input: CreateAddressInput
 }>
 
-export type SetCustomerForOrderMutation = {
+export type SetOrderBillingAddressMutation = {
   __typename?: 'Mutation'
-  setCustomerForOrder:
-    | { __typename?: 'AlreadyLoggedInError' }
-    | { __typename?: 'EmailAddressConflictError' }
-    | { __typename?: 'NoActiveOrderError' }
+  setOrderBillingAddress:
     | {
-        __typename?: 'Order'
+        __typename: 'NoActiveOrderError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3834,39 +3831,33 @@ export type SetCustomerForOrderMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3875,10 +3866,11 @@ export type SetCustomerForOrderMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3907,14 +3899,15 @@ export type SetOrderShippingAddressMutation = {
   __typename?: 'Mutation'
   setOrderShippingAddress:
     | {
-        __typename?: 'NoActiveOrderError'
+        __typename: 'NoActiveOrderError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'Order'
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -3922,39 +3915,33 @@ export type SetOrderShippingAddressMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -3963,10 +3950,11 @@ export type SetOrderShippingAddressMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -3995,19 +3983,20 @@ export type SetOrderShippingMethodMutation = {
   __typename?: 'Mutation'
   setOrderShippingMethod:
     | {
-        __typename?: 'IneligibleShippingMethodError'
+        __typename: 'IneligibleShippingMethodError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'NoActiveOrderError'
+        __typename: 'NoActiveOrderError'
         errorCode: ErrorCode
         message: string
       }
     | {
-        __typename?: 'Order'
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -4015,39 +4004,33 @@ export type SetOrderShippingMethodMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -4056,10 +4039,11 @@ export type SetOrderShippingMethodMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -4079,7 +4063,7 @@ export type SetOrderShippingMethodMutation = {
         }>
       }
     | {
-        __typename?: 'OrderModificationError'
+        __typename: 'OrderModificationError'
         errorCode: ErrorCode
         message: string
       }
@@ -4118,9 +4102,10 @@ export type TransitionOrderToStateMutation = {
   __typename?: 'Mutation'
   transitionOrderToState?:
     | {
-        __typename?: 'Order'
+        __typename: 'Order'
         id: string
         code: string
+        state: string
         createdAt: any
         totalQuantity: number
         subTotal: number
@@ -4128,39 +4113,33 @@ export type TransitionOrderToStateMutation = {
         total: number
         totalWithTax: number
         currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
+        customer?: { __typename?: 'Customer'; id: string } | null
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
+        billingAddress?: {
+          __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
+          streetLine1?: string | null
+          streetLine2?: string | null
+          city?: string | null
+          province?: string | null
+          postalCode?: string | null
+          country?: string | null
+          countryCode?: string | null
+          phoneNumber?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
@@ -4169,10 +4148,11 @@ export type TransitionOrderToStateMutation = {
           discountedLinePriceWithTax: number
           unitPriceWithTax: number
           discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
+          featuredAsset?: {
+            __typename?: 'Asset'
+            id: string
+            preview: string
+          } | null
           discounts: Array<{
             __typename?: 'Discount'
             description: string
@@ -4192,28 +4172,25 @@ export type TransitionOrderToStateMutation = {
         }>
       }
     | {
-        __typename?: 'OrderStateTransitionError'
+        __typename: 'OrderStateTransitionError'
         errorCode: ErrorCode
         message: string
+        transitionError: string
       }
     | null
-    | undefined
 }
 
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveCustomerQuery = {
   __typename?: 'Query'
-  activeCustomer?:
-    | {
-        __typename?: 'Customer'
-        id: string
-        firstName: string
-        lastName: string
-        emailAddress: string
-      }
-    | null
-    | undefined
+  activeCustomer?: {
+    __typename?: 'Customer'
+    id: string
+    firstName: string
+    lastName: string
+    emailAddress: string
+  } | null
 }
 
 export type EligiblePaymentMethodsQueryVariables = Exact<{
@@ -4270,10 +4247,11 @@ export type GetAllProductsQuery = {
       slug: string
       sku: string
       currencyCode: CurrencyCode
-      productAsset?:
-        | { __typename?: 'SearchResultAsset'; id: string; preview: string }
-        | null
-        | undefined
+      productAsset?: {
+        __typename?: 'SearchResultAsset'
+        id: string
+        preview: string
+      } | null
       priceWithTax:
         | { __typename?: 'PriceRange'; min: number; max: number }
         | { __typename?: 'SinglePrice'; value: number }
@@ -4285,83 +4263,76 @@ export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveOrderQuery = {
   __typename?: 'Query'
-  activeOrder?:
-    | {
-        __typename?: 'Order'
+  activeOrder?: {
+    __typename?: 'Order'
+    id: string
+    code: string
+    state: string
+    createdAt: any
+    totalQuantity: number
+    subTotal: number
+    subTotalWithTax: number
+    total: number
+    totalWithTax: number
+    currencyCode: CurrencyCode
+    customer?: { __typename?: 'Customer'; id: string } | null
+    shippingAddress?: {
+      __typename?: 'OrderAddress'
+      fullName?: string | null
+      company?: string | null
+      streetLine1?: string | null
+      streetLine2?: string | null
+      city?: string | null
+      province?: string | null
+      postalCode?: string | null
+      country?: string | null
+      countryCode?: string | null
+      phoneNumber?: string | null
+    } | null
+    billingAddress?: {
+      __typename?: 'OrderAddress'
+      fullName?: string | null
+      company?: string | null
+      streetLine1?: string | null
+      streetLine2?: string | null
+      city?: string | null
+      province?: string | null
+      postalCode?: string | null
+      country?: string | null
+      countryCode?: string | null
+      phoneNumber?: string | null
+    } | null
+    lines: Array<{
+      __typename?: 'OrderLine'
+      id: string
+      quantity: number
+      linePriceWithTax: number
+      discountedLinePriceWithTax: number
+      unitPriceWithTax: number
+      discountedUnitPriceWithTax: number
+      featuredAsset?: {
+        __typename?: 'Asset'
         id: string
-        code: string
-        createdAt: any
-        totalQuantity: number
-        subTotal: number
-        subTotalWithTax: number
-        total: number
-        totalWithTax: number
-        currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null | undefined
-        shippingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        billingAddress?:
-          | {
-              __typename?: 'OrderAddress'
-              fullName?: string | null | undefined
-              company?: string | null | undefined
-              streetLine1?: string | null | undefined
-              streetLine2?: string | null | undefined
-              city?: string | null | undefined
-              province?: string | null | undefined
-              postalCode?: string | null | undefined
-              country?: string | null | undefined
-              countryCode?: string | null | undefined
-              phoneNumber?: string | null | undefined
-            }
-          | null
-          | undefined
-        lines: Array<{
-          __typename?: 'OrderLine'
-          id: string
-          quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
-          featuredAsset?:
-            | { __typename?: 'Asset'; id: string; preview: string }
-            | null
-            | undefined
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
-          productVariant: {
-            __typename?: 'ProductVariant'
-            id: string
-            name: string
-            sku: string
-            price: number
-            priceWithTax: number
-            stockLevel: string
-            productId: string
-            product: { __typename?: 'Product'; slug: string }
-          }
-        }>
+        preview: string
+      } | null
+      discounts: Array<{
+        __typename?: 'Discount'
+        description: string
+        amount: number
+      }>
+      productVariant: {
+        __typename?: 'ProductVariant'
+        id: string
+        name: string
+        sku: string
+        price: number
+        priceWithTax: number
+        stockLevel: string
+        productId: string
+        product: { __typename?: 'Product'; slug: string }
       }
-    | null
-    | undefined
+    }>
+  } | null
 }
 
 export type GetCollectionsQueryVariables = Exact<{ [key: string]: never }>
@@ -4377,11 +4348,8 @@ export type GetCollectionsQuery = {
       description: string
       slug: string
       productVariants: { __typename?: 'ProductVariantList'; totalItems: number }
-      parent?: { __typename?: 'Collection'; id: string } | null | undefined
-      children?:
-        | Array<{ __typename?: 'Collection'; id: string }>
-        | null
-        | undefined
+      parent?: { __typename?: 'Collection'; id: string } | null
+      children?: Array<{ __typename?: 'Collection'; id: string }> | null
     }>
   }
 }
@@ -4392,51 +4360,44 @@ export type GetProductQueryVariables = Exact<{
 
 export type GetProductQuery = {
   __typename?: 'Query'
-  product?:
-    | {
-        __typename?: 'Product'
+  product?: {
+    __typename?: 'Product'
+    id: string
+    name: string
+    slug: string
+    description: string
+    assets: Array<{
+      __typename?: 'Asset'
+      id: string
+      preview: string
+      name: string
+    }>
+    variants: Array<{
+      __typename?: 'ProductVariant'
+      id: string
+      priceWithTax: number
+      currencyCode: CurrencyCode
+      options: Array<{
+        __typename?: 'ProductOption'
         id: string
         name: string
-        slug: string
-        description: string
-        assets: Array<{
-          __typename?: 'Asset'
-          id: string
-          preview: string
-          name: string
-        }>
-        variants: Array<{
-          __typename?: 'ProductVariant'
-          id: string
-          priceWithTax: number
-          currencyCode: CurrencyCode
-          options: Array<{
-            __typename?: 'ProductOption'
-            id: string
-            name: string
-            code: string
-            groupId: string
-            group: {
-              __typename?: 'ProductOptionGroup'
-              id: string
-              options: Array<{ __typename?: 'ProductOption'; name: string }>
-            }
-          }>
-        }>
-        optionGroups: Array<{
+        code: string
+        groupId: string
+        group: {
           __typename?: 'ProductOptionGroup'
           id: string
-          code: string
-          name: string
-          options: Array<{
-            __typename?: 'ProductOption'
-            id: string
-            name: string
-          }>
-        }>
-      }
-    | null
-    | undefined
+          options: Array<{ __typename?: 'ProductOption'; name: string }>
+        }
+      }>
+    }>
+    optionGroups: Array<{
+      __typename?: 'ProductOptionGroup'
+      id: string
+      code: string
+      name: string
+      options: Array<{ __typename?: 'ProductOption'; id: string; name: string }>
+    }>
+  } | null
 }
 
 export type SearchQueryVariables = Exact<{
@@ -4456,10 +4417,11 @@ export type SearchQuery = {
       slug: string
       sku: string
       currencyCode: CurrencyCode
-      productAsset?:
-        | { __typename?: 'SearchResultAsset'; id: string; preview: string }
-        | null
-        | undefined
+      productAsset?: {
+        __typename?: 'SearchResultAsset'
+        id: string
+        preview: string
+      } | null
       priceWithTax:
         | { __typename?: 'PriceRange'; min: number; max: number }
         | { __typename?: 'SinglePrice'; value: number }
