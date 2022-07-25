@@ -42,12 +42,13 @@ const FacebookLogin: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="hover:opacity-80">
       <div
         className="fb-login-button"
-        data-width=""
+        data-width="320"
         data-size="large"
         data-button-type="continue_with"
+        use-continue-as="true"
         data-layout="default"
         data-auto-logout-link="false"
         data-use-continue-as="false"

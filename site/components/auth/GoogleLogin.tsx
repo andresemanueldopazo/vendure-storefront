@@ -27,7 +27,7 @@ const GoogleLogin: React.FC = () => {
   useEffect(() => {
     (window as any).google.accounts.id.renderButton(
       document.getElementById("buttonDiv"),
-      { theme: "outline", size: "large" }
+      { theme: "filled_blue", size: "large", width: "320" }
     )
   }, [])
 
