@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
+import { useTheme } from 'next-themes'
 
 export interface State {
   displaySidebar: boolean
@@ -126,6 +127,7 @@ function uiReducer(state: State, action: Action) {
 
 export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState)
+  const { setTheme } = useTheme()
 
   const openSidebar = useCallback(
     () => dispatch({ type: 'OPEN_SIDEBAR' }),
@@ -157,8 +159,11 @@ export const UIProvider: FC = (props) => {
   )
 
   const openModal = useCallback(
-    () => dispatch({ type: 'OPEN_MODAL' }),
-    [dispatch]
+    () => {
+      setTheme('light')
+      dispatch({ type: 'OPEN_MODAL' })
+    },
+    [dispatch, setTheme]
   )
   const closeModal = useCallback(
     () => dispatch({ type: 'CLOSE_MODAL' }),
@@ -210,7 +215,9 @@ export const useUI = () => {
 }
 
 export const ManagedUIContext: FC = ({ children }) => (
-  <UIProvider>
-    <ThemeProvider>{children}</ThemeProvider>
-  </UIProvider>
+  <ThemeProvider>
+    <UIProvider>
+      {children}
+    </UIProvider>
+  </ThemeProvider>
 )
