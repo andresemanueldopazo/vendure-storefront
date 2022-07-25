@@ -57,14 +57,14 @@ const LoginView: React.FC = () => {
   }, [handleValidation])
 
   return (
-    <>
+    <div className="flex flex-col">
+      <div className="flex justify-center pb-12">
+        <Logo width="64px" height="64px" />
+      </div>
       <form
         onSubmit={handleLogin}
+        className="flex flex-col space-y-3 pb-6"
       >
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
-        </div>
-        <div className="flex flex-col space-y-3">
           {message && (
             <div className="text-red border border-red p-3">
               {message}. Did you {` `}
@@ -87,21 +87,29 @@ const LoginView: React.FC = () => {
           >
             Log In
           </Button>
-          <div className="pt-1 text-center text-sm">
-            <span className="text-accent-7">Don't have an account?</span>
-            {` `}
-            <a
-              className="text-accent-9 font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView('SIGNUP_VIEW')}
-            >
-              Sign Up
-            </a>
-          </div>
-        </div>
       </form>
-      <FacebookLogin/>
-      <GoogleLogin/>
-    </>
+      <div className="text-center text-sm pb-3">
+        <span>Don't have an account?</span>
+        {` `}
+        <a
+          className="text-accent-9 font-bold hover:underline cursor-pointer"
+          onClick={() => setModalView('SIGNUP_VIEW')}
+          >
+          Sign Up
+        </a>
+      </div>
+      <div className='flex justify-between items-center pb-3'>
+        <div className='bg-slate-400 h-px basis-5/12'></div>
+        <div className="text-sm">
+          or
+        </div>
+        <div className='bg-slate-400 h-px basis-5/12'></div>
+      </div>
+      <div className="space-y-3">
+        <GoogleLogin/>        
+        <FacebookLogin/>
+      </div>
+    </div>
   )
 }
 
