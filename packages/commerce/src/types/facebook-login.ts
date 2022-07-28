@@ -7,7 +7,7 @@ export type FacebookLoginTypes = {
 }
 
 export type FacebookLoginHook<T extends FacebookLoginTypes = FacebookLoginTypes> = {
-  data: null
+  data: string | null
   actionInput: FacebookLoginBody
   fetcherInput: FacebookLoginBody
   body: T['body']

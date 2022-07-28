@@ -1,11 +1,16 @@
-export const facebookLoginMutation = /* GraphQL */
-` mutation Authenticate($token: String!) {
+export const facebookLoginMutation = /* GraphQL */ `
+  mutation Authenticate($token: String!) {
     authenticate(input: {
       facebook: { token: $token }
     }) {
-    ...on CurrentUser {
+      __typename
+      ... on CurrentUser {
         id
-        identifier
+      }
+      ... on ErrorResult {
+        errorCode
+        message
+      }
     }
   }
-}`
+`

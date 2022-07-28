@@ -16,11 +16,14 @@ export const handler: MutationHook<FacebookLoginHook> = {
       token,
     }
 
-    const { facebookLogin } = await fetch<any>({
+    const { authenticate } = await fetch({
       ...options,
       variables,
     })
 
+    if (authenticate.__typename === 'CurrentUser') {
+      return authenticate.id
+    }
     return null
   },
   useHook:

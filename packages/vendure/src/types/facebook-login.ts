@@ -5,7 +5,7 @@ import type { LoginMutationVariables } from '../../schema'
 export * from '@vercel/commerce/types/facebook-login'
 
 export type FacebookLoginHook<T extends FacebookLoginTypes = FacebookLoginTypes> = {
-  data: null
+  data: string | null
   actionInput: FacebookLoginBody
   fetcherInput: FacebookLoginBody
   body: T['body']
