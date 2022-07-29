@@ -1,5 +1,5 @@
 export const facebookLoginMutation = /* GraphQL */ `
-  mutation Authenticate($token: String!) {
+  mutation facebookLogin($token: String!) {
     authenticate(input: {
       facebook: { token: $token }
     }) {

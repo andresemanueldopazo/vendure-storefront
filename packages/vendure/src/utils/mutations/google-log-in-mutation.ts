@@ -1,5 +1,5 @@
 export const googleLoginMutation = /* GraphQL */ `
-  mutation Authenticate($token: String!) {
+  mutation googleLogin($token: String!) {
     authenticate(input: {
       google: { token: $token }
     }) {

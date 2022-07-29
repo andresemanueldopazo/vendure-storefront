@@ -2934,6 +2934,7 @@ export type ShippingMethod = Node & {
   description: Scalars['String']
   fulfillmentHandlerCode: Scalars['String']
   id: Scalars['ID']
+  languageCode: LanguageCode
   name: Scalars['String']
   translations: Array<ShippingMethodTranslation>
   updatedAt: Scalars['DateTime']
@@ -3598,6 +3599,38 @@ export type AdjustOrderLineMutation = {
         errorCode: ErrorCode
         message: string
       }
+}
+
+export type FacebookLoginMutationVariables = Exact<{
+  token: Scalars['String']
+}>
+
+export type FacebookLoginMutation = {
+  __typename?: 'Mutation'
+  authenticate:
+    | { __typename: 'CurrentUser'; id: string }
+    | {
+        __typename: 'InvalidCredentialsError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | { __typename: 'NotVerifiedError'; errorCode: ErrorCode; message: string }
+}
+
+export type GoogleLoginMutationVariables = Exact<{
+  token: Scalars['String']
+}>
+
+export type GoogleLoginMutation = {
+  __typename?: 'Mutation'
+  authenticate:
+    | { __typename: 'CurrentUser'; id: string }
+    | {
+        __typename: 'InvalidCredentialsError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | { __typename: 'NotVerifiedError'; errorCode: ErrorCode; message: string }
 }
 
 export type LoginMutationVariables = Exact<{
