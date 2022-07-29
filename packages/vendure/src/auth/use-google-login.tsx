@@ -4,6 +4,7 @@ import useGoogleLogin, { UseGoogleLogin } from '@vercel/commerce/auth/use-google
 import { GoogleLoginHook } from '../types/google-login'
 import useCustomer from '../customer/use-customer'
 import { googleLoginMutation } from '../utils/mutations/google-log-in-mutation'
+import { GoogleLoginMutation, GoogleLoginMutationVariables } from '../../schema'
 
 export default useGoogleLogin as UseGoogleLogin<typeof handler>
 
@@ -12,11 +13,11 @@ export const handler: MutationHook<GoogleLoginHook> = {
     query: googleLoginMutation,
   },
   async fetcher({ input: { token }, options, fetch }) {
-    const variables = {
+    const variables: GoogleLoginMutationVariables = {
       token
     }
 
-    const { authenticate } = await fetch({
+    const { authenticate } = await fetch<GoogleLoginMutation>({
       ...options,
       variables,
     })
