@@ -4,6 +4,7 @@ import useFacebookLogin, { UseFacebookLogin } from '@vercel/commerce/auth/use-fa
 import { FacebookLoginHook } from '../types/facebook-login'
 import useCustomer from '../customer/use-customer'
 import { facebookLoginMutation } from '../utils/mutations/facebook-log-in-mutation'
+import { FacebookLoginMutation, FacebookLoginMutationVariables } from '../../schema'
 
 export default useFacebookLogin as UseFacebookLogin<typeof handler>
 
@@ -12,11 +13,11 @@ export const handler: MutationHook<FacebookLoginHook> = {
     query: facebookLoginMutation,
   },
   async fetcher({ input: { token: token }, options, fetch }) {
-    const variables: any = {
+    const variables: FacebookLoginMutationVariables = {
       token,
     }
 
-    const { authenticate } = await fetch({
+    const { authenticate } = await fetch<FacebookLoginMutation>({
       ...options,
       variables,
     })
