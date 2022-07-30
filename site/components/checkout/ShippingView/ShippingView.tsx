@@ -41,12 +41,15 @@ const ShippingView: FC = () => {
       country: event.target.country.value,
     })
 
-    setSidebarView('CHECKOUT_VIEW')
+    setSidebarView(process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'STRIPE_VIEW' : 'CHECKOUT_VIEW')
   }
 
   return (
     <form className="h-full" onSubmit={handleSubmit}>
-      <SidebarLayout handleBack={() => setSidebarView('CHECKOUT_VIEW')}>
+      <SidebarLayout handleBack={() => setSidebarView(
+        process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'CART_VIEW'
+        : 'CHECKOUT_VIEW'
+      )}>
         <div className="px-4 sm:px-6 flex-1">
           <h2 className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
             Shipping

@@ -11,6 +11,7 @@ import * as Product from './product'
 import * as Signup from './signup'
 import * as Site from './site'
 import * as Wishlist from './wishlist'
+import * as Stripe from './stripe'
 
 export type {
   Cart,
@@ -26,4 +27,5 @@ export type {
   Signup,
   Site,
   Wishlist,
+  Stripe,
 }

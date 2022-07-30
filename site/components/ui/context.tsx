@@ -59,7 +59,7 @@ type MODAL_VIEWS =
   | 'NEW_SHIPPING_ADDRESS'
   | 'NEW_PAYMENT_METHOD'
 
-type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW'
+type SIDEBAR_VIEWS = 'CART_VIEW' | 'CHECKOUT_VIEW' | 'PAYMENT_METHOD_VIEW' | 'STRIPE_VIEW'
 
 export const UIContext = React.createContext<State | any>(initialState)
 

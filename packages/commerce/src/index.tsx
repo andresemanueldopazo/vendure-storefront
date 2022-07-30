@@ -18,6 +18,7 @@ import type {
   GoogleLogin,
   Logout,
   Checkout,
+  Stripe
 } from './types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -65,6 +66,9 @@ export type Provider = CommerceConfig & {
     useFacebookLogin?: MutationHook<FacebookLogin.FacebookLoginHook>
     useGoogleLogin?: MutationHook<GoogleLogin.GoogleLoginHook>
     useLogout?: MutationHook<Logout.LogoutHook>
+  }
+  stripe?: {
+    useCreateStripePaymentIntent?: SWRHook<Stripe.CreateStripePaymentIntentHook>
   }
 }
 

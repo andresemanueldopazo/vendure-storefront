@@ -27,7 +27,10 @@ const CartSidebarView: FC = () => {
     }
   )
   const handleClose = () => closeSidebar()
-  const goToCheckout = () => setSidebarView('CHECKOUT_VIEW')
+  const goToCheckout = () => setSidebarView(
+    process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_VIEW'
+    : 'CHECKOUT_VIEW'
+  )
 
   const error = null
   const success = null
