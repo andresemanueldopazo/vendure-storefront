@@ -3282,6 +3282,25 @@ export type OrderAddressFragmentFragment = {
   phoneNumber?: string | null
 }
 
+export type OrderResumeFragment = {
+  __typename?: 'Order'
+  code: string
+  orderPlacedAt?: any | null
+  shippingWithTax: number
+  state: string
+  totalWithTax: number
+  currencyCode: CurrencyCode
+  lines: Array<{
+    __typename?: 'OrderLine'
+    id: string
+    quantity: number
+    discountedUnitPriceWithTax: number
+    unitPriceWithTax: number
+    productVariant: { __typename?: 'ProductVariant'; name: string }
+    featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+  }>
+}
+
 export type SearchResultFragment = {
   __typename?: 'SearchResult'
   productId: string
@@ -4219,10 +4238,31 @@ export type ActiveCustomerQuery = {
   __typename?: 'Query'
   activeCustomer?: {
     __typename?: 'Customer'
-    id: string
     firstName: string
     lastName: string
     emailAddress: string
+    orders: {
+      __typename?: 'OrderList'
+      totalItems: number
+      items: Array<{
+        __typename?: 'Order'
+        code: string
+        orderPlacedAt?: any | null
+        shippingWithTax: number
+        state: string
+        totalWithTax: number
+        currencyCode: CurrencyCode
+        lines: Array<{
+          __typename?: 'OrderLine'
+          id: string
+          quantity: number
+          discountedUnitPriceWithTax: number
+          unitPriceWithTax: number
+          productVariant: { __typename?: 'ProductVariant'; name: string }
+          featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+        }>
+      }>
+    }
   } | null
 }
 

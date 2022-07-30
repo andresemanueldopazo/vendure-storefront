@@ -4,8 +4,10 @@ import { Bag } from '@components/icons'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
 import StripePaymentStatus from '@components/stripe/StripePaymentStatus'
-import getStripe from '@lib/get-stripejs'
+import OrderResume from '@components/order/OrderResume'
 import { Elements } from '@stripe/react-stripe-js'
+import { useCustomer } from '@framework/customer'
+import getStripe from '@lib/get-stripejs'
 
 export async function getStaticProps({
   preview,
@@ -24,25 +26,38 @@ export async function getStaticProps({
 }
 
 export default function Orders() {
+  const { data } = useCustomer()
+
   return (
     <Container className="pt-4">
+      <Text variant="pageHeading">My Orders</Text>
       <Elements
         stripe={getStripe()}
       >
         <StripePaymentStatus/>
       </Elements>
-      <Text variant="pageHeading">My Orders</Text>
-      <div className="flex-1 p-24 flex flex-col justify-center items-center ">
-        <span className="border border-dashed border-secondary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-primary text-primary">
-          <Bag className="absolute" />
-        </span>
-        <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-          No orders found
-        </h2>
-        <p className="text-accent-6 px-10 text-center pt-2">
-          Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
-        </p>
-      </div>
+      {data && data.orders.totalItems? (
+        <ul>
+          {data.orders.items.map((order)=>
+            <OrderResume
+              key={order.code}
+              order={order}
+            />
+          )}
+        </ul>
+      ) : (
+        <div className="flex-1 p-24 flex flex-col justify-center items-center ">
+          <span className="border border-dashed border-secondary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-primary text-primary">
+            <Bag className="absolute" />
+          </span>
+          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+            No orders found
+          </h2>
+          <p className="text-accent-6 px-10 text-center pt-2">
+            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+          </p>
+        </div>
+      )}
     </Container>
   )
 }

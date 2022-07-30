@@ -1,6 +1,7 @@
 import { Product } from '@vercel/commerce/types/product'
 import { Cart } from '@vercel/commerce/types/cart'
-import { CartFragment, SearchResultFragment } from '../../schema'
+import { CartFragment, OrderResumeFragment, SearchResultFragment } from '../../schema'
+import { OrderResume } from '@vercel/commerce/types/customer'
 import { CustomerAddressTypes } from '@vercel/commerce/types/customer/address'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
@@ -74,5 +75,29 @@ export function normalizeAddress(
     // TODO: Not sure what should return.
     id: '',
     mask: '',
+  }
+}
+
+export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
+  return {
+    code: order.code,
+    orderPlacedAt: order.orderPlacedAt,
+    shippingWithTax: order.shippingWithTax / 100,
+    state: order.state,
+    totalPrice: order.totalWithTax / 100,
+    currency: { code: order.currencyCode },
+    lineItems: order.lines?.map((l) => ({
+      id: l.id,
+      quantity: l.quantity,
+      name: l.productVariant.name,
+      variant: {
+        price: l.discountedUnitPriceWithTax / 100,
+        listPrice: l.unitPriceWithTax / 100,
+        image: {
+          url: l.featuredAsset?.preview + '?preset=thumb' || '',
+        },
+      },
+      path: '',
+    })), 
   }
 }
