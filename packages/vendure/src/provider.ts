@@ -17,6 +17,7 @@ import { handler as useAddresses } from './customer/address/use-addresses'
 import { handler as useAddAddressItem } from './customer/address/use-add-item'
 import { handler as useCreateStripePaymentIntent } from './stripe/use-create-stripe-payment-intent'
 import { handler as useEligibleShippingMethods } from './shipping-method/use-eligible-shipping-methods'
+import { handler as useSetShippingMethod } from './shipping-method/use-set-shipping-method'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -44,6 +45,7 @@ export const vendureProvider = {
   stripe: { useCreateStripePaymentIntent },
   shippingMethod: {
     useEligibleShippingMethods,
+    useSetShippingMethod,
   }
 }
 

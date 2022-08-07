@@ -4,7 +4,16 @@ export const setOrderShippingMethod = /* GraphQL */ `
   mutation setOrderShippingMethod($shippingMethodId: ID!) {
     setOrderShippingMethod(shippingMethodId: $shippingMethodId) {
       __typename
-      ...Cart
+      ... on Order {
+        shippingLines {
+          shippingMethod {
+            id
+            name
+            description
+          }
+          priceWithTax
+        }
+      }
       ... on OrderModificationError {
         errorCode
         message
@@ -19,5 +28,4 @@ export const setOrderShippingMethod = /* GraphQL */ `
       }
     }
   }
-  ${cartFragment}
 `

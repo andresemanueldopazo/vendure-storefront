@@ -5,13 +5,9 @@ import type { AddItemHook } from '@vercel/commerce/types/customer/address'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
-import { setOrderShippingMethod } from '../../utils/mutations/set-order-shipping-method'
-import { eligibleShippingMethods } from '../../utils/queries/eligible-shipping-methods'
 import {
   ActiveOrderResult,
-  EligibleShippingMethodsQuery,
   MutationSetOrderShippingAddressArgs,
-  SetOrderShippingMethodResult
 } from '../../../schema'
 import { setOrderShippingAddress } from '../../utils/mutations/set-order-shipping-address'
 import { normalizeAddress } from '../../utils/normalize'
@@ -25,21 +21,6 @@ export const handler: MutationHook<AddItemHook> = {
     query: setOrderShippingAddress,
   },
   async fetcher({ input: item, options, fetch }) {
-    // Shipping method choice to allow proof of Stripe payment
-    const eligibleMethods = await fetch<EligibleShippingMethodsQuery>({
-      query: eligibleShippingMethods,
-    })
-    const shippingMethodId =
-      eligibleMethods?.['eligibleShippingMethods']?.[0].id
-    if (shippingMethodId) {
-      await fetch<SetOrderShippingMethodResult>({
-        query: setOrderShippingMethod,
-        variables: {
-          shippingMethodId,
-        },
-      })
-    }
-
     const variables: MutationSetOrderShippingAddressArgs = {
       input: {
         fullName: `${item.firstName || ''} ${item.lastName || ''}`,

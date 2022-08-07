@@ -73,6 +73,7 @@ export type Provider = CommerceConfig & {
   }
   shippingMethod?: {
     useEligibleShippingMethods?: SWRHook<ShippingMethod.EligibleShippingMethodsHook>
+    useSetShippingMethod?: MutationHook<ShippingMethod.SetShippingMethodHook>
   }
 }
 

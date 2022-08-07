@@ -1,13 +1,12 @@
 import { FC } from 'react'
 import cn from 'clsx'
-
+import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useAddAddress from '@framework/customer/address/use-add-item'
-
-import s from './ShippingView.module.css'
 import useEligibleShippingMethods from '@framework/shipping-method/use-eligible-shipping-methods'
+import useSetShippingMethod from '@framework/shipping-method/use-set-shipping-method'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -27,9 +26,12 @@ const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
   const addAddress = useAddAddress()
   const { data } = useEligibleShippingMethods()
+  const setShippingMethod = useSetShippingMethod()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
+
+    await setShippingMethod({id: event.target.shippingMethod.value})
 
     await addAddress({
       type: event.target.type.value,

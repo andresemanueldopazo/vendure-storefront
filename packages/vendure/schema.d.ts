@@ -4046,71 +4046,14 @@ export type SetOrderShippingMethodMutation = {
       }
     | {
         __typename: 'Order'
-        id: string
-        code: string
-        state: string
-        createdAt: any
-        totalQuantity: number
-        subTotal: number
-        subTotalWithTax: number
-        total: number
-        totalWithTax: number
-        currencyCode: CurrencyCode
-        customer?: { __typename?: 'Customer'; id: string } | null
-        shippingAddress?: {
-          __typename?: 'OrderAddress'
-          fullName?: string | null
-          company?: string | null
-          streetLine1?: string | null
-          streetLine2?: string | null
-          city?: string | null
-          province?: string | null
-          postalCode?: string | null
-          country?: string | null
-          countryCode?: string | null
-          phoneNumber?: string | null
-        } | null
-        billingAddress?: {
-          __typename?: 'OrderAddress'
-          fullName?: string | null
-          company?: string | null
-          streetLine1?: string | null
-          streetLine2?: string | null
-          city?: string | null
-          province?: string | null
-          postalCode?: string | null
-          country?: string | null
-          countryCode?: string | null
-          phoneNumber?: string | null
-        } | null
-        lines: Array<{
-          __typename?: 'OrderLine'
-          id: string
-          quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
-          featuredAsset?: {
-            __typename?: 'Asset'
-            id: string
-            preview: string
-          } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
-          productVariant: {
-            __typename?: 'ProductVariant'
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          priceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
             id: string
             name: string
-            sku: string
-            price: number
-            priceWithTax: number
-            stockLevel: string
-            productId: string
-            product: { __typename?: 'Product'; slug: string }
+            description: string
           }
         }>
       }
