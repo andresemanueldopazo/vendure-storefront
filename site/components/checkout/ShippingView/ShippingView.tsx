@@ -7,6 +7,7 @@ import SidebarLayout from '@components/common/SidebarLayout'
 import useAddAddress from '@framework/customer/address/use-add-item'
 
 import s from './ShippingView.module.css'
+import useEligibleShippingMethods from '@framework/shipping-method/use-eligible-shipping-methods'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -25,6 +26,7 @@ interface Form extends HTMLFormElement {
 const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
   const addAddress = useAddAddress()
+  const { data } = useEligibleShippingMethods()
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
@@ -47,14 +49,31 @@ const ShippingView: FC = () => {
   return (
     <form className="h-full" onSubmit={handleSubmit}>
       <SidebarLayout handleBack={() => setSidebarView(
-        process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'CART_VIEW'
-        : 'CHECKOUT_VIEW'
+        process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'CART_VIEW' : 'CHECKOUT_VIEW'
       )}>
         <div className="px-4 sm:px-6 flex-1">
           <h2 className="pt-1 pb-8 text-2xl font-semibold tracking-wide cursor-pointer inline-block">
             Shipping
           </h2>
           <div>
+            <hr className="border-accent-2 my-5"/>
+            <div className="flex flex-col">
+              {data && data.map((shippingMethod) => {
+                return (
+                  <div key={shippingMethod.id} className="flex flex-row justify-between my-3">
+                    <div className="flex flex-col">
+                      <div className="flex flex-row">
+                        <input name="shippingMethod" value={`${shippingMethod.id}`} className={s.radio} type="radio"/>
+                        <span className="ml-3 text-sm">{shippingMethod.name}</span>
+                      </div>
+                      <span className="ml-3 text-sm"><div dangerouslySetInnerHTML={{ __html: shippingMethod.description }} /></span>
+                    </div>
+                    <span className="ml-3 text-sm">{`$ ${shippingMethod.priceWithTax}`}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <hr className="border-accent-2 my-5"/>
             <div className="flex flex-row my-3 items-center">
               <input name="type" className={s.radio} type="radio" />
               <span className="ml-3 text-sm">Same as billing address</span>

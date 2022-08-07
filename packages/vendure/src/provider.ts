@@ -16,6 +16,7 @@ import { handler as useAddCardItem } from './customer/card/use-add-item'
 import { handler as useAddresses } from './customer/address/use-addresses'
 import { handler as useAddAddressItem } from './customer/address/use-add-item'
 import { handler as useCreateStripePaymentIntent } from './stripe/use-create-stripe-payment-intent'
+import { handler as useEligibleShippingMethods } from './shipping-method/use-eligible-shipping-methods'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -41,6 +42,9 @@ export const vendureProvider = {
   },
   auth: { useLogin, useFacebookLogin, useGoogleLogin, useLogout, useSignup },
   stripe: { useCreateStripePaymentIntent },
+  shippingMethod: {
+    useEligibleShippingMethods,
+  }
 }
 
 export type VendureProvider = typeof vendureProvider

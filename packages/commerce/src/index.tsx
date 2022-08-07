@@ -18,7 +18,8 @@ import type {
   GoogleLogin,
   Logout,
   Checkout,
-  Stripe
+  Stripe,
+  ShippingMethod,
 } from './types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -69,6 +70,9 @@ export type Provider = CommerceConfig & {
   }
   stripe?: {
     useCreateStripePaymentIntent?: SWRHook<Stripe.CreateStripePaymentIntentHook>
+  }
+  shippingMethod?: {
+    useEligibleShippingMethods?: SWRHook<ShippingMethod.EligibleShippingMethodsHook>
   }
 }
 

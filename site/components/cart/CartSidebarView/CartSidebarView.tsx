@@ -9,10 +9,12 @@ import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
+import useEligibleShippingMethods from '@framework/shipping-method/use-eligible-shipping-methods'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
   const { data, isLoading, isEmpty } = useCart()
+  const { mutate } = useEligibleShippingMethods()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -26,11 +28,12 @@ const CartSidebarView: FC = () => {
       currencyCode: data.currency.code,
     }
   )
+
   const handleClose = () => closeSidebar()
-  const goToCheckout = () => setSidebarView(
-    process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_VIEW'
-    : 'CHECKOUT_VIEW'
-  )
+  const goToCheckout = async () => {
+    await mutate()
+    setSidebarView(process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_VIEW' : 'CHECKOUT_VIEW')
+  }
 
   const error = null
   const success = null
