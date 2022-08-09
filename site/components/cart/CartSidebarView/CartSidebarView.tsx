@@ -9,7 +9,7 @@ import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
-import useEligibleShippingMethods from '@framework/shipping-method/use-eligible-shipping-methods'
+import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()

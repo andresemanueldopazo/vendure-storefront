@@ -4,9 +4,9 @@ import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
-import useAddAddress from '@framework/customer/address/use-add-item'
-import useEligibleShippingMethods from '@framework/shipping-method/use-eligible-shipping-methods'
-import useSetShippingMethod from '@framework/shipping-method/use-set-shipping-method'
+import useAddAddress from '@framework/shipping/address/use-add-item'
+import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
+import useSetShippingMethod from '@framework/shipping/method/use-set-shipping-method'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement

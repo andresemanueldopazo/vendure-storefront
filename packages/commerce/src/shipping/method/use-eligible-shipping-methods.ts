@@ -1,7 +1,7 @@
-import type { SWRHook, HookFetcherFn } from '../utils/types'
-import type { EligibleShippingMethodsHook } from '../types/shipping-method'
-import { useHook, useSWRHook } from '../utils/use-hook'
-import { Provider } from '..'
+import type { SWRHook, HookFetcherFn } from '../../utils/types'
+import type { EligibleShippingMethodsHook } from '../../types/shipping/method'
+import { useHook, useSWRHook } from '../../utils/use-hook'
+import { Provider } from '../..'
 
 export type UseEligibleShippingMethods<
   H extends SWRHook<
@@ -15,7 +15,7 @@ export const fetcher: HookFetcherFn<EligibleShippingMethodsHook> = async ({
   return await fetch(options)
 }
 
-const fn = (provider: Provider) => provider.shippingMethod?.useEligibleShippingMethods!
+const fn = (provider: Provider) => provider.shipping?.method?.useEligibleShippingMethods!
 
 const useEligibleShippingMethods: UseEligibleShippingMethods = (input) => {
   const hook = useHook(fn)

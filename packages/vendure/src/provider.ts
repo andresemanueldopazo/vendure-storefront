@@ -14,10 +14,11 @@ import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
 import { handler as useCards } from './customer/card/use-cards'
 import { handler as useAddCardItem } from './customer/card/use-add-item'
 import { handler as useAddresses } from './customer/address/use-addresses'
-import { handler as useAddAddressItem } from './customer/address/use-add-item'
+import { handler as useAddCustomerAddressItem } from './customer/address/use-add-item'
 import { handler as useCreateStripePaymentIntent } from './stripe/use-create-stripe-payment-intent'
-import { handler as useEligibleShippingMethods } from './shipping-method/use-eligible-shipping-methods'
-import { handler as useSetShippingMethod } from './shipping-method/use-set-shipping-method'
+import { handler as useEligibleShippingMethods } from './shipping/method/use-eligible-shipping-methods'
+import { handler as useSetShippingMethod } from './shipping/method/use-set-shipping-method'
+import { handler as useAddShippingAddressItem } from './shipping/address/use-add-item'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -33,7 +34,7 @@ export const vendureProvider = {
     },
     address: {
       useAddresses,
-      useAddItem: useAddAddressItem,
+      useAddItem: useAddCustomerAddressItem,
     },
   },
   products: { useSearch },
@@ -43,10 +44,15 @@ export const vendureProvider = {
   },
   auth: { useLogin, useFacebookLogin, useGoogleLogin, useLogout, useSignup },
   stripe: { useCreateStripePaymentIntent },
-  shippingMethod: {
-    useEligibleShippingMethods,
-    useSetShippingMethod,
-  }
+  shipping: {
+    method: {
+      useEligibleShippingMethods,
+      useSetShippingMethod,
+    },
+    address: {
+      useAddItem : useAddShippingAddressItem,
+    },
+  },
 }
 
 export type VendureProvider = typeof vendureProvider

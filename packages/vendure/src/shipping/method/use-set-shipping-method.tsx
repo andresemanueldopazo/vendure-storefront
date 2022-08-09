@@ -1,18 +1,18 @@
-import useSetShippingMethod, { UseSetShippingMethod } from '@vercel/commerce/shipping-method/use-set-shipping-method'
-import { SetShippingMethodHook } from '@vercel/commerce/types/shipping-method'
+import useSetShippingMethod, { UseSetShippingMethod } from '@vercel/commerce/shipping/method/use-set-shipping-method'
+import type { Method } from '../../types/shipping'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
-import { setOrderShippingMethod } from '../utils/mutations/set-order-shipping-method'
+import { setOrderShippingMethod } from '../../utils/mutations/set-order-shipping-method'
 import {
   SetOrderShippingMethodMutation,
   SetOrderShippingMethodMutationVariables,
-} from '../../schema'
+} from '../../../schema'
 import { ValidationError } from '@vercel/commerce/utils/errors'
 
 
 export default useSetShippingMethod as UseSetShippingMethod<typeof handler>
 
-export const handler: MutationHook<SetShippingMethodHook> = {
+export const handler: MutationHook<Method.SetShippingMethodHook> = {
   fetchOptions: {
     query: setOrderShippingMethod,
   },

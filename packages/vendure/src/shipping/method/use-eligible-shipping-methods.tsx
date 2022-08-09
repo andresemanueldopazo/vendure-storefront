@@ -1,16 +1,16 @@
 import useEligibleShippingMethods, {
   UseEligibleShippingMethods,
-} from '@vercel/commerce/shipping-method/use-eligible-shipping-methods'
-import type { EligibleShippingMethodsHook } from '@vercel/commerce/types/shipping-method'
+} from '@vercel/commerce/shipping/method/use-eligible-shipping-methods'
+import type { Method } from '../../types/shipping'
 import { SWRHook } from '@vercel/commerce/utils/types'
 import { useMemo } from 'react'
-import { EligibleShippingMethodsQuery } from '../../schema'
-import { eligibleShippingMethods } from '../utils/queries/eligible-shipping-methods'
+import { EligibleShippingMethodsQuery } from '../../../schema'
+import { eligibleShippingMethods } from '../../utils/queries/eligible-shipping-methods'
 
 
 export default useEligibleShippingMethods as UseEligibleShippingMethods<typeof handler>
 
-export const handler: SWRHook<EligibleShippingMethodsHook> = {
+export const handler: SWRHook<Method.EligibleShippingMethodsHook> = {
   fetchOptions: {
     query: eligibleShippingMethods,
   },

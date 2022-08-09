@@ -12,7 +12,7 @@ import * as Signup from './signup'
 import * as Site from './site'
 import * as Wishlist from './wishlist'
 import * as Stripe from './stripe'
-import * as ShippingMethod from './shipping-method'
+import * as Shipping from './shipping'
 
 export type {
   Cart,
@@ -29,5 +29,5 @@ export type {
   Site,
   Wishlist,
   Stripe,
-  ShippingMethod,
+  Shipping,
 }
