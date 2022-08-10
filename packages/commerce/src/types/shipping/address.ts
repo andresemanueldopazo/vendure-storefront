@@ -15,12 +15,12 @@ export interface AddressFields {
   country: string
 }
 
-export type CustomerAddressTypes = {
+export type ShippingAddressTypes = {
   address?: Address
   fields: AddressFields
 }
 
-export type AddItemHook<T extends CustomerAddressTypes = CustomerAddressTypes> = {
+export type SetShippingAddressHook<T extends ShippingAddressTypes = ShippingAddressTypes> = {
   data: T['address']
   input?: T['fields']
   fetcherInput: T['fields']

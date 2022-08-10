@@ -1,6 +1,6 @@
-import useAddItem, {
-  UseAddItem
-} from '@vercel/commerce/shipping/address/use-add-item'
+import useSetShippingAddress, {
+  UseSetShippingAddress
+} from '@vercel/commerce/shipping/address/use-set-shipping-address'
 import type { Address } from '../../types/shipping'
 import { CommerceError } from '@vercel/commerce/utils/errors'
 import type { MutationHook } from '@vercel/commerce/utils/types'
@@ -13,9 +13,9 @@ import { setOrderShippingAddress } from '../../utils/mutations/set-order-shippin
 import { normalizeAddress } from '../../utils/normalize'
 
 
-export default useAddItem as UseAddItem<typeof handler>
+export default useSetShippingAddress as UseSetShippingAddress<typeof handler>
 
-export const handler: MutationHook<Address.AddItemHook> = {
+export const handler: MutationHook<Address.SetShippingAddressHook> = {
   fetchOptions: {
     query: setOrderShippingAddress,
   },
@@ -48,7 +48,7 @@ export const handler: MutationHook<Address.AddItemHook> = {
   useHook: ({ fetch }) =>
     function useHook() {
       return useCallback(
-        async function addItem(input) {
+        async function setShippingAddress(input) {
           return await fetch({ input })
         },
         [fetch]

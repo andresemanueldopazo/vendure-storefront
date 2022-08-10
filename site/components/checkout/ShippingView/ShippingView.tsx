@@ -4,7 +4,7 @@ import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
 import { useUI } from '@components/ui/context'
 import SidebarLayout from '@components/common/SidebarLayout'
-import useAddAddress from '@framework/shipping/address/use-add-item'
+import useSetShippingAddress from '@framework/shipping/address/use-set-shipping-address'
 import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
 import useSetShippingMethod from '@framework/shipping/method/use-set-shipping-method'
 
@@ -24,7 +24,7 @@ interface Form extends HTMLFormElement {
 
 const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
-  const addAddress = useAddAddress()
+  const setShippingAddress = useSetShippingAddress()
   const { data } = useEligibleShippingMethods()
   const setShippingMethod = useSetShippingMethod()
 
@@ -33,7 +33,7 @@ const ShippingView: FC = () => {
 
     await setShippingMethod({id: event.target.shippingMethod.value})
 
-    await addAddress({
+    await setShippingAddress({
       type: event.target.type.value,
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,

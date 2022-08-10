@@ -18,7 +18,7 @@ import { handler as useAddCustomerAddressItem } from './customer/address/use-add
 import { handler as useCreateStripePaymentIntent } from './stripe/use-create-stripe-payment-intent'
 import { handler as useEligibleShippingMethods } from './shipping/method/use-eligible-shipping-methods'
 import { handler as useSetShippingMethod } from './shipping/method/use-set-shipping-method'
-import { handler as useAddShippingAddressItem } from './shipping/address/use-add-item'
+import { handler as useSetShippingAddress } from './shipping/address/use-set-shipping-address'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -50,7 +50,7 @@ export const vendureProvider = {
       useSetShippingMethod,
     },
     address: {
-      useAddItem : useAddShippingAddressItem,
+      useSetShippingAddress,
     },
   },
 }

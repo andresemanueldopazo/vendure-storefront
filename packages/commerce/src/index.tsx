@@ -77,7 +77,7 @@ export type Provider = CommerceConfig & {
       useSetShippingMethod?: MutationHook<Shipping.Method.SetShippingMethodHook>
     },
     address?: {
-      useAddItem?: MutationHook<Shipping.Address.AddItemHook>
+      useSetShippingAddress?: MutationHook<Shipping.Address.SetShippingAddressHook>
     }
   }
 }
