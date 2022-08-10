@@ -34,13 +34,13 @@ const ShippingView: FC = () => {
     await setShippingMethod({id: event.target.shippingMethod.value})
 
     await setShippingAddress({
-      type: event.target.type.value,
       firstName: event.target.firstName.value,
       lastName: event.target.lastName.value,
+      phoneNumber: event.target.phoneNumber.value,
       company: event.target.company.value,
-      streetNumber: event.target.streetNumber.value,
-      apartments: event.target.streetNumber.value,
-      zipCode: event.target.zipCode.value,
+      streetLine: event.target.streetNumber.value,
+      postalCode: event.target.postalCode.value,
+      province: event.target.province.value,
       city: event.target.city.value,
       country: event.target.country.value,
     })
@@ -98,7 +98,7 @@ const ShippingView: FC = () => {
               </div>
             </div>
             <div className={s.fieldset}>
-              <label className={s.label}>Company (Optional)</label>
+              <label className={s.label}>Company</label>
               <input name="company" className={s.input} />
             </div>
             <div className={s.fieldset}>
@@ -106,15 +106,17 @@ const ShippingView: FC = () => {
               <input name="streetNumber" className={s.input} />
             </div>
             <div className={s.fieldset}>
-              <label className={s.label}>
-                Apartment, Suite, Etc. (Optional)
-              </label>
-              <input name="apartments" className={s.input} />
+              <label className={s.label}>Phone Number</label>
+              <input name="phoneNumber" className={s.input} />
+            </div>
+            <div className={s.fieldset}>
+              <label className={s.label}>Province</label>
+              <input name="province" className={s.input} />
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>Postal Code</label>
-                <input name="zipCode" className={s.input} />
+                <input name="postalCode" className={s.input} />
               </div>
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>City</label>

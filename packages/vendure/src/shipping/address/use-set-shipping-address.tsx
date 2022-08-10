@@ -6,11 +6,10 @@ import { CommerceError } from '@vercel/commerce/utils/errors'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
 import {
-  ActiveOrderResult,
-  MutationSetOrderShippingAddressArgs,
+  SetOrderShippingAddressMutation,
+  SetOrderShippingAddressMutationVariables,
 } from '../../../schema'
 import { setOrderShippingAddress } from '../../utils/mutations/set-order-shipping-address'
-import { normalizeAddress } from '../../utils/normalize'
 
 
 export default useSetShippingAddress as UseSetShippingAddress<typeof handler>
@@ -19,31 +18,31 @@ export const handler: MutationHook<Address.SetShippingAddressHook> = {
   fetchOptions: {
     query: setOrderShippingAddress,
   },
-  async fetcher({ input: item, options, fetch }) {
-    const variables: MutationSetOrderShippingAddressArgs = {
+  async fetcher({ input, options, fetch }) {
+    const variables: SetOrderShippingAddressMutationVariables = {
       input: {
-        fullName: `${item.firstName || ''} ${item.lastName || ''}`,
-        company: item.company,
-        streetLine1: item.streetNumber,
-        streetLine2: item.apartments,
-        postalCode: item.zipCode,
-        city: item.city,
+        fullName: `${input?.firstName || ''} ${input.lastName || ''}`,
+        company: input.company,
+        streetLine1: input.streetLine,
+        postalCode: input.postalCode,
+        city: input.city,
+        province: input.province,
         // TODO: Since country is statically coming as a HongKong
         countryCode: 'JP',
+        phoneNumber: input.phoneNumber,
       },
     }
-    const data = await fetch<ActiveOrderResult>({
+    const { setOrderShippingAddress: data } = await fetch<SetOrderShippingAddressMutation>({
       ...options,
       variables,
     })
-    if (data.__typename === 'Order') {
-      return normalizeAddress(data)
-    } else if (data.__typename === 'NoActiveOrderError') {
+    if (data.__typename === 'NoActiveOrderError') {
       throw new CommerceError({
         code: data.errorCode,
         message: data.message,
       })
     }
+    return null
   },
   useHook: ({ fetch }) =>
     function useHook() {

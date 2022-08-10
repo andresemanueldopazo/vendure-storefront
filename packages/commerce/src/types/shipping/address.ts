@@ -1,29 +1,29 @@
-export interface Address {
-  id: string
-  mask: string
-}
-
-export interface AddressFields {
-  type: string
+export interface ShippingAddress {
   firstName: string
   lastName: string
-  company: string
-  streetNumber: string
-  apartments: string
-  zipCode: string
+  company?: string
+  streetLine: string
   city: string
+  province: string
+  postalCode: string
   country: string
+  phoneNumber: string
 }
 
 export type ShippingAddressTypes = {
-  address?: Address
-  fields: AddressFields
+  shippingAddress: ShippingAddress
+}
+
+export type GetShippingAddressHook<
+  T extends ShippingAddressTypes = ShippingAddressTypes
+> = {
+  data: T['shippingAddress'] | null
+  swrState: { isEmpty: boolean }
 }
 
 export type SetShippingAddressHook<T extends ShippingAddressTypes = ShippingAddressTypes> = {
-  data: T['address']
-  input?: T['fields']
-  fetcherInput: T['fields']
-  body: { item: T['fields'] }
-  actionInput: T['fields']
+  data: null
+  fetcherInput: T['shippingAddress']
+  body: { item: T['shippingAddress'] }
+  actionInput: T['shippingAddress']
 }
