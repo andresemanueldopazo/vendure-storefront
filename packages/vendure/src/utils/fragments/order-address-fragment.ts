@@ -3,12 +3,10 @@ export const orderAddressFragment = /* GraphQL */ `
     fullName
     company
     streetLine1
-    streetLine2
     city
     province
     postalCode
     country
-    countryCode
     phoneNumber
   }
 `

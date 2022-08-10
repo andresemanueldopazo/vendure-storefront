@@ -1,12 +1,13 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import cn from 'clsx'
 import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
-import { useUI } from '@components/ui/context'
+import { Input, useUI } from '@components/ui'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useSetShippingAddress from '@framework/shipping/address/use-set-shipping-address'
 import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
 import useSetShippingMethod from '@framework/shipping/method/use-set-shipping-method'
+import { useCart } from '@framework/cart'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -25,8 +26,19 @@ interface Form extends HTMLFormElement {
 const ShippingView: FC = () => {
   const { setSidebarView } = useUI()
   const setShippingAddress = useSetShippingAddress()
-  const { data } = useEligibleShippingMethods()
+  const { data: elegibleShippingMethods } = useEligibleShippingMethods()
   const setShippingMethod = useSetShippingMethod()
+  const { data: cart } = useCart()
+
+  const shippingAddress = cart?.shippingAddress
+  const [firstName, setFirstName] = useState(shippingAddress?.firstName || '')
+  const [lastName, setLastName] = useState(shippingAddress?.lastName || '')
+  const [phoneNumber, setPhoneNumber] = useState(shippingAddress?.phoneNumber || '')
+  const [company, setCompany] = useState(shippingAddress?.company || '')
+  const [streetLine, setStreetLine] = useState(shippingAddress?.streetLine || '')
+  const [postalCode, setPostalCode] = useState(shippingAddress?.postalCode || '')
+  const [province, setProvince] = useState(shippingAddress?.province || '')
+  const [city, setCity] = useState(shippingAddress?.city || '')
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
@@ -34,14 +46,14 @@ const ShippingView: FC = () => {
     await setShippingMethod({id: event.target.shippingMethod.value})
 
     await setShippingAddress({
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      phoneNumber: event.target.phoneNumber.value,
-      company: event.target.company.value,
-      streetLine: event.target.streetNumber.value,
-      postalCode: event.target.postalCode.value,
-      province: event.target.province.value,
-      city: event.target.city.value,
+      firstName,
+      lastName,
+      phoneNumber,
+      company,
+      streetLine,
+      postalCode,
+      province,
+      city,
       country: event.target.country.value,
     })
 
@@ -60,7 +72,7 @@ const ShippingView: FC = () => {
           <div>
             <hr className="border-accent-2 my-5"/>
             <div className="flex flex-col">
-              {data && data.map((shippingMethod) => {
+              {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) => {
                 return (
                   <div key={shippingMethod.id} className="flex flex-row justify-between my-3">
                     <div className="flex flex-col">
@@ -90,37 +102,37 @@ const ShippingView: FC = () => {
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>First Name</label>
-                <input name="firstName" className={s.input} />
+                <Input className={s.input} onChange={setFirstName} value={firstName}/>
               </div>
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>Last Name</label>
-                <input name="lastName" className={s.input} />
+                <Input className={s.input} onChange={setLastName} value={lastName}/>
               </div>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Company</label>
-              <input name="company" className={s.input} />
+              <Input className={s.input} onChange={setCompany} value={company}/>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Street and House Number</label>
-              <input name="streetNumber" className={s.input} />
+              <Input className={s.input} onChange={setStreetLine} value={streetLine}/>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Phone Number</label>
-              <input name="phoneNumber" className={s.input} />
+              <Input className={s.input} onChange={setPhoneNumber} value={phoneNumber}/>
             </div>
             <div className={s.fieldset}>
               <label className={s.label}>Province</label>
-              <input name="province" className={s.input} />
+              <Input className={s.input} onChange={setProvince} value={province}/>
             </div>
             <div className="grid gap-3 grid-flow-row grid-cols-12">
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>Postal Code</label>
-                <input name="postalCode" className={s.input} />
+                <Input className={s.input} onChange={setPostalCode} value={postalCode}/>
               </div>
               <div className={cn(s.fieldset, 'col-span-6')}>
                 <label className={s.label}>City</label>
-                <input name="city" className={s.input} />
+                <Input className={s.input} onChange={setCity} value={city}/>
               </div>
             </div>
             <div className={s.fieldset}>

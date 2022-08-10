@@ -3,6 +3,7 @@ import { Cart } from '@vercel/commerce/types/cart'
 import { CartFragment, OrderResumeFragment, SearchResultFragment } from '../../schema'
 import { OrderResume } from '@vercel/commerce/types/customer'
 import { CustomerAddressTypes } from '@vercel/commerce/types/customer/address'
+import { ShippingAddress } from '@vercel/commerce/types/shipping/address'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
   return {
@@ -63,6 +64,8 @@ export function normalizeCart(order: CartFragment): Cart & {
         requiresShipping: true,
       },
     })),
+    shippingAddress: order.shippingAddress?
+      normalizeShippingAddress(order.shippingAddress) : undefined,
     hasShipping: !!order.shippingAddress?.fullName,
     hasPayment: !!order.billingAddress?.fullName,
   }
@@ -75,6 +78,26 @@ export function normalizeAddress(
     // TODO: Not sure what should return.
     id: '',
     mask: '',
+  }
+}
+
+export function normalizeShippingAddress(
+  address: NonNullable<CartFragment['shippingAddress']>
+): ShippingAddress {
+  const fullName = address.fullName || '' 
+  const lastIndexOfSpace = fullName.lastIndexOf(' ')
+  const firstName = fullName.substring(0, lastIndexOfSpace)
+  const lastName = fullName.substring(lastIndexOfSpace+1)
+  return {
+    firstName,
+    lastName,
+    company:address.company || '',
+    streetLine:address.streetLine1 || '',
+    city:address.city || '',
+    province:address.province || '',
+    postalCode:address.postalCode || '',
+    country:address.country || '',
+    phoneNumber:address.phoneNumber || '',
   }
 }
 

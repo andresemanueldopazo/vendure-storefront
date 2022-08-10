@@ -3219,12 +3219,10 @@ export type CartFragment = {
     fullName?: string | null
     company?: string | null
     streetLine1?: string | null
-    streetLine2?: string | null
     city?: string | null
     province?: string | null
     postalCode?: string | null
     country?: string | null
-    countryCode?: string | null
     phoneNumber?: string | null
   } | null
   billingAddress?: {
@@ -3232,12 +3230,10 @@ export type CartFragment = {
     fullName?: string | null
     company?: string | null
     streetLine1?: string | null
-    streetLine2?: string | null
     city?: string | null
     province?: string | null
     postalCode?: string | null
     country?: string | null
-    countryCode?: string | null
     phoneNumber?: string | null
   } | null
   lines: Array<{
@@ -3273,12 +3269,10 @@ export type OrderAddressFragmentFragment = {
   fullName?: string | null
   company?: string | null
   streetLine1?: string | null
-  streetLine2?: string | null
   city?: string | null
   province?: string | null
   postalCode?: string | null
   country?: string | null
-  countryCode?: string | null
   phoneNumber?: string | null
 }
 
@@ -3355,12 +3349,10 @@ export type AddItemToOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3368,12 +3360,10 @@ export type AddItemToOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -3450,12 +3440,10 @@ export type AddPaymentToOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3463,12 +3451,10 @@ export type AddPaymentToOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -3560,12 +3546,10 @@ export type AdjustOrderLineMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3573,12 +3557,10 @@ export type AdjustOrderLineMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -3618,6 +3600,15 @@ export type AdjustOrderLineMutation = {
         errorCode: ErrorCode
         message: string
       }
+}
+
+export type CreateStripePaymentIntentMutationVariables = Exact<{
+  [key: string]: never
+}>
+
+export type CreateStripePaymentIntentMutation = {
+  __typename?: 'Mutation'
+  createStripePaymentIntent?: string | null
 }
 
 export type FacebookLoginMutationVariables = Exact<{
@@ -3706,12 +3697,10 @@ export type RemoveOrderLineMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3719,12 +3708,10 @@ export type RemoveOrderLineMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -3805,12 +3792,10 @@ export type SetCustomerForOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3818,12 +3803,10 @@ export type SetCustomerForOrderMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -3889,12 +3872,10 @@ export type SetOrderBillingAddressMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -3902,12 +3883,10 @@ export type SetOrderBillingAddressMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -4045,12 +4024,10 @@ export type TransitionOrderToStateMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         billingAddress?: {
@@ -4058,12 +4035,10 @@ export type TransitionOrderToStateMutation = {
           fullName?: string | null
           company?: string | null
           streetLine1?: string | null
-          streetLine2?: string | null
           city?: string | null
           province?: string | null
           postalCode?: string | null
           country?: string | null
-          countryCode?: string | null
           phoneNumber?: string | null
         } | null
         lines: Array<{
@@ -4230,12 +4205,10 @@ export type ActiveOrderQuery = {
       fullName?: string | null
       company?: string | null
       streetLine1?: string | null
-      streetLine2?: string | null
       city?: string | null
       province?: string | null
       postalCode?: string | null
       country?: string | null
-      countryCode?: string | null
       phoneNumber?: string | null
     } | null
     billingAddress?: {
@@ -4243,12 +4216,10 @@ export type ActiveOrderQuery = {
       fullName?: string | null
       company?: string | null
       streetLine1?: string | null
-      streetLine2?: string | null
       city?: string | null
       province?: string | null
       postalCode?: string | null
       country?: string | null
-      countryCode?: string | null
       phoneNumber?: string | null
     } | null
     lines: Array<{
