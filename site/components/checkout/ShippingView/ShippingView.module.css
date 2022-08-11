@@ -17,5 +17,9 @@
 }
 
 .radio {
-  @apply bg-black;
+  @apply rounded-full h-3 w-3 py-0 px-0;
+}
+
+.radio:checked {
+  @apply rounded-full ring-2 h-3 w-3 py-0 px-0;
 }

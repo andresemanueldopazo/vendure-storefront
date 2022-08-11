@@ -3214,6 +3214,10 @@ export type CartFragment = {
   totalWithTax: number
   currencyCode: CurrencyCode
   customer?: { __typename?: 'Customer'; id: string } | null
+  shippingLines: Array<{
+    __typename?: 'ShippingLine'
+    shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+  }>
   shippingAddress?: {
     __typename?: 'OrderAddress'
     fullName?: string | null
@@ -3344,6 +3348,10 @@ export type AddItemToOrderMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -3435,6 +3443,10 @@ export type AddPaymentToOrderMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -3541,6 +3553,10 @@ export type AdjustOrderLineMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -3692,6 +3708,10 @@ export type RemoveOrderLineMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -3787,6 +3807,10 @@ export type SetCustomerForOrderMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -3867,6 +3891,10 @@ export type SetOrderBillingAddressMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -4019,6 +4047,10 @@ export type TransitionOrderToStateMutation = {
         totalWithTax: number
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
           fullName?: string | null
@@ -4200,6 +4232,10 @@ export type ActiveOrderQuery = {
     totalWithTax: number
     currencyCode: CurrencyCode
     customer?: { __typename?: 'Customer'; id: string } | null
+    shippingLines: Array<{
+      __typename?: 'ShippingLine'
+      shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+    }>
     shippingAddress?: {
       __typename?: 'OrderAddress'
       fullName?: string | null

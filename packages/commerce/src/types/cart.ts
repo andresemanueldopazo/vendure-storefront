@@ -1,5 +1,6 @@
 import type { Discount, Measurement, Image } from './common'
 import { ShippingAddress } from './shipping/address'
+import { ShippingMethod } from './shipping/method'
 
 export type SelectedOption = {
   // The option's id.
@@ -81,6 +82,7 @@ export type Cart = {
   totalPrice: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
+  shippingMethodId: ShippingMethod['id']
   shippingAddress?: ShippingAddress
 }
 

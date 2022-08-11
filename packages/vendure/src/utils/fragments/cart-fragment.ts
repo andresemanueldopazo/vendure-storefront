@@ -15,6 +15,11 @@ export const cartFragment = /* GraphQL */ `
     customer {
       id
     }
+    shippingLines {
+      shippingMethod {
+        id
+      }
+    }
     shippingAddress {
       ...OrderAddressFragment
     }

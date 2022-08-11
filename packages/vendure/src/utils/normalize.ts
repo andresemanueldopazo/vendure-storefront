@@ -64,6 +64,7 @@ export function normalizeCart(order: CartFragment): Cart & {
         requiresShipping: true,
       },
     })),
+    shippingMethodId: order.shippingLines[0]?.shippingMethod.id,
     shippingAddress: order.shippingAddress?
       normalizeShippingAddress(order.shippingAddress) : undefined,
     hasShipping: !!order.shippingAddress?.fullName,

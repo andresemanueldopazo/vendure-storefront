@@ -30,6 +30,8 @@ const ShippingView: FC = () => {
   const setShippingMethod = useSetShippingMethod()
   const { data: cart } = useCart()
 
+  const [shippingMethodId, setShippingMethodId] = useState(cart?.shippingMethodId || '2')
+
   const shippingAddress = cart?.shippingAddress
   const [firstName, setFirstName] = useState(shippingAddress?.firstName || '')
   const [lastName, setLastName] = useState(shippingAddress?.lastName || '')
@@ -43,7 +45,7 @@ const ShippingView: FC = () => {
   async function handleSubmit(event: React.ChangeEvent<Form>) {
     event.preventDefault()
 
-    await setShippingMethod({id: event.target.shippingMethod.value})
+    await setShippingMethod({id: shippingMethodId})
 
     await setShippingAddress({
       firstName,
@@ -73,11 +75,28 @@ const ShippingView: FC = () => {
             <hr className="border-accent-2 my-5"/>
             <div className="flex flex-col">
               {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) => {
+                const inputElement = shippingMethod.id === shippingMethodId?
+                  <Input
+                    name="shippingMethod"
+                    value={`${shippingMethod.id}`}
+                    className={s.radio}
+                    type="radio"
+                    onChange={setShippingMethodId}
+                    checked
+                  />
+                  :
+                  <Input
+                    name="shippingMethod"
+                    value={`${shippingMethod.id}`}
+                    className={s.radio}
+                    type="radio"
+                    onChange={setShippingMethodId}
+                  />
                 return (
-                  <div key={shippingMethod.id} className="flex flex-row justify-between my-3">
+                  <div key={shippingMethod.id} className="flex flex-row justify-between my-1">
                     <div className="flex flex-col">
                       <div className="flex flex-row">
-                        <input name="shippingMethod" value={`${shippingMethod.id}`} className={s.radio} type="radio"/>
+                        {inputElement}
                         <span className="ml-3 text-sm">{shippingMethod.name}</span>
                       </div>
                       <span className="ml-3 text-sm"><div dangerouslySetInnerHTML={{ __html: shippingMethod.description }} /></span>
