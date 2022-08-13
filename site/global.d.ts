@@ -24,6 +24,9 @@ interface Window {
     XFBML: {
       parse: () => void,
     },
+    Event: {
+      subscribe: (event: string, callback: () => void) => void,
+    },
   }
-  handleOnSuccessFacebook?: () => void
+  handleOnSuccessFacebook?: () => void,
 }

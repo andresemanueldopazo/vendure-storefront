@@ -7,6 +7,7 @@ const FacebookLogin: React.FC = () => {
   const [error, setError] = useState('')
   const [isValidMethod, setIsValidMethod] = useState(true)
   const facebookLogin = useFacebookLogin()
+  const [finishedRendering, setFinishedRendering] = useState(false)
 
   useEffect(() => {
     window.FB!.init({
@@ -15,6 +16,7 @@ const FacebookLogin: React.FC = () => {
       xfbml: true,
       version: 'v14.0',
     })
+    window.FB!.Event.subscribe('xfbml.render', () => setFinishedRendering(true))
   }, [])
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const FacebookLogin: React.FC = () => {
 
   return (
     <div>
-      {isValidMethod &&
+      {finishedRendering && isValidMethod &&
         <div className="hover:opacity-80">
           <div
             className="fb-login-button"
@@ -63,7 +65,8 @@ const FacebookLogin: React.FC = () => {
             data-scope="public_profile,email"
             data-onlogin="handleOnSuccessFacebook"
           />
-        </div>}
+        </div>
+      }
       {error && <div>{error}</div>}
     </div>
   )
