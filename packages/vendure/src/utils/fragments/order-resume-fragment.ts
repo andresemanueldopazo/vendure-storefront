@@ -6,6 +6,12 @@ export const orderResumeFragment = /* GraphQL */ `
     state
     totalWithTax
     currencyCode
+    shippingAddress {
+      streetLine1
+      city
+      province
+      country
+    }
     lines {
       id
       quantity

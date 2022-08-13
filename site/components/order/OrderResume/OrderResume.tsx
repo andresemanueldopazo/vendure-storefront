@@ -18,6 +18,8 @@ const OrderResume = ({
     currencyCode: order?.currency.code!,
   })
 
+  const { streetLine, city, province, country} = order.shippingAddress
+
   return (
     <li
       className="flex flex-col py-4"
@@ -48,10 +50,16 @@ const OrderResume = ({
           </ul>
         </div>
         <div>
-          <span> Shipping: </span>
+          <span> Shipping Price: </span>
           {totalPrice &&
             <span> {shippingPrice} </span>
           }
+        </div>
+        <div>
+          <span> Shipping Address: </span>
+          <span>
+            {streetLine}, {city}, {province}, {country}
+          </span>
         </div>
         <div>
           <span> Total: </span>

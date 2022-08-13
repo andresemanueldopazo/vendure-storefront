@@ -110,6 +110,12 @@ export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
     state: order.state,
     totalPrice: order.totalWithTax / 100,
     currency: { code: order.currencyCode },
+    shippingAddress: {
+      streetLine: order.shippingAddress!.streetLine1!,
+      city: order.shippingAddress!.city!,
+      province: order.shippingAddress!.province!,
+      country: order.shippingAddress!.country!,
+    },
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       quantity: l.quantity,

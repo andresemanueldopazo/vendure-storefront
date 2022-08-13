@@ -3288,6 +3288,13 @@ export type OrderResumeFragment = {
   state: string
   totalWithTax: number
   currencyCode: CurrencyCode
+  shippingAddress?: {
+    __typename?: 'OrderAddress'
+    streetLine1?: string | null
+    city?: string | null
+    province?: string | null
+    country?: string | null
+  } | null
   lines: Array<{
     __typename?: 'OrderLine'
     id: string
@@ -4133,6 +4140,13 @@ export type ActiveCustomerQuery = {
         state: string
         totalWithTax: number
         currencyCode: CurrencyCode
+        shippingAddress?: {
+          __typename?: 'OrderAddress'
+          streetLine1?: string | null
+          city?: string | null
+          province?: string | null
+          country?: string | null
+        } | null
         lines: Array<{
           __typename?: 'OrderLine'
           id: string

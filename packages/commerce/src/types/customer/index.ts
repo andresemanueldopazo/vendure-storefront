@@ -10,6 +10,12 @@ export type OrderResume = {
   currency: {
     code: string;
   };
+  shippingAddress: {
+    streetLine: string;
+    city: string;
+    province: string;
+    country: string;
+  };
   lineItems: {
     id: string;
     quantity: number;
