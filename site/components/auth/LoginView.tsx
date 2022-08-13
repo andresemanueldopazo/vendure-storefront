@@ -57,7 +57,7 @@ const LoginView: React.FC = () => {
   }, [handleValidation])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <div className="flex justify-center pb-12">
         <Logo width="64px" height="64px" />
       </div>
@@ -98,16 +98,20 @@ const LoginView: React.FC = () => {
           Sign Up
         </a>
       </div>
-      <div className='flex justify-between items-center pb-3'>
+      <div className='flex justify-between place-items-center pb-4'>
         <div className='bg-slate-400 h-px basis-5/12'></div>
         <div className="text-sm">
           or
         </div>
-        <div className='bg-slate-400 h-px basis-5/12'></div>
+        <div className='bg-slate-400 w-40 h-px basis-5/12'></div>
       </div>
-      <div className="space-y-3">
-        <GoogleLogin/>        
-        <FacebookLogin/>
+      <div className="h-[95px] w-[320px] space-y-3">
+        <div>
+          <GoogleLogin/>
+        </div>
+        <div>
+          <FacebookLogin/>
+        </div>
       </div>
     </div>
   )
