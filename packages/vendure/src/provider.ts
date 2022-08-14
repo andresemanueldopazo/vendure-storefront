@@ -19,6 +19,7 @@ import { handler as useCreateStripePaymentIntent } from './stripe/use-create-str
 import { handler as useEligibleShippingMethods } from './shipping/method/use-eligible-shipping-methods'
 import { handler as useSetShippingMethod } from './shipping/method/use-set-shipping-method'
 import { handler as useSetShippingAddress } from './shipping/address/use-set-shipping-address'
+import { handler as useVerifyCustomerAccount } from './auth/use-verify-customer-account'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -42,7 +43,14 @@ export const vendureProvider = {
     useCheckout,
     useSubmitCheckout,
   },
-  auth: { useLogin, useFacebookLogin, useGoogleLogin, useLogout, useSignup },
+  auth: {
+    useLogin,
+    useFacebookLogin,
+    useGoogleLogin,
+    useLogout,
+    useSignup,
+    useVerifyCustomerAccount,
+  },
   stripe: { useCreateStripePaymentIntent },
   shipping: {
     method: {

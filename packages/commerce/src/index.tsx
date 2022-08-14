@@ -20,6 +20,7 @@ import type {
   Checkout,
   Stripe,
   Shipping,
+  VerifyCustomerAccount,
 } from './types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -67,6 +68,7 @@ export type Provider = CommerceConfig & {
     useFacebookLogin?: MutationHook<FacebookLogin.FacebookLoginHook>
     useGoogleLogin?: MutationHook<GoogleLogin.GoogleLoginHook>
     useLogout?: MutationHook<Logout.LogoutHook>
+    useVerifyCustomerAccount?: MutationHook<VerifyCustomerAccount.VerifyCustomerAccountHook>
   }
   stripe?: {
     useCreateStripePaymentIntent?: SWRHook<Stripe.CreateStripePaymentIntentHook>

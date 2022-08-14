@@ -6,6 +6,7 @@ import * as Login from './login'
 import * as FacebookLogin from './facebook-login'
 import * as GoogleLogin from './google-login'
 import * as Logout from './logout'
+import * as VerifyCustomerAccount from './verify-customer-account'
 import * as Page from './page'
 import * as Product from './product'
 import * as Signup from './signup'
@@ -30,4 +31,5 @@ export type {
   Wishlist,
   Stripe,
   Shipping,
+  VerifyCustomerAccount,
 }

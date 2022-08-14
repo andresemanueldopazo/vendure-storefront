@@ -4120,6 +4120,46 @@ export type TransitionOrderToStateMutation = {
     | null
 }
 
+export type VerifyCustomerAccountMutationVariables = Exact<{
+  token: Scalars['String']
+}>
+
+export type VerifyCustomerAccountMutation = {
+  __typename?: 'Mutation'
+  verifyCustomerAccount:
+    | { __typename: 'CurrentUser' }
+    | {
+        __typename: 'MissingPasswordError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'NativeAuthStrategyError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'PasswordAlreadySetError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'PasswordValidationError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'VerificationTokenExpiredError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'VerificationTokenInvalidError'
+        errorCode: ErrorCode
+        message: string
+      }
+}
+
 export type ActiveCustomerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ActiveCustomerQuery = {
