@@ -53,14 +53,17 @@ export function normalizeCart(order: CartFragment): Cart & {
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
-      discounts: l.discounts.map((d) => ({ value: d.amount / 100 })),
+      discounts: l.discounts.map((d) => ({
+       value: d.amountWithTax / 100,
+       description: d.description,
+      })),
       path: '',
       variant: {
         id: l.productVariant.id,
         name: l.productVariant.name,
         sku: l.productVariant.sku,
-        price: l.discountedUnitPriceWithTax / 100,
-        listPrice: l.unitPriceWithTax / 100,
+        price: l.proratedLinePriceWithTax / l.quantity / 100,
+        listPrice: l.productVariant.priceWithTax / 100,
         image: {
           url: l.featuredAsset?.preview + '?preset=thumb' || '',
         },

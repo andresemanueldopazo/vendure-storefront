@@ -1,3 +1,4 @@
+import { discountsFragment } from './discount-fragment'
 import { orderAddressFragment } from './order-address-fragment'
 
 export const cartFragment = /* GraphQL */ `
@@ -7,9 +8,7 @@ export const cartFragment = /* GraphQL */ `
     state
     createdAt
     totalQuantity
-    subTotal
     subTotalWithTax
-    total
     totalWithTax
     couponCodes
     currencyCode
@@ -30,23 +29,18 @@ export const cartFragment = /* GraphQL */ `
     lines {
       id
       quantity
-      linePriceWithTax
-      discountedLinePriceWithTax
-      unitPriceWithTax
-      discountedUnitPriceWithTax
+      proratedLinePriceWithTax
+      discounts {
+        ...DiscountFragment
+      }
       featuredAsset {
         id
         preview
-      }
-      discounts {
-        description
-        amount
       }
       productVariant {
         id
         name
         sku
-        price
         priceWithTax
         stockLevel
         product {
@@ -57,4 +51,5 @@ export const cartFragment = /* GraphQL */ `
     }
   }
   ${orderAddressFragment}
+  ${discountsFragment}
 `

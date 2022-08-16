@@ -9,6 +9,7 @@ import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
+import Discount from './Discount'
 
 type ItemOption = {
   name: string
@@ -35,9 +36,16 @@ const CartItem = ({
   const removeItem = useRemoveItem()
   const updateItem = useUpdateItem({ item })
 
-  const { price } = usePrice({
+  const { price: itemPrice } = usePrice({
+    amount: item.variant.listPrice,
+    currencyCode,
+  })
+  const { price: linePrice } = usePrice({
+    amount: item.variant.listPrice * item.quantity,
+    currencyCode,
+  })
+  const { price: proratedLinePrice } = usePrice({
     amount: item.variant.price * item.quantity,
-    baseAmount: item.variant.listPrice * item.quantity,
     currencyCode,
   })
 
@@ -140,18 +148,42 @@ const CartItem = ({
           )}
         </div>
         <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>{price}</span>
+          <span>{itemPrice}</span>
         </div>
       </div>
       {variant === 'default' && (
-        <Quantity
-          value={quantity}
-          handleRemove={handleRemove}
-          handleChange={handleChange}
-          increase={() => increaseQuantity(1)}
-          decrease={() => increaseQuantity(-1)}
-        />
+        <div className="flex justify-between items-center">
+          <div className="basis-3/4">
+            <Quantity
+              value={quantity}
+              handleRemove={handleRemove}
+              handleChange={handleChange}
+              increase={() => increaseQuantity(1)}
+              decrease={() => increaseQuantity(-1)}
+            />
+          </div>
+          <span className="text-sm">{linePrice}</span>
+        </div>
       )}
+      <ul className={"flex flex-col text-sm"}>
+        {item.discounts && item.discounts.map((discount, i) => {
+          if (discount.value !== 0) {
+            return (
+              <li key={i}>
+                <Discount
+                  value={discount.value}
+                  description={discount.description}
+                  currencyCode={currencyCode}
+                />
+              </li>
+            )
+          }
+        })}
+        <li className="flex flex-row justify-between space-x-4">
+          <span>Total</span>
+          <span>{proratedLinePrice}</span>
+        </li>
+      </ul>
     </li>
   )
 }

@@ -3208,9 +3208,7 @@ export type CartFragment = {
   state: string
   createdAt: any
   totalQuantity: number
-  subTotal: number
   subTotalWithTax: number
-  total: number
   totalWithTax: number
   couponCodes: Array<string>
   currencyCode: CurrencyCode
@@ -3245,28 +3243,30 @@ export type CartFragment = {
     __typename?: 'OrderLine'
     id: string
     quantity: number
-    linePriceWithTax: number
-    discountedLinePriceWithTax: number
-    unitPriceWithTax: number
-    discountedUnitPriceWithTax: number
-    featuredAsset?: { __typename?: 'Asset'; id: string; preview: string } | null
+    proratedLinePriceWithTax: number
     discounts: Array<{
       __typename?: 'Discount'
       description: string
-      amount: number
+      amountWithTax: number
     }>
+    featuredAsset?: { __typename?: 'Asset'; id: string; preview: string } | null
     productVariant: {
       __typename?: 'ProductVariant'
       id: string
       name: string
       sku: string
-      price: number
       priceWithTax: number
       stockLevel: string
       productId: string
       product: { __typename?: 'Product'; slug: string }
     }
   }>
+}
+
+export type DiscountFragmentFragment = {
+  __typename?: 'Discount'
+  description: string
+  amountWithTax: number
 }
 
 export type OrderAddressFragmentFragment = {
@@ -3350,9 +3350,7 @@ export type AddItemToOrderMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3387,26 +3385,22 @@ export type AddItemToOrderMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -3446,9 +3440,7 @@ export type AddPaymentToOrderMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3483,26 +3475,22 @@ export type AddPaymentToOrderMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -3557,9 +3545,7 @@ export type AdjustOrderLineMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3594,26 +3580,22 @@ export type AdjustOrderLineMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -3738,9 +3720,7 @@ export type RemoveOrderLineMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3775,26 +3755,22 @@ export type RemoveOrderLineMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -3838,9 +3814,7 @@ export type SetCustomerForOrderMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3875,26 +3849,22 @@ export type SetCustomerForOrderMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -3923,9 +3893,7 @@ export type SetOrderBillingAddressMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -3960,26 +3928,22 @@ export type SetOrderBillingAddressMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -4080,9 +4044,7 @@ export type TransitionOrderToStateMutation = {
         state: string
         createdAt: any
         totalQuantity: number
-        subTotal: number
         subTotalWithTax: number
-        total: number
         totalWithTax: number
         couponCodes: Array<string>
         currencyCode: CurrencyCode
@@ -4117,26 +4079,22 @@ export type TransitionOrderToStateMutation = {
           __typename?: 'OrderLine'
           id: string
           quantity: number
-          linePriceWithTax: number
-          discountedLinePriceWithTax: number
-          unitPriceWithTax: number
-          discountedUnitPriceWithTax: number
+          proratedLinePriceWithTax: number
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
           featuredAsset?: {
             __typename?: 'Asset'
             id: string
             preview: string
           } | null
-          discounts: Array<{
-            __typename?: 'Discount'
-            description: string
-            amount: number
-          }>
           productVariant: {
             __typename?: 'ProductVariant'
             id: string
             name: string
             sku: string
-            price: number
             priceWithTax: number
             stockLevel: string
             productId: string
@@ -4313,9 +4271,7 @@ export type ActiveOrderQuery = {
     state: string
     createdAt: any
     totalQuantity: number
-    subTotal: number
     subTotalWithTax: number
-    total: number
     totalWithTax: number
     couponCodes: Array<string>
     currencyCode: CurrencyCode
@@ -4350,26 +4306,22 @@ export type ActiveOrderQuery = {
       __typename?: 'OrderLine'
       id: string
       quantity: number
-      linePriceWithTax: number
-      discountedLinePriceWithTax: number
-      unitPriceWithTax: number
-      discountedUnitPriceWithTax: number
+      proratedLinePriceWithTax: number
+      discounts: Array<{
+        __typename?: 'Discount'
+        description: string
+        amountWithTax: number
+      }>
       featuredAsset?: {
         __typename?: 'Asset'
         id: string
         preview: string
       } | null
-      discounts: Array<{
-        __typename?: 'Discount'
-        description: string
-        amount: number
-      }>
       productVariant: {
         __typename?: 'ProductVariant'
         id: string
         name: string
         sku: string
-        price: number
         priceWithTax: number
         stockLevel: string
         productId: string
