@@ -20,6 +20,7 @@ import { handler as useEligibleShippingMethods } from './shipping/method/use-eli
 import { handler as useSetShippingMethod } from './shipping/method/use-set-shipping-method'
 import { handler as useSetShippingAddress } from './shipping/address/use-set-shipping-address'
 import { handler as useVerifyCustomerAccount } from './auth/use-verify-customer-account'
+import { handler as useAddCouponItem } from './coupon/use-add-item'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -60,6 +61,9 @@ export const vendureProvider = {
     address: {
       useSetShippingAddress,
     },
+  },
+  coupon: {
+    useAddItem: useAddCouponItem,
   },
 }
 

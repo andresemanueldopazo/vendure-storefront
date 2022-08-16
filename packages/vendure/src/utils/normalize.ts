@@ -41,6 +41,9 @@ export function normalizeCart(order: CartFragment): Cart & {
     currency: { code: order.currencyCode },
     subtotalPrice: order.subTotalWithTax / 100,
     totalPrice: order.totalWithTax / 100,
+    coupons: order.couponCodes.map((code) => {
+      return {code}
+    }),
     customerId: order.customer?.id,
     lineItems: order.lines?.map((l) => ({
       id: l.id,

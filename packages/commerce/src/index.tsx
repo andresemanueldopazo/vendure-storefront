@@ -21,6 +21,7 @@ import type {
   Stripe,
   Shipping,
   VerifyCustomerAccount,
+  Coupon,
 } from './types'
 
 import type { Fetcher, SWRHook, MutationHook } from './utils/types'
@@ -81,6 +82,9 @@ export type Provider = CommerceConfig & {
     address?: {
       useSetShippingAddress?: MutationHook<Shipping.Address.SetShippingAddressHook>
     }
+  }
+  coupon?: {
+    useAddItem?: MutationHook<Coupon.AddItemHook>
   }
 }
 

@@ -3212,6 +3212,7 @@ export type CartFragment = {
   subTotalWithTax: number
   total: number
   totalWithTax: number
+  couponCodes: Array<string>
   currencyCode: CurrencyCode
   customer?: { __typename?: 'Customer'; id: string } | null
   shippingLines: Array<{
@@ -3353,6 +3354,7 @@ export type AddItemToOrderMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -3448,6 +3450,7 @@ export type AddPaymentToOrderMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -3558,6 +3561,7 @@ export type AdjustOrderLineMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -3623,6 +3627,31 @@ export type AdjustOrderLineMutation = {
         errorCode: ErrorCode
         message: string
       }
+}
+
+export type ApplyCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String']
+}>
+
+export type ApplyCouponCodeMutation = {
+  __typename?: 'Mutation'
+  applyCouponCode:
+    | {
+        __typename: 'CouponCodeExpiredError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'CouponCodeInvalidError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'CouponCodeLimitError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | { __typename: 'Order' }
 }
 
 export type CreateStripePaymentIntentMutationVariables = Exact<{
@@ -3713,6 +3742,7 @@ export type RemoveOrderLineMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -3812,6 +3842,7 @@ export type SetCustomerForOrderMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -3896,6 +3927,7 @@ export type SetOrderBillingAddressMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -4052,6 +4084,7 @@ export type TransitionOrderToStateMutation = {
         subTotalWithTax: number
         total: number
         totalWithTax: number
+        couponCodes: Array<string>
         currencyCode: CurrencyCode
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
@@ -4284,6 +4317,7 @@ export type ActiveOrderQuery = {
     subTotalWithTax: number
     total: number
     totalWithTax: number
+    couponCodes: Array<string>
     currencyCode: CurrencyCode
     customer?: { __typename?: 'Customer'; id: string } | null
     shippingLines: Array<{

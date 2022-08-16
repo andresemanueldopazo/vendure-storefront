@@ -18,6 +18,7 @@ import type { Page } from '@commerce/types/page'
 import type { Category } from '@commerce/types/site'
 import type { Link as LinkProps } from '../UserNav/MenuSidebarView'
 import StripeSidebarView from '@components/stripe/StripeSidebarView'
+import CouponsSidebarView from '@components/cart/CouponsSidebarView'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -88,6 +89,7 @@ const SidebarView: React.FC<{
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'STRIPE_VIEW' && <StripeSidebarView />}
+      {sidebarView === 'COUPONS_VIEW' && <CouponsSidebarView />}
       {sidebarView === 'MOBILE_MENU_VIEW' && <MenuSidebarView links={links} />}
     </Sidebar>
   )

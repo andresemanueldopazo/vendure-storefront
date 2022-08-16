@@ -14,6 +14,7 @@ import * as Site from './site'
 import * as Wishlist from './wishlist'
 import * as Stripe from './stripe'
 import * as Shipping from './shipping'
+import * as Coupon from './coupon'
 
 export type {
   Cart,
@@ -32,4 +33,5 @@ export type {
   Stripe,
   Shipping,
   VerifyCustomerAccount,
+  Coupon,
 }

@@ -34,6 +34,9 @@ const CartSidebarView: FC = () => {
     await mutate()
     setSidebarView(process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_VIEW' : 'CHECKOUT_VIEW')
   }
+  const goToCoupons = async () => {
+    setSidebarView('COUPONS_VIEW')
+  }
 
   const error = null
   const success = null
@@ -96,8 +99,10 @@ const CartSidebarView: FC = () => {
               ))}
             </ul>
           </div>
-
-          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
+          <div className="flex flex-col flex-shrink-0 px-6 py-6 sticky bottom-0 bg-accent-0 border-t space-y-4">
+            <Button variant="slim" onClick={goToCoupons}>
+              Coupons
+            </Button>
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
