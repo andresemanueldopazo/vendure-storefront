@@ -85,6 +85,7 @@ export type Provider = CommerceConfig & {
   }
   coupon?: {
     useAddItem?: MutationHook<Coupon.AddItemHook>
+    useRemoveItem?: MutationHook<Coupon.RemoveItemHook>
   }
 }
 

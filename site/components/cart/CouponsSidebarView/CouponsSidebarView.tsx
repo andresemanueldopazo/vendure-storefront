@@ -3,6 +3,7 @@ import { Button, Input, useUI } from '@components/ui'
 import useCart from '@framework/cart/use-cart'
 import useAddCouponItem from '@framework/coupon/use-add-item'
 import SidebarLayout from '@components/common/SidebarLayout'
+import Coupon from './Coupon'
 
 const Coupons: FC = () => {
   const { data } = useCart()
@@ -11,7 +12,7 @@ const Coupons: FC = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const { setSidebarView } = useUI()
 
-  const handleCode = async (e: React.SyntheticEvent<EventTarget>) => {
+  const handleApply = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
 
     try {
@@ -39,15 +40,19 @@ const Coupons: FC = () => {
         sticky bottom-0 bg-accent-0
         border-t space-y-4
       ">
-        <ul className="flex flex-wrap justify-between">
-          {data && data.coupons?.map((code, i) => {
+        <ul className="flex flex-col">
+          {data && data.coupons?.map((coupon, i) => {
             return (
-              <li key={i} className="border px-6 py-1.5">{code.code}</li>
+              <li key={i}>
+                <Coupon
+                  code={coupon.code}
+                />
+              </li>
             )
           })}
         </ul>
         <form
-          onSubmit={handleCode}
+          onSubmit={handleApply}
           className="flex flex-col space-y-3"
         >
           <Input placeholder="Coupon code" onChange={setCode} value={code}/>

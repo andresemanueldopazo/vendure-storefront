@@ -3706,6 +3706,15 @@ export type LogoutMutation = {
   logout: { __typename?: 'Success'; success: boolean }
 }
 
+export type RemoveCouponCodeMutationVariables = Exact<{
+  couponCode: Scalars['String']
+}>
+
+export type RemoveCouponCodeMutation = {
+  __typename?: 'Mutation'
+  removeCouponCode?: { __typename: 'Order' } | null
+}
+
 export type RemoveOrderLineMutationVariables = Exact<{
   orderLineId: Scalars['ID']
 }>

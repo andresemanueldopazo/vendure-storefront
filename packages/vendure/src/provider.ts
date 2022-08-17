@@ -21,6 +21,7 @@ import { handler as useSetShippingMethod } from './shipping/method/use-set-shipp
 import { handler as useSetShippingAddress } from './shipping/address/use-set-shipping-address'
 import { handler as useVerifyCustomerAccount } from './auth/use-verify-customer-account'
 import { handler as useAddCouponItem } from './coupon/use-add-item'
+import { handler as useRemoveCouponItem } from './coupon/use-remove-item'
 import { fetcher } from './fetcher'
 
 export const vendureProvider = {
@@ -64,6 +65,7 @@ export const vendureProvider = {
   },
   coupon: {
     useAddItem: useAddCouponItem,
+    useRemoveItem: useRemoveCouponItem,
   },
 }
 
