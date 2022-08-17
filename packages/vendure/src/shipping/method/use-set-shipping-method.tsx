@@ -24,17 +24,11 @@ export const handler: MutationHook<Method.SetShippingMethodHook> = {
       ...options,
       variables
     })
+    console.dir(setOrderShippingMethod)
     if (setOrderShippingMethod.__typename !== "Order"){
       throw new ValidationError({ message: "Order error"})
     }
-
-    const shippingLine = setOrderShippingMethod.shippingLines[0]
-    return {
-      id: shippingLine.shippingMethod.id,
-      name: shippingLine.shippingMethod.name,
-      description: shippingLine.shippingMethod.description,
-      priceWithTax: shippingLine.priceWithTax/100,
-    }
+    return null
   },
   useHook: ({ fetch }) =>
     function useHook() {

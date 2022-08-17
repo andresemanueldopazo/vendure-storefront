@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { FC } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
+import SidebarLayout from '@components/common/SidebarLayout'
+import ShippingMethod from '../ShippingMethod/ShippingMethod'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
-import SidebarLayout from '@components/common/SidebarLayout'
 import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
 
 const CartSidebarView: FC = () => {
@@ -80,8 +81,8 @@ const CartSidebarView: FC = () => {
           </h2>
         </div>
       ) : (
-        <>
-          <div className="px-4 sm:px-6 flex-1">
+        <div className="flex flex-col flex-1 justify-between text-sm">
+          <div className="px-4 sm:px-6">
             <Link href="/cart">
               <a>
                 <Text variant="sectionHeading" onClick={handleClose}>
@@ -99,11 +100,11 @@ const CartSidebarView: FC = () => {
               ))}
             </ul>
           </div>
-          <div className="flex flex-col flex-shrink-0 px-6 py-6 sticky bottom-0 bg-accent-0 border-t space-y-4">
-            <Button variant="slim" onClick={goToCoupons}>
+          <div className="flex flex-col flex-shrink-0 px-6 py-4 pt-2 sticky bottom-0 bg-accent-0 border-t">
+            <Button variant="slim" onClick={goToCoupons} className={"h-8 self-center"}>
               Coupons
             </Button>
-            <ul className="pb-2">
+            <ul>
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
                 <span>{subTotal}</span>
@@ -112,12 +113,14 @@ const CartSidebarView: FC = () => {
                 <span>Taxes</span>
                 <span>Calculated at checkout</span>
               </li>
-              <li className="flex justify-between py-1">
-                <span>Shipping</span>
-                <span className="font-bold tracking-wide">FREE</span>
+              <li>
+                <ShippingMethod
+                  currencyCode={data!.currency.code}
+                  method={data!.shippingMethod}
+                />
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
+            <div className="flex justify-between border-t border-accent-2 py-2 font-bold mb-2">
               <span>Total</span>
               <span>{total}</span>
             </div>
@@ -133,7 +136,7 @@ const CartSidebarView: FC = () => {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </SidebarLayout>
   )

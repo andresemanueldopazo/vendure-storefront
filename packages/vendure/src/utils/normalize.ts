@@ -4,6 +4,8 @@ import { CartFragment, OrderResumeFragment, SearchResultFragment } from '../../s
 import { OrderResume } from '@vercel/commerce/types/customer'
 import { CustomerAddressTypes } from '@vercel/commerce/types/customer/address'
 import { ShippingAddress } from '@vercel/commerce/types/shipping/address'
+import { Discount } from '@vercel/commerce/types/common'
+import { ShippingMethod } from '@vercel/commerce/types/shipping/method'
 
 export function normalizeSearchResult(item: SearchResultFragment): Product {
   return {
@@ -53,10 +55,7 @@ export function normalizeCart(order: CartFragment): Cart & {
       variantId: l.productVariant.id,
       productId: l.productVariant.productId,
       images: [{ url: l.featuredAsset?.preview + '?preset=thumb' || '' }],
-      discounts: l.discounts.map((d) => ({
-       value: d.amountWithTax / 100,
-       description: d.description,
-      })),
+      discounts: l.discounts.map(normalizeDiscount),
       path: '',
       variant: {
         id: l.productVariant.id,
@@ -70,11 +69,35 @@ export function normalizeCart(order: CartFragment): Cart & {
         requiresShipping: true,
       },
     })),
-    shippingMethodId: order.shippingLines[0]?.shippingMethod.id,
+    shippingMethod: order.shippingLines[0]? 
+      normalizeShippingMethod(order.shippingLines[0]) 
+      : undefined,
     shippingAddress: order.shippingAddress?
       normalizeShippingAddress(order.shippingAddress) : undefined,
     hasShipping: !!order.shippingAddress?.fullName,
     hasPayment: !!order.billingAddress?.fullName,
+  }
+}
+
+export function normalizeShippingMethod(
+  shipping: NonNullable<CartFragment['shippingLines'][number]>
+): ShippingMethod {
+  return {
+    id: shipping.shippingMethod.id,
+    name: shipping.shippingMethod.name,
+    description: shipping.shippingMethod.description,
+    priceWithTax: shipping.priceWithTax / 100,
+    discountedPriceWithTax: shipping.discountedPriceWithTax / 100,
+    discounts: shipping.discounts.map(normalizeDiscount),
+  }
+}
+
+export function normalizeDiscount(
+  discount: NonNullable<CartFragment['shippingLines'][number]['discounts'][number]>
+): Discount {
+  return {
+    value: discount.amountWithTax / 100,
+    description: discount.description,
   }
 }
 

@@ -123,7 +123,7 @@ const CartItem = ({
               {options.map((option: ItemOption, i: number) => (
                 <div
                   key={`${item.id}-${option.name}`}
-                  className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
+                  className="font-semibold text-accent-7 inline-flex items-center justify-center"
                 >
                   {option.name}
                   {option.name === 'Color' ? (
@@ -144,10 +144,10 @@ const CartItem = ({
             </div>
           )}
           {variant === 'display' && (
-            <div className="text-sm tracking-wider">{quantity}x</div>
+            <div className="tracking-wider">{quantity}x</div>
           )}
         </div>
-        <div className="flex flex-col justify-between space-y-2 text-sm">
+        <div className="flex flex-col justify-between space-y-2">
           <span>{itemPrice}</span>
         </div>
       </div>
@@ -162,10 +162,10 @@ const CartItem = ({
               decrease={() => increaseQuantity(-1)}
             />
           </div>
-          <span className="text-sm">{linePrice}</span>
+          <span>{linePrice}</span>
         </div>
       )}
-      <ul className={"flex flex-col text-sm"}>
+      <ul className={"flex flex-col"}>
         {item.discounts && item.discounts.map((discount, i) => {
           if (discount.value !== 0) {
             return (

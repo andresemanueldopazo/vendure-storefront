@@ -3215,7 +3215,19 @@ export type CartFragment = {
   customer?: { __typename?: 'Customer'; id: string } | null
   shippingLines: Array<{
     __typename?: 'ShippingLine'
-    shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+    priceWithTax: number
+    discountedPriceWithTax: number
+    shippingMethod: {
+      __typename?: 'ShippingMethod'
+      id: string
+      name: string
+      description: string
+    }
+    discounts: Array<{
+      __typename?: 'Discount'
+      description: string
+      amountWithTax: number
+    }>
   }>
   shippingAddress?: {
     __typename?: 'OrderAddress'
@@ -3357,7 +3369,19 @@ export type AddItemToOrderMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3447,7 +3471,19 @@ export type AddPaymentToOrderMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3552,7 +3588,19 @@ export type AdjustOrderLineMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3736,7 +3784,19 @@ export type RemoveOrderLineMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3830,7 +3890,19 @@ export type SetCustomerForOrderMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3909,7 +3981,19 @@ export type SetOrderBillingAddressMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -3994,19 +4078,7 @@ export type SetOrderShippingMethodMutation = {
         errorCode: ErrorCode
         message: string
       }
-    | {
-        __typename: 'Order'
-        shippingLines: Array<{
-          __typename?: 'ShippingLine'
-          priceWithTax: number
-          shippingMethod: {
-            __typename?: 'ShippingMethod'
-            id: string
-            name: string
-            description: string
-          }
-        }>
-      }
+    | { __typename: 'Order' }
     | {
         __typename: 'OrderModificationError'
         errorCode: ErrorCode
@@ -4060,7 +4132,19 @@ export type TransitionOrderToStateMutation = {
         customer?: { __typename?: 'Customer'; id: string } | null
         shippingLines: Array<{
           __typename?: 'ShippingLine'
-          shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            id: string
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            description: string
+            amountWithTax: number
+          }>
         }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
@@ -4287,7 +4371,19 @@ export type ActiveOrderQuery = {
     customer?: { __typename?: 'Customer'; id: string } | null
     shippingLines: Array<{
       __typename?: 'ShippingLine'
-      shippingMethod: { __typename?: 'ShippingMethod'; id: string }
+      priceWithTax: number
+      discountedPriceWithTax: number
+      shippingMethod: {
+        __typename?: 'ShippingMethod'
+        id: string
+        name: string
+        description: string
+      }
+      discounts: Array<{
+        __typename?: 'Discount'
+        description: string
+        amountWithTax: number
+      }>
     }>
     shippingAddress?: {
       __typename?: 'OrderAddress'

@@ -18,6 +18,13 @@ export const cartFragment = /* GraphQL */ `
     shippingLines {
       shippingMethod {
         id
+        name
+        description
+      }
+      priceWithTax
+      discountedPriceWithTax
+      discounts {
+        ...DiscountFragment
       }
     }
     shippingAddress {

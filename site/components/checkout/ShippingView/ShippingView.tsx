@@ -30,7 +30,7 @@ const ShippingView: FC = () => {
   const setShippingMethod = useSetShippingMethod()
   const { data: cart } = useCart()
 
-  const [shippingMethodId, setShippingMethodId] = useState(cart?.shippingMethodId || '2')
+  const [shippingMethodId, setShippingMethodId] = useState(cart?.shippingMethod?.id || "0")
 
   const shippingAddress = cart?.shippingAddress
   const [firstName, setFirstName] = useState(shippingAddress?.firstName || '')

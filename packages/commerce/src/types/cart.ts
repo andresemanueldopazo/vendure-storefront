@@ -84,7 +84,7 @@ export type Cart = {
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
   coupons: Coupon[]
-  shippingMethodId: ShippingMethod['id']
+  shippingMethod?: ShippingMethod
   shippingAddress?: ShippingAddress
 }
 
