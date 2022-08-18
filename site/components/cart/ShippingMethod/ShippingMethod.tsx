@@ -1,7 +1,7 @@
 import usePrice from '@framework/product/use-price'
 import { FC } from 'react'
 import { Method } from '@commerce/types/shipping'
-import Discount from '../CartItem/Discount'
+import Discounts from '../Discounts'
 
 type ShippingMethodInput = {
   method?: Method.ShippingMethod
@@ -39,17 +39,12 @@ const ShippingMethod: FC<ShippingMethodInput> = ({ currencyCode, method }) => {
                 <span className="pl-4">Price</span>
                 <span>{shippingPrice}</span>
               </li>
-              {method.discounts.map((discount, i) => {
-                return (
-                  <li key={i} className="pl-4">
-                    <Discount
-                      value={discount.value}
-                      description={discount.description}
-                      currencyCode={currencyCode}
-                    />
-                  </li>
-                )
-              })}
+              <li className="pl-4">
+                <Discounts
+                  discounts={method.discounts}
+                  currencyCode={currencyCode}
+                />
+              </li>
             </ul>
           )}
         </ul>

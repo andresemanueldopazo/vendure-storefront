@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEventHandler, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import cn from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +9,7 @@ import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
-import Discount from './Discount'
+import Discounts from '../Discounts'
 
 type ItemOption = {
   name: string
@@ -166,19 +166,11 @@ const CartItem = ({
         </div>
       )}
       <ul className={"flex flex-col"}>
-        {item.discounts && item.discounts.map((discount, i) => {
-          if (discount.value !== 0) {
-            return (
-              <li key={i}>
-                <Discount
-                  value={discount.value}
-                  description={discount.description}
-                  currencyCode={currencyCode}
-                />
-              </li>
-            )
-          }
-        })}
+
+        <Discounts
+          discounts={item.discounts}
+          currencyCode={currencyCode}
+        />
         <li className="flex flex-row justify-between space-x-4">
           <span>Total</span>
           <span>{proratedLinePrice}</span>
