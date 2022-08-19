@@ -46,6 +46,7 @@ export function normalizeCart(order: CartFragment): Cart & {
     coupons: order.couponCodes.map((code) => {
       return {code}
     }),
+    discounts: order.discounts.map(normalizeDiscount),
     customerId: order.customer?.id,
     lineItems: order.lines?.map((l) => ({
       id: l.id,

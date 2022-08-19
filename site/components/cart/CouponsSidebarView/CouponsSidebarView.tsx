@@ -4,6 +4,7 @@ import useCart from '@framework/cart/use-cart'
 import useAddCouponItem from '@framework/coupon/use-add-item'
 import SidebarLayout from '@components/common/SidebarLayout'
 import Coupon from './Coupon'
+import Discount from '../CartItem/Discount'
 
 const Coupons: FC = () => {
   const { data } = useCart()
@@ -30,15 +31,34 @@ const Coupons: FC = () => {
   }
 
   return (
-    <SidebarLayout 
+    <SidebarLayout
       handleBack={() => setSidebarView('CART_VIEW')}
     >
-      <div className="px-4 sm:px-6 flex-1"></div>
+      <h2 className="px-4 pt-1 pb-8 text-2xl font-semibold tracking-wide inline-block">
+        Coupons
+      </h2>
+      <div className="flex-1">
+        {data?.discounts && data.discounts.length !== 0 &&
+          <div className="flex flex-col px-4 justify-between divide-y">
+            <ul>
+              {data.discounts.map((discount, i) => {
+                return (
+                  <li key={i}>
+                    <Discount
+                      value={discount.value}
+                      description={discount.description}
+                      currencyCode={data.currency.code}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        }
+      </div>
       <div className="
-        flex flex-col flex-shrink-0
-        px-4 sm:px-6 py-6 py-12
-        sticky bottom-0 bg-accent-0
-        border-t space-y-4
+        flex flex-col flex-shrink-0 py-12 px-4 space-y-4
+        sticky bottom-0 bg-accent-0 border-t
       ">
         <ul className="flex flex-col">
           {data && data.coupons?.map((coupon, i) => {

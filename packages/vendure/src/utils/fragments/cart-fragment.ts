@@ -11,6 +11,9 @@ export const cartFragment = /* GraphQL */ `
     subTotalWithTax
     totalWithTax
     couponCodes
+    discounts {
+      ...DiscountFragment
+    }
     currencyCode
     customer {
       id
