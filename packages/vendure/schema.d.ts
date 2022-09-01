@@ -3704,6 +3704,43 @@ export type ApplyCouponCodeMutation = {
     | { __typename: 'Order' }
 }
 
+export type CreateCustomerAddressMutationVariables = Exact<{
+  input: CreateAddressInput
+}>
+
+export type CreateCustomerAddressMutation = {
+  __typename?: 'Mutation'
+  createCustomerAddress: {
+    __typename: 'Address'
+    id: string
+    fullName?: string | null
+    company?: string | null
+    streetLine1: string
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    phoneNumber?: string | null
+    country: {
+      __typename?: 'Country'
+      id: string
+      createdAt: any
+      updatedAt: any
+      languageCode: LanguageCode
+      code: string
+      name: string
+      enabled: boolean
+      translations: Array<{
+        __typename?: 'CountryTranslation'
+        id: string
+        createdAt: any
+        updatedAt: any
+        languageCode: LanguageCode
+        name: string
+      }>
+    }
+  }
+}
+
 export type CreateStripePaymentIntentMutationVariables = Exact<{
   [key: string]: never
 }>
@@ -4244,6 +4281,15 @@ export type TransitionOrderToStateMutation = {
     | null
 }
 
+export type UpdateCustomerAddressMutationVariables = Exact<{
+  input: UpdateAddressInput
+}>
+
+export type UpdateCustomerAddressMutation = {
+  __typename?: 'Mutation'
+  updateCustomerAddress: { __typename: 'Address' }
+}
+
 export type VerifyCustomerAccountMutationVariables = Exact<{
   token: Scalars['String']
 }>
@@ -4293,6 +4339,18 @@ export type ActiveCustomerQuery = {
     firstName: string
     lastName: string
     emailAddress: string
+    addresses?: Array<{
+      __typename?: 'Address'
+      id: string
+      fullName?: string | null
+      company?: string | null
+      streetLine1: string
+      city?: string | null
+      province?: string | null
+      postalCode?: string | null
+      phoneNumber?: string | null
+      country: { __typename?: 'Country'; name: string }
+    }> | null
     orders: {
       __typename?: 'OrderList'
       totalItems: number

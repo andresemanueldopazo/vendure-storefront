@@ -5,7 +5,7 @@ import useCustomer, {
 import { ActiveCustomerQuery } from '../../schema'
 import { activeCustomerQuery } from '../utils/queries/active-customer-query'
 import { CustomerHook } from '../types/customer'
-import { normalizeOrderResume } from '../utils/normalize'
+import { normalizeOrderResume, normalizeCustomerAddress } from '../utils/normalize'
 
 export default useCustomer as UseCustomer<typeof handler>
 
@@ -22,6 +22,8 @@ export const handler: SWRHook<CustomerHook> = {
           firstName: activeCustomer.firstName ?? '',
           lastName: activeCustomer.lastName ?? '',
           email: activeCustomer.emailAddress ?? '',
+          address: activeCustomer.addresses && activeCustomer.addresses.length !== 0 ?
+            normalizeCustomerAddress(activeCustomer.addresses[0]) : undefined,
           orders: {
             items: activeCustomer.orders.items.map(normalizeOrderResume),
             totalItems: activeCustomer.orders.totalItems,

@@ -54,10 +54,7 @@ export type Provider = CommerceConfig & {
       useRemoveItem?: MutationHook<Customer.Card.RemoveItemHook>
     }
     address?: {
-      useAddresses?: SWRHook<Customer.Address.GetAddressesHook>
-      useAddItem?: MutationHook<Customer.Address.AddItemHook>
-      useUpdateItem?: MutationHook<Customer.Address.UpdateItemHook>
-      useRemoveItem?: MutationHook<Customer.Address.RemoveItemHook>
+      useSetCustomerAddress?: MutationHook<Customer.Address.SetCustomerAddressHook>
     }
   }
   products?: {

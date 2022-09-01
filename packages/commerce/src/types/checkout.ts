@@ -1,5 +1,5 @@
 import type { UseSubmitCheckout } from '../checkout/use-submit-checkout'
-import type { Address, AddressFields } from './customer/address'
+import type { CustomerAddress } from './customer/address'
 import type { Card, CardFields } from './customer/card'
 
 // Index
@@ -7,7 +7,7 @@ export type Checkout = any
 
 export type CheckoutTypes = {
   card?: Card | CardFields
-  address?: Address | AddressFields
+  address?: CustomerAddress
   checkout?: Checkout
   hasPayment?: boolean
   hasShipping?: boolean

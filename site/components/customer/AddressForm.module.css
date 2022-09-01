@@ -1,0 +1,35 @@
+.fieldset {
+  @apply flex flex-col my-3;
+}
+
+.fieldset .label {
+  @apply text-accent-7 uppercase text-xs font-medium mb-2;
+}
+
+.fieldset .validInput,
+.fieldset .select {
+  @apply p-2 border w-full text-sm font-normal;
+}
+
+.fieldset .validInput:focus,
+.fieldset .select:focus {
+  @apply outline-none text-sm;
+}
+
+.fieldset .invalidInput,
+.fieldset .select {
+  @apply p-2 border border-red w-full text-sm font-normal;
+}
+
+.fieldset .invalidInput:focus,
+.fieldset .select:focus {
+  @apply outline-none text-sm shadow shadow-red;
+}
+
+.radio {
+  @apply rounded-full h-3 w-3 py-0 px-0;
+}
+
+.radio:checked {
+  @apply rounded-full ring-2 h-3 w-3 py-0 px-0;
+}
