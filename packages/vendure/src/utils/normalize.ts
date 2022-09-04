@@ -1,8 +1,8 @@
 import { Product } from '@vercel/commerce/types/product'
 import { Cart } from '@vercel/commerce/types/cart'
-import { CartFragment, OrderResumeFragment, SearchResultFragment } from '../../schema'
+import { ActiveCustomerQuery, CartFragment, OrderResumeFragment, SearchResultFragment } from '../../schema'
 import { OrderResume } from '@vercel/commerce/types/customer'
-import { CustomerAddressTypes } from '@vercel/commerce/types/customer/address'
+import { CustomerAddress } from '@vercel/commerce/types/customer/address'
 import { ShippingAddress } from '@vercel/commerce/types/shipping/address'
 import { Discount } from '@vercel/commerce/types/common'
 import { ShippingMethod } from '@vercel/commerce/types/shipping/method'
@@ -102,13 +102,17 @@ export function normalizeDiscount(
   }
 }
 
-export function normalizeAddress(
-  order: CartFragment
-): CustomerAddressTypes['address'] {
+export function normalizeCustomerAddress(
+  address: NonNullable<NonNullable<ActiveCustomerQuery['activeCustomer']>['addresses']>[number]
+): CustomerAddress {
   return {
-    // TODO: Not sure what should return.
-    id: '',
-    mask: '',
+    company: address.company || '',
+    streetLine: address.streetLine1 || '',
+    city: address.city || '',
+    province: address.province || '',
+    postalCode: address.postalCode || '',
+    country: address.country.name || '',
+    phoneNumber: address.phoneNumber || '',
   }
 }
 

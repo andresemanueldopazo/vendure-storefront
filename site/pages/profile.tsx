@@ -3,6 +3,7 @@ import useCustomer from '@framework/customer/use-customer'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
+import AddressForm from '@components/customer/AddressForm'
 
 export async function getStaticProps({
   preview,
@@ -22,19 +23,18 @@ export async function getStaticProps({
 
 export default function Profile() {
   const { data } = useCustomer()
+
   return (
     <Container className="pt-4">
       <Text variant="pageHeading">My Profile</Text>
-      <div className="grid grid-cols-4">
-        {data && (
-          <div className="flex flex-col divide-accent-2 divide-y">
-            <div className="flex flex-row items-center space-x-4 py-4">
+      {data && (
+        <div className="grid gap-8 px-4 grid-cols-1 md:grid-cols-2">
+          <div className="flex flex-col">
+            <div className="flex flex-row items-center justify-between space-x-4 py-4">
               <span className="text-lg font-medium text-accent-600 flex-1">
                 Full Name
               </span>
-              <span>
-                {data.firstName} {data.lastName}
-              </span>
+              <span>{`${data.firstName} ${data.lastName}`}</span>
             </div>
             <div className="flex flex-row items-center space-x-4 py-4">
               <span className="text-lg font-medium text-accent-600 flex-1">
@@ -43,8 +43,11 @@ export default function Profile() {
               <span>{data.email}</span>
             </div>
           </div>
-        )}
-      </div>
+          {!data.address && (
+            <AddressForm/>
+          )}
+        </div>
+      )}
     </Container>
   )
 }

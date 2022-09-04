@@ -7,16 +7,16 @@ import React, {
   createContext,
 } from 'react'
 import type { CardFields } from '@commerce/types/customer/card'
-import type { AddressFields } from '@commerce/types/customer/address'
+import type { CustomerAddress } from '@commerce/types/customer/address'
 
 export type State = {
   cardFields: CardFields
-  addressFields: AddressFields
+  address: CustomerAddress
 }
 
 type CheckoutContextType = State & {
   setCardFields: (cardFields: CardFields) => void
-  setAddressFields: (addressFields: AddressFields) => void
+  setAddressFields: (address: CustomerAddress) => void
   clearCheckoutFields: () => void
 }
 
@@ -27,7 +27,7 @@ type Action =
     }
   | {
       type: 'SET_ADDRESS_FIELDS'
-      address: AddressFields
+      address: CustomerAddress
     }
   | {
       type: 'CLEAR_CHECKOUT_FIELDS'
@@ -35,7 +35,7 @@ type Action =
 
 const initialState: State = {
   cardFields: {} as CardFields,
-  addressFields: {} as AddressFields,
+  address: {} as CustomerAddress,
 }
 
 export const CheckoutContext = createContext<State | any>(initialState)
@@ -52,13 +52,13 @@ const checkoutReducer = (state: State, action: Action): State => {
     case 'SET_ADDRESS_FIELDS':
       return {
         ...state,
-        addressFields: action.address,
+        address: action.address,
       }
     case 'CLEAR_CHECKOUT_FIELDS':
       return {
         ...state,
         cardFields: initialState.cardFields,
-        addressFields: initialState.addressFields,
+        address: initialState.address,
       }
     default:
       return state
@@ -74,7 +74,7 @@ export const CheckoutProvider: FC = (props) => {
   )
 
   const setAddressFields = useCallback(
-    (address: AddressFields) =>
+    (address: CustomerAddress) =>
       dispatch({ type: 'SET_ADDRESS_FIELDS', address }),
     [dispatch]
   )
@@ -86,17 +86,17 @@ export const CheckoutProvider: FC = (props) => {
 
   const cardFields = useMemo(() => state.cardFields, [state.cardFields])
 
-  const addressFields = useMemo(() => state.addressFields, [state.addressFields])
+  const address = useMemo(() => state.address, [state.address])
 
   const value = useMemo(
     () => ({
       cardFields,
-      addressFields,
+      address,
       setCardFields,
       setAddressFields,
       clearCheckoutFields,
     }),
-    [cardFields, addressFields, setCardFields, setAddressFields, clearCheckoutFields]
+    [cardFields, address, setCardFields, setAddressFields, clearCheckoutFields]
   )
 
   return <CheckoutContext.Provider value={value} {...props} />

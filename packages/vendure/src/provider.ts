@@ -13,8 +13,7 @@ import { handler as useCheckout } from './checkout/use-checkout'
 import { handler as useSubmitCheckout } from './checkout/use-submit-checkout'
 import { handler as useCards } from './customer/card/use-cards'
 import { handler as useAddCardItem } from './customer/card/use-add-item'
-import { handler as useAddresses } from './customer/address/use-addresses'
-import { handler as useAddCustomerAddressItem } from './customer/address/use-add-item'
+import { handler as useSetCustomerAddress } from './customer/address/use-set-customer-address'
 import { handler as useCreateStripePaymentIntent } from './stripe/use-create-stripe-payment-intent'
 import { handler as useEligibleShippingMethods } from './shipping/method/use-eligible-shipping-methods'
 import { handler as useSetShippingMethod } from './shipping/method/use-set-shipping-method'
@@ -36,8 +35,7 @@ export const vendureProvider = {
       useAddItem: useAddCardItem,
     },
     address: {
-      useAddresses,
-      useAddItem: useAddCustomerAddressItem,
+      useSetCustomerAddress,
     },
   },
   products: { useSearch },

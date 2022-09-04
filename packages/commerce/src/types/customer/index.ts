@@ -1,3 +1,4 @@
+import { CustomerAddress } from './address';
 export * as Card from './card'
 export * as Address from './address'
 
@@ -39,6 +40,7 @@ export type Customer = {
   firstName: string,
   lastName: string,
   email: string,
+  address?: CustomerAddress
 }
 
 export type CustomerTypes = {
