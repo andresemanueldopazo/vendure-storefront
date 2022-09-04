@@ -4,6 +4,7 @@ import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
 import AddressForm from '@components/customer/AddressForm'
+import Address from '@components/customer/Address'
 
 export async function getStaticProps({
   preview,
@@ -43,7 +44,14 @@ export default function Profile() {
               <span>{data.email}</span>
             </div>
           </div>
-          {!data.address && (
+          {data.address? (
+            <div>
+              <span className="text-lg font-medium text-accent-600 flex-1">
+                Address
+              </span>
+              <Address/>
+            </div>
+          ) : (
             <AddressForm/>
           )}
         </div>
