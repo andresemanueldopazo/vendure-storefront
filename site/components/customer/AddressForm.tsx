@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import useSetCustomerAddress from '@framework/customer/address/use-set-customer-address'
 import Button from '@components/ui/Button'
+import cn from 'clsx'
 import s from './AddressForm.module.css'
 import * as Popover from "@radix-ui/react-popover"
 import * as Dialog from '@radix-ui/react-dialog'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
+import { useTheme } from 'next-themes'
 
 const TextInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props)
@@ -51,7 +53,7 @@ const TextInput = ({ label, ...props }: any) => {
                   return (
                     <div
                       key={i}
-                      className="border border-black text-center"
+                      className="border border-secondary bg-primary text-center"
                     >
                       {error}
                     </div>
@@ -74,6 +76,7 @@ const TextInput = ({ label, ...props }: any) => {
 
 const AddressForm = () => {
   const setCustomerAddress = useSetCustomerAddress()
+  const { theme } = useTheme()
 
   return (
     <Dialog.Root>
@@ -85,10 +88,13 @@ const AddressForm = () => {
       <Dialog.Portal>
         <div>
           <Dialog.Overlay
-            className="fixed inset-0 grid justify-items-center items-center bg-black/30"
+            className={cn(
+              "fixed inset-0 grid justify-items-center items-center",
+              theme === "light" ? "bg-black/30" : "bg-white/30",
+            )}
           >
             <Dialog.Content
-              className="fixed w-3/4 sm:w-3/5 md:w-2/5 overflow-y-auto max-h-screen p-2 bg-white"
+              className="fixed w-3/4 sm:w-3/5 md:w-2/5 overflow-y-auto max-h-screen p-2 bg-primary"
             >
               <Formik
                 initialValues={{
