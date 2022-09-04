@@ -66,7 +66,7 @@ const TextInput = ({ label, setChange, ...props }: any) => {
                       s.invalidInput
                     :
                       s.validInput,
-                    !editing && "border-transparent select-none bg-white",
+                    !editing && "border-transparent select-none bg-transparent",
                   )
                 }
                 style={{ width }}
