@@ -56,6 +56,9 @@ export type Provider = CommerceConfig & {
     address?: {
       useSetCustomerAddress?: MutationHook<Customer.Address.SetCustomerAddressHook>
     }
+    password?: {
+      useRequestPasswordReset?: MutationHook<Customer.Password.RequestPasswordResetHook>
+    }
   }
   products?: {
     useSearch?: SWRHook<Product.SearchProductsHook>

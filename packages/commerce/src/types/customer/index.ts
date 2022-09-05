@@ -1,6 +1,7 @@
 import { CustomerAddress } from './address';
 export * as Card from './card'
 export * as Address from './address'
+export * as Password from './password'
 
 export type OrderResume = {
   code: string;

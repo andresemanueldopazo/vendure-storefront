@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { validate } from 'email-validator'
 import { useUI } from '@components/ui/context'
+import useRequestPasswordReset from '@framework/customer/password/use-request-password-reset'
 import { Logo, Button, Input } from '@components/ui'
 
 interface Props {}
@@ -13,6 +14,8 @@ const ForgotPassword: FC<Props> = () => {
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
 
+  const requestPasswordReset = useRequestPasswordReset()
+
   const { setModalView, closeModal } = useUI()
 
   const handleResetPassword = async (e: React.SyntheticEvent<EventTarget>) => {
@@ -21,6 +24,18 @@ const ForgotPassword: FC<Props> = () => {
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
+
+      try {
+        setLoading(true)
+        setMessage('')
+        await requestPasswordReset({ email })
+        setLoading(false)
+        closeModal()
+      } catch (e: any) {
+        setMessage(e.errors[0].message)
+        setLoading(false)
+        setDisabled(false)
+      }
     }
   }
 

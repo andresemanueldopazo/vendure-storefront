@@ -3916,6 +3916,22 @@ export type RemoveOrderLineMutation = {
       }
 }
 
+export type RequestPasswordResetMutationVariables = Exact<{
+  emailAddress: Scalars['String']
+}>
+
+export type RequestPasswordResetMutation = {
+  __typename?: 'Mutation'
+  requestPasswordReset?:
+    | {
+        __typename: 'NativeAuthStrategyError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | { __typename: 'Success' }
+    | null
+}
+
 export type SetCustomerForOrderMutationVariables = Exact<{
   input: CreateCustomerInput
 }>
