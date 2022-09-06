@@ -58,6 +58,7 @@ export type Provider = CommerceConfig & {
     }
     password?: {
       useRequestPasswordReset?: MutationHook<Customer.Password.RequestPasswordResetHook>
+      useResetPassword?: MutationHook<Customer.Password.ResetPasswordHook>
     }
   }
   products?: {

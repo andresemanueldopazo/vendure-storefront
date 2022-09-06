@@ -3932,6 +3932,38 @@ export type RequestPasswordResetMutation = {
     | null
 }
 
+export type ResetPasswordMutationVariables = Exact<{
+  token: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type ResetPasswordMutation = {
+  __typename?: 'Mutation'
+  resetPassword:
+    | { __typename: 'CurrentUser' }
+    | {
+        __typename: 'NativeAuthStrategyError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | { __typename: 'NotVerifiedError'; errorCode: ErrorCode; message: string }
+    | {
+        __typename: 'PasswordResetTokenExpiredError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'PasswordResetTokenInvalidError'
+        errorCode: ErrorCode
+        message: string
+      }
+    | {
+        __typename: 'PasswordValidationError'
+        errorCode: ErrorCode
+        message: string
+      }
+}
+
 export type SetCustomerForOrderMutationVariables = Exact<{
   input: CreateCustomerInput
 }>
