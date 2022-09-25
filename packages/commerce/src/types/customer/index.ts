@@ -40,6 +40,7 @@ export type Customer = {
   },
   firstName: string,
   lastName: string,
+  phoneNumber?: number
   email: string,
   address?: CustomerAddress
 }
@@ -51,6 +52,12 @@ export type CustomerTypes = {
 export type CustomerHook<T extends CustomerTypes = CustomerTypes> = {
   data: T['customer'] | null
   fetchData: { customer: T['customer'] } | null
+}
+
+export type UpdateCustomerHook<T extends CustomerTypes = CustomerTypes> = {
+  data: null
+  fetcherInput: Pick<T['customer'], 'firstName' | 'lastName' | 'phoneNumber'>
+  actionInput: Pick<T['customer'], 'firstName' | 'lastName' | 'phoneNumber'>
 }
 
 export type CustomerSchema<T extends CustomerTypes = CustomerTypes> = {

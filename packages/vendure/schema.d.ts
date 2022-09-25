@@ -4338,6 +4338,15 @@ export type UpdateCustomerAddressMutation = {
   updateCustomerAddress: { __typename: 'Address' }
 }
 
+export type UpdateCustomerMutationVariables = Exact<{
+  input: UpdateCustomerInput
+}>
+
+export type UpdateCustomerMutation = {
+  __typename?: 'Mutation'
+  updateCustomer: { __typename: 'Customer' }
+}
+
 export type VerifyCustomerAccountMutationVariables = Exact<{
   token: Scalars['String']
 }>

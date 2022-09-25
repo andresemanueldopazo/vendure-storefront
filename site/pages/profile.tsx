@@ -5,6 +5,7 @@ import { Layout } from '@components/common'
 import { Container, Text } from '@components/ui'
 import AddressForm from '@components/customer/AddressForm'
 import Address from '@components/customer/Address'
+import Name from '@components/customer/Name'
 
 export async function getStaticProps({
   preview,
@@ -31,12 +32,7 @@ export default function Profile() {
       {data && (
         <div className="grid gap-8 px-4 grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col">
-            <div className="flex flex-row items-center justify-between space-x-4 py-4">
-              <span className="text-lg font-medium text-accent-600 flex-1">
-                Full Name
-              </span>
-              <span>{`${data.firstName} ${data.lastName}`}</span>
-            </div>
+            <Name/>
             <div className="flex flex-row items-center space-x-4 py-4">
               <span className="text-lg font-medium text-accent-600 flex-1">
                 Email

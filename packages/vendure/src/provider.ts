@@ -3,6 +3,7 @@ import { handler as useAddItem } from './cart/use-add-item'
 import { handler as useUpdateItem } from './cart/use-update-item'
 import { handler as useRemoveItem } from './cart/use-remove-item'
 import { handler as useCustomer } from './customer/use-customer'
+import { handler as useUpdateCustomer } from './customer/use-update-customer'
 import { handler as useSearch } from './product/use-search'
 import { handler as useLogin } from './auth/use-login'
 import { handler as useFacebookLogin } from './auth/use-facebook-login'
@@ -32,6 +33,7 @@ export const vendureProvider = {
   cart: { useCart, useAddItem, useUpdateItem, useRemoveItem },
   customer: {
     useCustomer,
+    useUpdateCustomer,
     card: {
       useCards,
       useAddItem: useAddCardItem,
