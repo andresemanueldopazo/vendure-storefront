@@ -2,6 +2,7 @@ import useSetShippingMethod, { UseSetShippingMethod } from '@vercel/commerce/shi
 import type { Method } from '../../types/shipping'
 import type { MutationHook } from '@vercel/commerce/utils/types'
 import { useCallback } from 'react'
+import { useCart } from '../../cart'
 import { setOrderShippingMethod } from '../../utils/mutations/set-order-shipping-method'
 import {
   SetOrderShippingMethodMutation,
@@ -32,9 +33,12 @@ export const handler: MutationHook<Method.SetShippingMethodHook> = {
   },
   useHook: ({ fetch }) =>
     function useHook() {
+      const { mutate } = useCart()
       return useCallback(
         async function setShippingMethod(input) {
-          return await fetch({ input })
+          await fetch({ input })
+          await mutate()
+          return null
         },
         [fetch]
       )
