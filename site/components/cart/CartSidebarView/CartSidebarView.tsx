@@ -4,7 +4,6 @@ import { FC } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
 import SidebarLayout from '@components/common/SidebarLayout'
-import ShippingMethod from '../ShippingMethod/ShippingMethod'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
@@ -17,6 +16,12 @@ const CartSidebarView: FC = () => {
   const { data, isLoading, isEmpty } = useCart()
   const { mutate } = useEligibleShippingMethods()
 
+  const { price: shippingPrice } = usePrice(
+    data && {
+      amount: data?.shippingMethod?.priceWithTax || 0,
+      currencyCode: data.currency.code,
+    }
+  )
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
@@ -113,11 +118,9 @@ const CartSidebarView: FC = () => {
                 <span>Taxes</span>
                 <span>Calculated at checkout</span>
               </li>
-              <li>
-                <ShippingMethod
-                  currencyCode={data!.currency.code}
-                  method={data!.shippingMethod}
-                />
+              <li className="flex justify-between py-1">
+                <span>{data?.shippingMethod?.name || ""} Shipping</span>
+                <span>{shippingPrice}</span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-2 font-bold mb-2">
