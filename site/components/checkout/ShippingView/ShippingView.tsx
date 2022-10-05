@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import cn from 'clsx'
 import s from './ShippingView.module.css'
 import Button from '@components/ui/Button'
@@ -31,7 +31,7 @@ const ShippingView: FC = () => {
   const setShippingMethod = useSetShippingMethod()
   const { data: cart } = useCart()
 
-  const [shippingMethodId, setShippingMethodId] = useState(cart?.shippingMethod?.id || "0")
+  const [shippingMethodId, setShippingMethodId] = useState(cart?.shippingMethod?.id || "")
 
   const shippingAddress = cart?.shippingAddress
   const [firstName, setFirstName] = useState(shippingAddress?.firstName || '')
@@ -42,6 +42,8 @@ const ShippingView: FC = () => {
   const [postalCode, setPostalCode] = useState(shippingAddress?.postalCode || '')
   const [province, setProvince] = useState(shippingAddress?.province || '')
   const [city, setCity] = useState(shippingAddress?.city || '')
+
+  const isMounted = useRef(false);
 
   const { price: shippingPrice } = usePrice(
     cart && {
@@ -63,9 +65,11 @@ const ShippingView: FC = () => {
   )
 
   useEffect(() => {
-    (async () => {
+    isMounted.current && (async () => {
+      console.log("se ejecuto")
       await setShippingMethod({id: shippingMethodId})
     })()
+    isMounted.current = true
   }, [shippingMethodId])
 
   async function handleSubmit(event: React.ChangeEvent<Form>) {
