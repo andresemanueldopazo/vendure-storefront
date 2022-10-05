@@ -86,12 +86,12 @@ const CartItem = ({
 
   return (
     <li
-      className={cn(s.root, {
+      className={cn(s.root, 'space-y-1', {
         'opacity-50 pointer-events-none': removing,
       })}
       {...rest}
     >
-      <div className="flex flex-row space-x-4 py-4">
+      <div className="flex flex-row space-x-4 pt-4">
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
           <Link href={`/product/${item.path}`}>
             <a>
@@ -147,35 +147,35 @@ const CartItem = ({
             <div className="tracking-wider">{quantity}x</div>
           )}
         </div>
-        <div className="flex flex-col justify-between space-y-2">
+        <div className="flex flex-col justify-between">
           <span>{itemPrice}</span>
         </div>
       </div>
       {variant === 'default' && (
-        <div className="flex justify-between items-center">
-          <div className="basis-3/4">
-            <Quantity
-              value={quantity}
-              handleRemove={handleRemove}
-              handleChange={handleChange}
-              increase={() => increaseQuantity(1)}
-              decrease={() => increaseQuantity(-1)}
-            />
-          </div>
+        <Quantity
+          value={quantity}
+          handleRemove={handleRemove}
+          handleChange={handleChange}
+          increase={() => increaseQuantity(1)}
+          decrease={() => increaseQuantity(-1)}
+        />
+      )}
+      <div className={"flex flex-col"}>
+        <div className="flex flex-row justify-between">
+          <span>Subtotal</span>
           <span>{linePrice}</span>
         </div>
-      )}
-      <ul className={"flex flex-col"}>
-
-        <Discounts
-          discounts={item.discounts}
-          currencyCode={currencyCode}
-        />
-        <li className="flex flex-row justify-between space-x-4">
+        <ul className={"flex flex-col"}>
+          <Discounts
+            discounts={item.discounts}
+            currencyCode={currencyCode}
+          />
+        </ul>
+        <div className="flex flex-row justify-between">
           <span>Total</span>
           <span>{proratedLinePrice}</span>
-        </li>
-      </ul>
+        </div>
+      </div>
     </li>
   )
 }
