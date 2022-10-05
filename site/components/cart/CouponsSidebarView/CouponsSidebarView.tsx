@@ -51,7 +51,7 @@ const Coupons: FC = () => {
         flex flex-col flex-shrink-0 py-12 px-4 space-y-4
         sticky bottom-0 bg-accent-0 border-t
       ">
-        <ul className="flex flex-col">
+        <ul>
           {data && data.coupons?.map((coupon, i) => {
             return (
               <li key={i}>

@@ -14,13 +14,13 @@ const Coupon: FC<CouponItem> = (code) => {
   }  
 
   return (
-    <div className="flex justify-between items-center border py-1.5 pr-4 pl-2">
+    <div className="flex float-left m-1 border py-1.5 pr-4 pl-2">
       <button
         onClick={handleRemove}
       >
         <Cross width={20} height={20} />
       </button>
-      <p className="text-center	">{code.code}</p>
+      <p>{code.code}</p>
     </div>
   )
 }
