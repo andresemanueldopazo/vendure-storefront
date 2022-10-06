@@ -9,6 +9,7 @@ import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-
 import useSetShippingMethod from '@framework/shipping/method/use-set-shipping-method'
 import { useCart } from '@framework/cart'
 import usePrice from '@framework/product/use-price'
+import Discounts from '@components/cart/Discounts'
 
 interface Form extends HTMLFormElement {
   cardHolder: HTMLInputElement
@@ -45,6 +46,12 @@ const ShippingView: FC = () => {
 
   const isMounted = useRef(false);
 
+  const { price: discountedShippingPrice } = usePrice(
+    cart && {
+      amount: cart?.shippingMethod?.discountedPriceWithTax || 0,
+      currencyCode: cart.currency.code,
+    }
+  )
   const { price: shippingPrice } = usePrice(
     cart && {
       amount: cart?.shippingMethod?.priceWithTax || 0,
@@ -66,7 +73,6 @@ const ShippingView: FC = () => {
 
   useEffect(() => {
     isMounted.current && (async () => {
-      console.log("se ejecuto")
       await setShippingMethod({id: shippingMethodId})
     })()
     isMounted.current = true
@@ -101,42 +107,64 @@ const ShippingView: FC = () => {
               Shipping
             </h2>
             <div>
-              <hr className="border-accent-2 my-5"/>
-              <h3 className="pb-3 text-xl font-semibold">
-                Method
-              </h3>
-              <div className="flex flex-col">
-                {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) => {
-                  const inputElement = shippingMethod.id === shippingMethodId?
-                    <Input
-                      name="shippingMethod"
-                      value={`${shippingMethod.id}`}
-                      className={s.radio}
-                      type="radio"
-                      onChange={setShippingMethodId}
-                      checked
-                    />
-                    :
-                    <Input
-                      name="shippingMethod"
-                      value={`${shippingMethod.id}`}
-                      className={s.radio}
-                      type="radio"
-                      onChange={setShippingMethodId}
-                    />
-                  return (
-                    <div key={shippingMethod.id} className="flex flex-row justify-between my-1">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row">
-                          {inputElement}
-                          <span className="ml-3 text-sm">{shippingMethod.name}</span>
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">
+                  Method
+                </h3>
+                <div className="flex flex-col divide-y divide-dashed space-y-2">
+                  <div>
+                    {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) => {
+                      const inputElement = shippingMethod.id === shippingMethodId ?
+                        <Input
+                          name="shippingMethod"
+                          value={`${shippingMethod.id}`}
+                          className={s.radio}
+                          type="radio"
+                          onChange={setShippingMethodId}
+                          checked
+                        />
+                        :
+                        <Input
+                          name="shippingMethod"
+                          value={`${shippingMethod.id}`}
+                          className={s.radio}
+                          type="radio"
+                          onChange={setShippingMethodId}
+                        />
+                      return (
+                        <div key={shippingMethod.id} className="flex flex-row justify-between my-1">
+                          <div className="flex flex-col">
+                            <div className="flex flex-row">
+                              {inputElement}
+                              <span className="ml-3 text-sm">{shippingMethod.name}</span>
+                            </div>
+                            <span className="ml-3 text-sm"><div dangerouslySetInnerHTML={{ __html: shippingMethod.description }} /></span>
+                          </div>
                         </div>
-                        <span className="ml-3 text-sm"><div dangerouslySetInnerHTML={{ __html: shippingMethod.description }} /></span>
-                      </div>
-                      <span className="ml-3 text-sm">{`$ ${shippingMethod.priceWithTax}`}</span>
+                      )
+                    })}
+                  </div>
+                  <div className="pt-2">
+                    {cart?.shippingMethod?.discountedPriceWithTax !== cart?.shippingMethod?.priceWithTax && (
+                      <>
+                        <div className="flex flex-row justify-between">
+                          <span>Subtotal</span>
+                          <span>{shippingPrice}</span>
+                        </div>
+                        <ul className={"flex flex-col"}>
+                          <Discounts
+                            discounts={cart!.shippingMethod!.discounts}
+                            currencyCode={cart!.currency.code}
+                          />
+                        </ul>
+                      </>
+                    )}
+                    <div className="flex flex-row justify-between">
+                      <span>Total</span>
+                      <span>{discountedShippingPrice}</span>
                     </div>
-                  )
-                })}
+                  </div>
+                </div>
               </div>
               <hr className="border-accent-2 my-5"/>
               <h3 className="pb-2 text-xl font-semibold">
@@ -198,7 +226,7 @@ const ShippingView: FC = () => {
               </li>
               <li className="flex justify-between py-1">
                 <span>{cart?.shippingMethod?.name || ""} Shipping</span>
-                <span>{shippingPrice}</span>
+                <span>{discountedShippingPrice}</span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-2 font-bold mb-2">
