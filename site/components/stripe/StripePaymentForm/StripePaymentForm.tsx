@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
-import { Button } from '@components/ui'
+import { Button, Skeleton } from '@components/ui'
 import { FormEvent } from 'react'
 
 const StripePaymentForm: FC = () => {
   const stripe = useStripe()
   const elements = useElements()
   const [errorMessage, setErrorMessage] = useState('')
+  const [ready, setReady] = useState(false)
 
   const handleSubmit = async (event: FormEvent) => {
     // We don't want to let default form submission happen here,
@@ -44,12 +45,21 @@ const StripePaymentForm: FC = () => {
       className="flex flex-col justify-between flex-1"
     >
       <div className="px-6 py-4 sm:px-6">
-        <PaymentElement/>
+        <PaymentElement
+          onReady={() => {
+            setReady(true)
+          }}
+        />
       </div>
       <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
-        <Button disabled={!stripe} type="submit" width="100%">
-          Pay
-        </Button>
+        <Skeleton show={!ready}>
+          <Button
+            type="submit"
+            width="100%"
+          >
+            Pay
+          </Button>
+        </Skeleton>
       </div>
       {/* Show error message to your customers */}
       {errorMessage && <div>{errorMessage}</div>}
