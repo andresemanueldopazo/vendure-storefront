@@ -2,6 +2,11 @@ import cn from 'clsx'
 import s from './Sidebar.module.css'
 import { useEffect, useRef } from 'react'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import {
+  animated,
+  useTransition,
+} from "@react-spring/web"
+
 interface SidebarProps {
   children: any
   onClose: () => void
@@ -10,6 +15,12 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ children, onClose }) => {
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const contentRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const transitions = useTransition(null, {
+    from: {transform: 'translateX(100%)'},
+    enter: {transform: 'translateX(0px)'},
+    delay: 100,
+  })
 
   const onKeyDownSidebar = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.code === 'Escape') {
@@ -35,18 +46,20 @@ const Sidebar: React.FC<SidebarProps> = ({ children, onClose }) => {
 
   return (
     <div
-      className={cn(s.root)}
-      ref={sidebarRef}
-      onKeyDown={onKeyDownSidebar}
-      tabIndex={1}
+    className={cn(s.root)}
+    ref={sidebarRef}
+    onKeyDown={onKeyDownSidebar}
+    tabIndex={1}
     >
       <div className="absolute inset-0 overflow-hidden">
         <div className={s.backdrop} onClick={onClose} />
         <section className="absolute inset-y-0 right-0 w-full md:w-auto max-w-full flex outline-none md:pl-10">
           <div className="h-full w-full md:w-screen md:max-w-md">
-            <div className={s.sidebar} ref={contentRef}>
-              {children}
-            </div>
+            {transitions((springs) => (
+              <animated.div className={s.sidebar} ref={contentRef} style={springs}>
+                {children}
+              </animated.div>
+            ))}
           </div>
         </section>
       </div>
