@@ -5,6 +5,8 @@ import { useUI } from '@components/ui/context'
 import { validate } from 'email-validator'
 import FacebookLogin from './FacebookLogin'
 import GoogleLogin from './GoogleLogin'
+import { identify } from '@lib/analyticsjs/methods'
+import { useCustomer } from '@framework/customer'
 
 const LoginView: React.FC = () => {
   // Form State
@@ -15,6 +17,8 @@ const LoginView: React.FC = () => {
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const { setModalView, closeModal } = useUI()
+
+  const { data } = useCustomer()
 
   const login = useLogin()
 
@@ -55,6 +59,12 @@ const LoginView: React.FC = () => {
   useEffect(() => {
     handleValidation()
   }, [handleValidation])
+
+  useEffect(() => {
+    if (data) {
+      identify(data!)
+    }
+  }, [data])
 
   return (
     <div className="flex flex-col items-center">

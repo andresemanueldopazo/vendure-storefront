@@ -29,4 +29,9 @@ interface Window {
     },
   }
   handleOnSuccessFacebook?: () => void,
+  analytics?: {
+    page: any,
+    identify: any,
+    track: any,
+  }
 }
