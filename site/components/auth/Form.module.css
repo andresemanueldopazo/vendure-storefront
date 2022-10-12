@@ -1,0 +1,23 @@
+.fieldset {
+  @apply flex flex-col;
+}
+
+.fieldset .label {
+  @apply text-accent-7 uppercase text-xs font-medium;
+}
+
+.fieldset .validInput {
+  @apply p-2 border w-full text-sm font-normal;
+}
+
+.fieldset .validInput:focus {
+  @apply outline-none text-sm shadow;
+}
+
+.fieldset .invalidInput {
+  @apply p-2 border border-red w-full text-sm font-normal;
+}
+
+.fieldset .invalidInput:focus {
+  @apply outline-none text-sm shadow shadow-red;
+}
