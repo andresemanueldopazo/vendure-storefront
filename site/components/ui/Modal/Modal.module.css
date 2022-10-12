@@ -1,5 +1,5 @@
 .root {
-  @apply fixed bg-black bg-opacity-40 flex items-center inset-0 z-50 justify-center;
+  @apply fixed bg-black bg-opacity-40 flex items-center inset-0 z-50 justify-center overflow-auto;
   backdrop-filter: blur(0.8px);
   -webkit-backdrop-filter: blur(0.8px);
 }
