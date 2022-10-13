@@ -19,6 +19,16 @@ export const identifyUserLoggedIn = (customer: Customer.Customer) => {
   })
 }
 
+export const identifyUserRegistered = (customer: Pick<Customer.Customer, 'firstName' | 'lastName' | 'email'>) => {
+  window.analytics!.identify(customer.email, {
+    event: "User Registered",
+    id: customer.email,
+    firstName: customer.firstName,
+    lastName: customer.lastName,
+    email: customer.email,
+  })
+}
+
 export const trackProductViewed = (product: Product.Product) => {
   console.dir(product)
   window.analytics!.track('Product Viewed', {

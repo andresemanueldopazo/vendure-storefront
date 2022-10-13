@@ -6,6 +6,7 @@ import s from './Form.module.css'
 import * as Popover from "@radix-ui/react-popover"
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
+import { identifyUserRegistered } from '@lib/analyticsjs/methods'
 
 const TextInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props)
@@ -69,11 +70,11 @@ const TextInput = ({ label, ...props }: any) => {
 }
 
 const SignUpView = () => {
+  const { setModalView, closeModal } = useUI()
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
   const signup = useSignup()
-  const { setModalView, closeModal } = useUI()
 
   return (
     <div className="flex flex-col w-80">
@@ -167,6 +168,11 @@ const SignUpView = () => {
               password,
             })
             setLoading(false)
+            identifyUserRegistered({
+              email,
+              firstName,
+              lastName,
+            })
             closeModal()
             setSubmitting(false)
           } catch (e: any) {
