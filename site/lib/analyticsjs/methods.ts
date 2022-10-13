@@ -1,7 +1,8 @@
 import { Customer, Product } from "@commerce/types"
 
-export const identify = (customer: Customer.Customer) => {
+export const identifyUserLoggedIn = (customer: Customer.Customer) => {
   window.analytics!.identify(customer.email, {
+    event: "User Logged In",
     id: customer.email,
     firstName: customer.firstName,
     lastName: customer.lastName,

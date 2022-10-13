@@ -9,7 +9,7 @@ import * as Popover from "@radix-ui/react-popover"
 import GoogleLogin from './GoogleLogin'
 import FacebookLogin from './FacebookLogin'
 import { useCustomer } from '@framework/customer'
-import { identify } from '@lib/analyticsjs/methods'
+import { identifyUserLoggedIn } from '@lib/analyticsjs/methods'
 
 const TextInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props)
@@ -83,7 +83,7 @@ const LoginView: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      identify(data!)
+      identifyUserLoggedIn(data!)
     }
   }, [data])
 
@@ -225,13 +225,9 @@ const LoginView: React.FC = () => {
         </div>
         <div className='bg-slate-400 w-40 h-px basis-5/12'></div>
       </div>
-      <div className="h-[95px] w-[320px] space-y-3">
-        <div>
-          <GoogleLogin/>
-        </div>
-        <div>
-          <FacebookLogin/>
-        </div>
+      <div className="flex flex-col h-[95px] w-[320px] space-y-3">
+        <GoogleLogin/>
+        <FacebookLogin/>
       </div>
     </div>
   )
