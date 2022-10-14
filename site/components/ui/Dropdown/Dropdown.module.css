@@ -1,13 +1,9 @@
 .root {
-  @apply bg-accent-0;
-  animation: none;
-  transition: none;
-  min-width: 100%;
+  @apply z-50 bg-accent-0;
 }
 
 @media screen(lg) {
   .root {
-    @apply bg-accent-0;
     box-shadow: hsl(206 22% 7% / 45%) 0px 10px 38px -10px,
       hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
     min-width: 14rem;

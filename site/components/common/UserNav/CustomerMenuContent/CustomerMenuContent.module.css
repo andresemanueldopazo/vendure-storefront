@@ -1,17 +1,10 @@
 .root {
-  @apply inset-0 fixed;
-  left: 72px;
-  z-index: 10;
-  height: 100vh;
-  min-width: 100vw;
-  transition: none;
+  @apply w-screen h-screen;
 }
 
 @media screen(lg) {
   .root {
-    @apply static;
-    min-width: inherit;
-    height: inherit;
+    @apply w-full h-full;
   }
 }
 

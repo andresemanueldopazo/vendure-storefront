@@ -10,6 +10,7 @@ import useCustomer from '@framework/customer/use-customer'
 import React from 'react'
 import {
   Dropdown,
+  DropdownPortal,
   DropdownTrigger as DropdownTriggerInst,
   Button,
 } from '@components/ui'
@@ -78,7 +79,9 @@ const UserNav: React.FC<{
                   <Avatar />
                 </button>
               </DropdownTrigger>
-              <CustomerMenuContent />
+              <DropdownPortal>
+                <CustomerMenuContent />
+              </DropdownPortal>
             </Dropdown>
           </li>
         )}
