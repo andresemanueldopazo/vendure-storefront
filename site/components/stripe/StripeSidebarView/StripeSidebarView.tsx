@@ -12,7 +12,7 @@ const StripeSidebarView: FC = () => {
   const { data } = useCreateStripePaymentIntent()
   return (
     <SidebarLayout
-      handleBack={() => setSidebarView('SHIPPING_VIEW')}
+      handleBack={() => setSidebarView('SHIPPING_ADDRESS_VIEW')}
     >
       <div className="px-4 sm:px-6">
         <Text variant="sectionHeading">Payment</Text>

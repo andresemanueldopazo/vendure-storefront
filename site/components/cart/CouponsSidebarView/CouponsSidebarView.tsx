@@ -4,7 +4,7 @@ import useCart from '@framework/cart/use-cart'
 import useAddCouponItem from '@framework/coupon/use-add-item'
 import SidebarLayout from '@components/common/SidebarLayout'
 import Coupon from './Coupon'
-import Discounts from '../Discounts'
+import Discounts from '../../Discounts'
 
 const Coupons: FC = () => {
   const { data } = useCart()

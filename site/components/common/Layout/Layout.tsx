@@ -6,7 +6,8 @@ import { CommerceProvider } from '@framework'
 import LoginView from '@components/auth/LoginView'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
-import ShippingView from '@components/checkout/ShippingView'
+import ShippingAddressView from '@components/checkout/shipping/ShippingAddressView'
+import ShippingMethodView from '@components/checkout/shipping/ShippingMethodView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
@@ -85,7 +86,8 @@ const SidebarView: React.FC<{
   return (
     <Sidebar onClose={closeSidebar}>
       {sidebarView === 'CART_VIEW' && <CartSidebarView />}
-      {sidebarView === 'SHIPPING_VIEW' && <ShippingView />}
+      {sidebarView === 'SHIPPING_ADDRESS_VIEW' && <ShippingAddressView />}
+      {sidebarView === 'SHIPPING_METHOD_VIEW' && <ShippingMethodView />}
       {sidebarView === 'PAYMENT_VIEW' && <PaymentMethodView />}
       {sidebarView === 'CHECKOUT_VIEW' && <CheckoutSidebarView />}
       {sidebarView === 'STRIPE_VIEW' && <StripeSidebarView />}

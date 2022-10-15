@@ -1,7 +1,7 @@
 import usePrice from '@framework/product/use-price'
 import { FC } from 'react'
 import { Method } from '@commerce/types/shipping'
-import Discounts from '../Discounts'
+import Discounts from '../../../Discounts'
 
 type ShippingMethodInput = {
   method?: Method.ShippingMethod

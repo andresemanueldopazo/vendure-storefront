@@ -7,7 +7,7 @@ import SidebarLayout from '@components/common/SidebarLayout'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import useCheckout from '@framework/checkout/use-checkout'
-import ShippingWidget from '../ShippingWidget'
+import ShippingWidget from '../shipping/ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 import { useCheckoutContext } from '../context'
@@ -66,7 +66,7 @@ const CheckoutSidebarView: FC = () => {
         />
         <ShippingWidget
           isValid={checkoutData?.hasShipping}
-          onClick={() => setSidebarView('SHIPPING_VIEW')}
+          onClick={() => setSidebarView('SHIPPING_ADDRESS_VIEW')}
         />
 
         <ul className={s.lineItemsList}>

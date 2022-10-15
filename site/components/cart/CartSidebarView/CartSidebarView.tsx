@@ -38,7 +38,7 @@ const CartSidebarView: FC = () => {
   const handleClose = () => closeSidebar()
   const goToCheckout = async () => {
     await mutate()
-    setSidebarView(process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_VIEW' : 'CHECKOUT_VIEW')
+    setSidebarView(process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_METHOD_VIEW' : 'CHECKOUT_VIEW')
   }
   const goToCoupons = async () => {
     setSidebarView('COUPONS_VIEW')
