@@ -91,7 +91,7 @@ const UserNav: React.FC<{
             aria-label="Menu"
             variant="naked"
             onClick={() => {
-              setSidebarView('MOBILEMENU_VIEW')
+              setSidebarView('MOBILE_MENU_VIEW')
               openSidebar()
             }}
           >
