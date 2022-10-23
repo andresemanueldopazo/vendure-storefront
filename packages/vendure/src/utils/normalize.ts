@@ -157,9 +157,8 @@ export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
       variant: {
         price: l.discountedUnitPriceWithTax / 100,
         listPrice: l.unitPriceWithTax / 100,
-        image: {
-          url: l.featuredAsset?.preview + '?preset=thumb' || '',
-        },
+        image: l.featuredAsset?.preview ?
+          { url: l.featuredAsset.preview + '?preset=thumb' || '' } : undefined  
       },
       path: '',
     })), 

@@ -25,7 +25,7 @@ export type OrderResume = {
     variant: {
       price: number;
       listPrice: number;
-      image: {
+      image?: {
           url: string;
       };
     };
