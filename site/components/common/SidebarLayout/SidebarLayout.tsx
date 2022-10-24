@@ -16,7 +16,7 @@ const SidebarLayout: FC<ComponentProps> = ({
   handleClose,
 }) => {
   return (
-    <div className={cn(s.root, className)}>
+    <div id={"sidebar"} className={cn(s.root, className)}>
       <header className={s.header}>
         {handleClose && (
           <button

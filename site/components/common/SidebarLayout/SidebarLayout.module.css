@@ -1,11 +1,13 @@
 .root {
-  @apply relative h-full flex flex-col;
+  @apply h-full flex flex-col overflow-y-auto overflow-x-hidden;
+  -webkit-overflow-scrolling: touch !important;
+
 }
 
 .header {
   @apply sticky top-0 pl-4 py-4 pr-6
   flex items-center justify-between 
-  bg-accent-0 box-border w-full z-10;
+  bg-accent-0 box-border w-full z-20;
   min-height: 66px;
 }
 
