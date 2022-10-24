@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import s from './ShippingAddressView.module.css'
 import { Button, Text } from '@components/ui'
 import { useUI } from '@components/ui'
@@ -9,6 +9,12 @@ import usePrice from '@framework/product/use-price'
 import * as Popover from "@radix-ui/react-popover"
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
+import cn from 'clsx'
+import { ChevronRight } from '@components/icons'
+import LineItem from '@components/order/LineItem'
+import useMeasure from 'react-use-measure'
+import { useSpring, a } from '@react-spring/web'
+import * as Collapsible from '@radix-ui/react-collapsible'
 
 const TextInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props)
@@ -115,6 +121,27 @@ const ShippingView: FC = () => {
     }
   )
 
+  const [orderSummaryRef, { height: viewHeight }] = useMeasure()
+  const [open, setOpen] = useState(false)
+  const animProps = useSpring({
+    height: open ? viewHeight : 0,
+    config: { tension: 250, friction: 32, clamp: true, duration: 150 },
+    opacity: open ? 1 : 0,
+  })
+
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    triggerRef!.current!.style!.top = `${triggerRef!.current!.offsetTop}px`
+  }, [])
+
+  const scrollToTop = () => {
+    const el = document.getElementById('sidebar');
+    el!.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <SidebarLayout handleBack={() => setSidebarView(
       process.env.COMMERCE_STRIPEPAYMENT_ENABLED? 'SHIPPING_METHOD_VIEW' : 'CHECKOUT_VIEW'
@@ -216,15 +243,62 @@ const ShippingView: FC = () => {
           }
         }}
       >
-        <Form className="flex flex-col justify-between flex-1 text-sm">
+        <Form className="flex flex-col justify-between space-y-2 flex-1 text-sm">
           <div className="px-4 sm:px-6">
-            <Text variant="sectionHeading">
-              Shipping
-            </Text>
-            <h3 className="text-xl font-semibold">
-              Address
-            </h3>
+            <Collapsible.Root
+              open={open}
+              onOpenChange={setOpen}
+              className="px-4 sm:px-6"
+            >
+              <Collapsible.Trigger onClick={() => scrollToTop()} ref={triggerRef} className={s.header}>
+                <ChevronRight className={cn(s.icon, { [s.open]: open })} />
+                <div className="w-full flex justify-between">
+                  Order summary
+                  <span>{total}</span>
+                </div>
+              </Collapsible.Trigger>
+              <Collapsible.Content forceMount asChild>
+                <a.div style={{ overflow: 'hidden', ...animProps }}>
+                  <div ref={orderSummaryRef} className="flex flex-col">
+                    <ul>
+                      {cart!.lineItems!.map((item) =>
+                        <LineItem
+                          key={item.id}
+                          item={item}
+                          currencyCode={cart?.currency.code!}
+                        />
+                      )}
+                    </ul>
+                    <ul>
+                      <li className="flex justify-between">
+                        <span>Subtotal</span>
+                        <span>{subTotal}</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span>Taxes</span>
+                        <span>Calculated at checkout</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span>{cart?.shippingMethod?.name || ""} Shipping</span>
+                        <span>{discountedShippingPrice}</span>
+                      </li>
+                    </ul>
+                    <div className="flex justify-between font-bold mb-2">
+                      <span>Total</span>
+                      <span>{total}</span>
+                    </div>
+                  </div>
+                </a.div>
+              </Collapsible.Content>
+            </Collapsible.Root>
+
             <div className="flex flex-col space-y-2">
+              <Text variant="sectionHeading">
+                Shipping
+              </Text>
+              <h3 className="text-xl font-semibold">
+                Address
+              </h3>
               <TextInput
                 label="First Name"
                 name="firstName"
@@ -273,24 +347,6 @@ const ShippingView: FC = () => {
             </div>
           </div>
           <div className="flex flex-col flex-shrink-0 px-6 py-4 pt-2 sticky bottom-0 bg-accent-0 border-t">
-            <ul>
-              <li className="flex justify-between py-1">
-                <span>Subtotal</span>
-                <span>{subTotal}</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>Taxes</span>
-                <span>Calculated at checkout</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>{cart?.shippingMethod?.name || ""} Shipping</span>
-                <span>{discountedShippingPrice}</span>
-              </li>
-            </ul>
-            <div className="flex justify-between border-t border-accent-2 py-2 font-bold mb-2">
-              <span>Total</span>
-              <span>{total}</span>
-            </div>
             {message && (
               <div className="text-red border border-red pb-12">
                 {message}
@@ -301,6 +357,10 @@ const ShippingView: FC = () => {
               width="100%"
               variant="ghost"
               loading={loading}
+              onClick={() => {
+                scrollToTop()
+                setOpen(false)
+              }}
             >
               Continue
             </Button>
