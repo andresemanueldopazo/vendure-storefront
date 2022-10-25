@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import s from './ShippingMethodView.module.css'
 import { Button, Text } from '@components/ui'
-import { Input, useUI } from '@components/ui'
+import { useUI } from '@components/ui'
 import SidebarLayout from '@components/common/SidebarLayout'
 import useEligibleShippingMethods from '@framework/shipping/method/use-eligible-shipping-methods'
 import useSetShippingMethod from '@framework/shipping/method/use-set-shipping-method'
@@ -14,6 +14,7 @@ import LineItem from '@components/order/LineItem'
 import useMeasure from 'react-use-measure'
 import { useSpring, a } from '@react-spring/web'
 import * as Collapsible from '@radix-ui/react-collapsible'
+import ElegibleShippingMethod from './ElegibleShippingMethod'
 
 const ShippingMethodView: FC = () => {
   const { setSidebarView } = useUI()
@@ -28,12 +29,6 @@ const ShippingMethodView: FC = () => {
   const { price: discountedShippingPrice } = usePrice(
     cart?.shippingMethod && {
       amount: cart.shippingMethod.discountedPriceWithTax || 0,
-      currencyCode: cart.currency.code,
-    }
-  )
-  const { price: shippingPrice } = usePrice(
-    cart?.shippingMethod && {
-      amount: cart.shippingMethod.priceWithTax || 0,
       currencyCode: cart.currency.code,
     }
   )
@@ -153,60 +148,34 @@ const ShippingMethodView: FC = () => {
             <h3 className="text-xl font-semibold">
               Method
             </h3>
-            <div className="flex flex-col divide-y divide-dashed space-y-2">
-              <div>
-                {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) => {
-                  const inputElement = shippingMethod.id === shippingMethodId ?
-                    <Input
-                      name="shippingMethod"
-                      value={`${shippingMethod.id}`}
-                      className={s.radio}
-                      type="radio"
-                      onChange={setShippingMethodId}
-                      checked
+            {cart && (
+              <div className="flex flex-col divide-y divide-dashed space-y-2">
+                <ul className="flex flex-col space-y-2">
+                  {elegibleShippingMethods && elegibleShippingMethods.map((shippingMethod) =>
+                    <ElegibleShippingMethod
+                      key={shippingMethod.id}
+                      currencyCode={cart.currency.code}
+                      method={shippingMethod}
+                      setShippingMethodId={setShippingMethodId}
                     />
-                  :
-                    <Input
-                      name="shippingMethod"
-                      value={`${shippingMethod.id}`}
-                      className={s.radio}
-                      type="radio"
-                      onChange={setShippingMethodId}
-                    />
-                  return (
-                    <div key={shippingMethod.id} className="flex flex-row justify-between my-1">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row">
-                          {inputElement}
-                          <span className="ml-3 text-sm">{shippingMethod.name}</span>
-                        </div>
-                        <span className="ml-3 text-sm"><div dangerouslySetInnerHTML={{ __html: shippingMethod.description }} /></span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="pt-2">
+                  )}
+                </ul>
                 {cart?.shippingMethod?.discountedPriceWithTax !== cart?.shippingMethod?.priceWithTax && (
-                  <>
-                    <div className="flex flex-row justify-between">
-                      <span>Subtotal</span>
-                      <span>{shippingPrice}</span>
-                    </div>
-                    <ul className={"flex flex-col"}>
+                  <div className="pt-2">
+                    <ul className="flex flex-col">
                       <Discounts
-                        discounts={cart!.shippingMethod!.discounts}
-                        currencyCode={cart!.currency.code}
+                        discounts={cart.shippingMethod!.discounts}
+                        currencyCode={cart.currency.code}
                       />
                     </ul>
-                  </>
+                    <div className="flex flex-row justify-between">
+                      <span>Total</span>
+                      <span>{discountedShippingPrice}</span>
+                    </div>
+                  </div>
                 )}
-                <div className="flex flex-row justify-between">
-                  <span>Total</span>
-                  <span>{discountedShippingPrice}</span>
-                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col flex-shrink-0 px-6 py-4 pt-2 sticky bottom-0 bg-accent-0 border-t">
