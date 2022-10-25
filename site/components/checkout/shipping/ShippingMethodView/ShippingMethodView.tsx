@@ -75,9 +75,18 @@ const ShippingMethodView: FC = () => {
     })
   }
 
+  const scrollToBottom = () => {
+    const el = document.getElementById('sidebar');
+    el!.scrollTo({
+      top: el!.scrollHeight,
+      behavior: 'smooth',
+    })
+  }
+
   useEffect(() => {
     isMounted.current && (async () => {
       await setShippingMethod({id: shippingMethodId})
+      scrollToBottom()
     })()
     isMounted.current = true
   }, [shippingMethodId])
