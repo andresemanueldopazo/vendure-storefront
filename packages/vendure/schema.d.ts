@@ -3275,7 +3275,7 @@ export type CartFragment = {
       priceWithTax: number
       stockLevel: string
       productId: string
-      product: { __typename?: 'Product'; slug: string }
+      product: { __typename?: 'Product'; description: string; slug: string }
     }
   }>
 }
@@ -3319,7 +3319,11 @@ export type OrderResumeFragment = {
     quantity: number
     discountedUnitPriceWithTax: number
     unitPriceWithTax: number
-    productVariant: { __typename?: 'ProductVariant'; name: string }
+    productVariant: {
+      __typename?: 'ProductVariant'
+      name: string
+      product: { __typename?: 'Product'; description: string }
+    }
     featuredAsset?: { __typename?: 'Asset'; preview: string } | null
   }>
 }
@@ -3438,7 +3442,11 @@ export type AddItemToOrderMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -3545,7 +3553,11 @@ export type AddPaymentToOrderMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -3667,7 +3679,11 @@ export type AdjustOrderLineMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -3905,7 +3921,11 @@ export type RemoveOrderLineMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -4064,7 +4084,11 @@ export type SetCustomerForOrderMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -4160,7 +4184,11 @@ export type SetOrderBillingAddressMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -4316,7 +4344,11 @@ export type TransitionOrderToStateMutation = {
             priceWithTax: number
             stockLevel: string
             productId: string
-            product: { __typename?: 'Product'; slug: string }
+            product: {
+              __typename?: 'Product'
+              description: string
+              slug: string
+            }
           }
         }>
       }
@@ -4432,7 +4464,11 @@ export type ActiveCustomerQuery = {
           quantity: number
           discountedUnitPriceWithTax: number
           unitPriceWithTax: number
-          productVariant: { __typename?: 'ProductVariant'; name: string }
+          productVariant: {
+            __typename?: 'ProductVariant'
+            name: string
+            product: { __typename?: 'Product'; description: string }
+          }
           featuredAsset?: { __typename?: 'Asset'; preview: string } | null
         }>
       }>
@@ -4590,7 +4626,7 @@ export type ActiveOrderQuery = {
         priceWithTax: number
         stockLevel: string
         productId: string
-        product: { __typename?: 'Product'; slug: string }
+        product: { __typename?: 'Product'; description: string; slug: string }
       }
     }>
   } | null

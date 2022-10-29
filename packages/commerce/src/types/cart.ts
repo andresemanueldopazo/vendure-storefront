@@ -17,6 +17,7 @@ export type LineItem = {
   variantId: string
   productId: string
   name: string
+  description: string;
   quantity: number
   discounts: Discount[]
   // A human-friendly unique string automatically generated from the product’s name

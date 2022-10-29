@@ -17,6 +17,9 @@ export const orderResumeFragment = /* GraphQL */ `
       quantity
       productVariant {
         name
+        product {
+          description
+        }
       }
       discountedUnitPriceWithTax
       unitPriceWithTax

@@ -29,7 +29,7 @@ export default function Orders() {
   const { data } = useCustomer()
 
   return (
-    <Container className="pt-4">
+    <Container className="max-h-max pt-4">
       <Text variant="pageHeading">My Orders</Text>
       <Elements
         stripe={getStripe()}
@@ -37,7 +37,7 @@ export default function Orders() {
         <StripePaymentStatus/>
       </Elements>
       {data && data.orders.totalItems? (
-        <ul>
+        <ul className="max-w-max md:w-3/4 flex flex-col justify-center">
           {data.orders.items.map((order)=>
             <OrderResume
               key={order.code}

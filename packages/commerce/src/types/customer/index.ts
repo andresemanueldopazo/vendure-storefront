@@ -22,6 +22,7 @@ export type OrderResume = {
     id: string;
     quantity: number;
     name: string;
+    description: string;
     variant: {
       price: number;
       listPrice: number;

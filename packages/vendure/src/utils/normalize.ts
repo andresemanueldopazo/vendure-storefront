@@ -51,6 +51,7 @@ export function normalizeCart(order: CartFragment): Cart & {
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       name: l.productVariant.name,
+      description: l.productVariant.product.description,
       quantity: l.quantity,
       url: l.productVariant.product.slug,
       variantId: l.productVariant.id,
@@ -137,11 +138,15 @@ export function normalizeShippingAddress(
 }
 
 export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
+  const orderPlacedAt = new Date(order.orderPlacedAt)
+  const [month, day, year] = [orderPlacedAt.getMonth(), orderPlacedAt.getDate(), orderPlacedAt.getFullYear()]
   return {
     code: order.code,
-    orderPlacedAt: order.orderPlacedAt,
+    orderPlacedAt: year + "/" + month + "/" + day,
     shippingWithTax: order.shippingWithTax / 100,
-    state: order.state,
+    state: order.state.split(/(?=[A-Z])/).reduce(
+      (previousValue, currentValue) => previousValue + " " +  currentValue.toLowerCase()
+    ),
     totalPrice: order.totalWithTax / 100,
     currency: { code: order.currencyCode },
     shippingAddress: {
@@ -154,6 +159,7 @@ export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
       id: l.id,
       quantity: l.quantity,
       name: l.productVariant.name,
+      description: l.productVariant.product.description,
       variant: {
         price: l.discountedUnitPriceWithTax / 100,
         listPrice: l.unitPriceWithTax / 100,

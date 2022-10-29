@@ -259,12 +259,13 @@ const ShippingView: FC = () => {
               </Collapsible.Trigger>
               <Collapsible.Content forceMount asChild>
                 <a.div style={{ overflow: 'hidden', ...animProps }}>
-                  <div ref={orderSummaryRef} className="flex flex-col">
-                    <ul>
+                  <div ref={orderSummaryRef} className="flex flex-col pt-2">
+                    <ul className="flex flex-col space-y-2">
                       {cart!.lineItems!.map((item) =>
                         <LineItem
                           key={item.id}
                           item={item}
+                          withDescription={false}
                           currencyCode={cart?.currency.code!}
                         />
                       )}

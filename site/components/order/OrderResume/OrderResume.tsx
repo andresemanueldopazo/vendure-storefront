@@ -13,61 +13,36 @@ const OrderResume = ({
     currencyCode: order?.currency.code!,
   })
 
-  const { price: shippingPrice } = usePrice({
-    amount: order.shippingWithTax,
-    currencyCode: order?.currency.code!,
-  })
-
-  const { streetLine, city, province, country} = order.shippingAddress
-
   return (
     <li
-      className="flex flex-col py-4"
+      className="py-4 flex flex-col space-y-2"
       {...rest}
     >
-      <div>
-        <div>
-          <span> Code: </span>
+      <div className="w-full flex flex-col sm:flex-row items-center">
+        <div className="w-full flex flex-row justify-between sm:flex-col space-x-4 sm:space-x-0">
+          <span> Order code </span>
           <span> {order.code} </span>
         </div>
-        <div>
-          <span> Placed at: </span>
+        <div className="w-full flex flex-row justify-between sm:flex-col space-x-4 sm:space-x-0">
+          <span> Date placed </span>
           <span> {order.orderPlacedAt} </span>
         </div>
-        <div> 
-          <span> State: </span>
-          <span> {order.state} </span>
-        </div>
-        <div>
-          <ul>
-            {order.lineItems.map((item) =>
-              <LineItem
-                key={item.id}
-                item={item}
-                currencyCode={order?.currency.code!}
-              />
-            )}
-          </ul>
-        </div>
-        <div>
-          <span> Shipping Price: </span>
-          {totalPrice &&
-            <span> {shippingPrice} </span>
-          }
-        </div>
-        <div>
-          <span> Shipping Address: </span>
-          <span>
-            {streetLine}, {city}, {province}, {country}
-          </span>
-        </div>
-        <div>
-          <span> Total: </span>
-          {totalPrice &&
-            <span> {totalPrice} </span>
-          }
+        <div className="w-full flex flex-row justify-between sm:flex-col space-x-4 sm:space-x-0"> 
+          <span> Total amount </span>
+          <span> {totalPrice} </span>
         </div>
       </div>
+      <ul className="flex flex-col space-y-2">
+        {order.lineItems.map((item) =>
+          <LineItem
+            key={item.id}
+            item={item}
+            withDescription={true}
+            currencyCode={order?.currency.code!}
+          />
+        )}
+      </ul>
+      <span> {order.state} </span>
     </li>
   )
 }

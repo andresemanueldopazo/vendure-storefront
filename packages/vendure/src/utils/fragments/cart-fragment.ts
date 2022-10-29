@@ -50,6 +50,9 @@ export const cartFragment = /* GraphQL */ `
       productVariant {
         id
         name
+        product {
+          description
+        }
         sku
         priceWithTax
         stockLevel
