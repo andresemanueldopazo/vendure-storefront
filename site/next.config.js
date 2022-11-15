@@ -35,6 +35,10 @@ module.exports = withCommerceConfig({
         },
     ].filter(Boolean)
   },
+  // https://github.com/vercel/next.js/tree/canary/examples/with-docker#in-existing-projects
+  experimental: {
+    outputStandalone: true,
+  }
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
