@@ -1,4 +1,4 @@
-export interface ShippingAddress {
+export type ShippingAddress = {
   firstName: string
   lastName: string
   company?: string

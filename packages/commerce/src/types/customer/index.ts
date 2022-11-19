@@ -1,4 +1,7 @@
 import { CustomerAddress } from './address';
+// import { ShippingMethod } from '../shipping/method'
+// import { ShippingAddress } from '../shipping/address'
+// import { Discount } from 'types/common';
 export * as Card from './card'
 export * as Address from './address'
 export * as Password from './password'
@@ -18,6 +21,8 @@ export type OrderResume = {
     province: string;
     country: string;
   };
+  // shippingAddress: ShippingAddress;
+  // shippingMethod: Omit<ShippingMethod, 'id' | 'discounts'>;
   lineItems: {
     id: string;
     quantity: number;
@@ -31,7 +36,14 @@ export type OrderResume = {
       };
     };
     path: string;
+    fulfillments: {
+      state: string;
+      method: string;
+      trackingCode?: string | null;
+      quantity: number;
+    }[];
   }[],
+  // discounts: Discount[];
 }
 
 export type Customer = {

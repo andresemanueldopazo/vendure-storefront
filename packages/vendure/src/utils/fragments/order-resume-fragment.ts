@@ -1,3 +1,6 @@
+import { discountsFragment } from './discount-fragment'
+import { orderAddressFragment } from './order-address-fragment'
+
 export const orderResumeFragment = /* GraphQL */ `
   fragment OrderResume on Order {
     code
@@ -7,14 +10,20 @@ export const orderResumeFragment = /* GraphQL */ `
     totalWithTax
     currencyCode
     shippingAddress {
-      streetLine1
-      city
-      province
-      country
+      ...OrderAddressFragment
+    }
+    shippingLines {
+      shippingMethod {
+        name
+        description
+      }
+      priceWithTax
+      discountedPriceWithTax
     }
     lines {
       id
       quantity
+      proratedLinePriceWithTax
       productVariant {
         name
         product {
@@ -26,6 +35,18 @@ export const orderResumeFragment = /* GraphQL */ `
       featuredAsset {
         preview
       }
+      items {
+        fulfillment {
+          state
+          method
+          trackingCode
+        }
+      }
+    }
+    discounts {
+      ...DiscountFragment
     }
   }
+  ${orderAddressFragment}
+  ${discountsFragment}
 `

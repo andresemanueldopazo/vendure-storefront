@@ -140,6 +140,10 @@ export function normalizeShippingAddress(
 export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
   const orderPlacedAt = new Date(order.orderPlacedAt)
   const [month, day, year] = [orderPlacedAt.getMonth(), orderPlacedAt.getDate(), orderPlacedAt.getFullYear()]
+  // const fullName = order.shippingAddress!.fullName || '' 
+  // const lastIndexOfSpace = fullName.lastIndexOf(' ')
+  // const firstName = fullName.substring(0, lastIndexOfSpace)
+  // const lastName = fullName.substring(lastIndexOfSpace+1)
   return {
     code: order.code,
     orderPlacedAt: year + "/" + month + "/" + day,
@@ -150,11 +154,22 @@ export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
     totalPrice: order.totalWithTax / 100,
     currency: { code: order.currencyCode },
     shippingAddress: {
+      // firstName,
+      // lastName,
+      // company: order.shippingAddress!.company!,
       streetLine: order.shippingAddress!.streetLine1!,
       city: order.shippingAddress!.city!,
       province: order.shippingAddress!.province!,
+      // postalCode: order.shippingAddress!.postalCode!,
       country: order.shippingAddress!.country!,
+      // phoneNumber: order.shippingAddress!.phoneNumber!,
     },
+    // shippingMethod: order.shippingLines[0] && {
+    //   name: order.shippingLines[0].shippingMethod.name,
+    //   description: order.shippingLines[0].shippingMethod.description,
+    //   priceWithTax: order.shippingLines[0].priceWithTax,
+    //   discountedPriceWithTax: order.shippingLines[0].discountedPriceWithTax,
+    // },
     lineItems: order.lines?.map((l) => ({
       id: l.id,
       quantity: l.quantity,
@@ -167,6 +182,33 @@ export function normalizeOrderResume(order: OrderResumeFragment): OrderResume {
           { url: l.featuredAsset.preview + '?preset=thumb' || '' } : undefined  
       },
       path: '',
-    })), 
+      fulfillments: l.items.reduce<{state: string, method: string, trackingCode?: string | null, quantity: number}[]>(
+        (previousValue, currentValue) => {
+          if (currentValue.fulfillment) {
+            const index = previousValue.map((fulfillment) => fulfillment.trackingCode).indexOf(currentValue.fulfillment?.trackingCode)
+            return index === -1 ? ([
+              ...previousValue,
+              {
+                state: currentValue.fulfillment.state,
+                method: currentValue.fulfillment.method,
+                trackingCode: currentValue.fulfillment.trackingCode,
+                quantity: 1,
+              },
+            ]) : ([
+              ...previousValue.slice(0, index),
+              {
+                state: previousValue[index].state,
+                method: previousValue[index].method,
+                trackingCode: previousValue[index].trackingCode,
+                quantity: previousValue[index].quantity + 1,
+              },
+              ...previousValue.slice(index + 1),
+            ])
+          }
+          return previousValue
+        }, []
+      ),
+    })),
+    // discounts: order.discounts.map(normalizeDiscount),
   }
 }

@@ -3308,15 +3308,30 @@ export type OrderResumeFragment = {
   currencyCode: CurrencyCode
   shippingAddress?: {
     __typename?: 'OrderAddress'
+    fullName?: string | null
+    company?: string | null
     streetLine1?: string | null
     city?: string | null
     province?: string | null
+    postalCode?: string | null
     country?: string | null
+    phoneNumber?: string | null
   } | null
+  shippingLines: Array<{
+    __typename?: 'ShippingLine'
+    priceWithTax: number
+    discountedPriceWithTax: number
+    shippingMethod: {
+      __typename?: 'ShippingMethod'
+      name: string
+      description: string
+    }
+  }>
   lines: Array<{
     __typename?: 'OrderLine'
     id: string
     quantity: number
+    proratedLinePriceWithTax: number
     discountedUnitPriceWithTax: number
     unitPriceWithTax: number
     productVariant: {
@@ -3325,6 +3340,20 @@ export type OrderResumeFragment = {
       product: { __typename?: 'Product'; description: string }
     }
     featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+    items: Array<{
+      __typename?: 'OrderItem'
+      fulfillment?: {
+        __typename?: 'Fulfillment'
+        state: string
+        method: string
+        trackingCode?: string | null
+      } | null
+    }>
+  }>
+  discounts: Array<{
+    __typename?: 'Discount'
+    description: string
+    amountWithTax: number
   }>
 }
 
@@ -4453,15 +4482,30 @@ export type ActiveCustomerQuery = {
         currencyCode: CurrencyCode
         shippingAddress?: {
           __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
           streetLine1?: string | null
           city?: string | null
           province?: string | null
+          postalCode?: string | null
           country?: string | null
+          phoneNumber?: string | null
         } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            name: string
+            description: string
+          }
+        }>
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
           quantity: number
+          proratedLinePriceWithTax: number
           discountedUnitPriceWithTax: number
           unitPriceWithTax: number
           productVariant: {
@@ -4470,6 +4514,20 @@ export type ActiveCustomerQuery = {
             product: { __typename?: 'Product'; description: string }
           }
           featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+          items: Array<{
+            __typename?: 'OrderItem'
+            fulfillment?: {
+              __typename?: 'Fulfillment'
+              state: string
+              method: string
+              trackingCode?: string | null
+            } | null
+          }>
+        }>
+        discounts: Array<{
+          __typename?: 'Discount'
+          description: string
+          amountWithTax: number
         }>
       }>
     }
