@@ -1,10 +1,11 @@
 import usePrice from '@framework/product/use-price'
 import { FC } from 'react'
 
-type DiscountItem = {
+export type DiscountItem = {
   value: number
   description: string
   currencyCode: string
+  className?: string
 }
 
 const Discount: FC<DiscountItem> = (discount) => {
@@ -14,8 +15,8 @@ const Discount: FC<DiscountItem> = (discount) => {
   })
 
   return (
-    <div className="flex flex-row justify-between space-x-4">
-      <span>{discount.description}</span>
+    <div className={discount.className}>
+      <span className="max-w-fit">{discount.description}</span>
       <span>{price}</span>
     </div>
   )

@@ -15,6 +15,7 @@ const Discounts: FC<DiscountsInput> = ({ currencyCode, discounts }) => {
           return (
             <li key={i}>
               <Discount
+                className="flex flex-row justify-between space-x-4"
                 value={discount.value}
                 description={discount.description}
                 currencyCode={currencyCode}

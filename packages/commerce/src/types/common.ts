@@ -1,4 +1,5 @@
 export type Discount = {
+  type: string
   // The value of the discount
   value: number
   description: string

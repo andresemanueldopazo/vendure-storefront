@@ -3214,6 +3214,7 @@ export type CartFragment = {
   currencyCode: CurrencyCode
   discounts: Array<{
     __typename?: 'Discount'
+    type: AdjustmentType
     description: string
     amountWithTax: number
   }>
@@ -3230,6 +3231,7 @@ export type CartFragment = {
     }
     discounts: Array<{
       __typename?: 'Discount'
+      type: AdjustmentType
       description: string
       amountWithTax: number
     }>
@@ -3263,6 +3265,7 @@ export type CartFragment = {
     proratedLinePriceWithTax: number
     discounts: Array<{
       __typename?: 'Discount'
+      type: AdjustmentType
       description: string
       amountWithTax: number
     }>
@@ -3282,6 +3285,7 @@ export type CartFragment = {
 
 export type DiscountFragmentFragment = {
   __typename?: 'Discount'
+  type: AdjustmentType
   description: string
   amountWithTax: number
 }
@@ -3304,19 +3308,47 @@ export type OrderResumeFragment = {
   orderPlacedAt?: any | null
   shippingWithTax: number
   state: string
+  subTotalWithTax: number
   totalWithTax: number
   currencyCode: CurrencyCode
+  discounts: Array<{
+    __typename?: 'Discount'
+    type: AdjustmentType
+    description: string
+    amountWithTax: number
+  }>
   shippingAddress?: {
     __typename?: 'OrderAddress'
+    fullName?: string | null
+    company?: string | null
     streetLine1?: string | null
     city?: string | null
     province?: string | null
+    postalCode?: string | null
     country?: string | null
+    phoneNumber?: string | null
   } | null
+  shippingLines: Array<{
+    __typename?: 'ShippingLine'
+    priceWithTax: number
+    discountedPriceWithTax: number
+    shippingMethod: {
+      __typename?: 'ShippingMethod'
+      name: string
+      description: string
+    }
+    discounts: Array<{
+      __typename?: 'Discount'
+      type: AdjustmentType
+      description: string
+      amountWithTax: number
+    }>
+  }>
   lines: Array<{
     __typename?: 'OrderLine'
     id: string
     quantity: number
+    linePriceWithTax: number
     discountedUnitPriceWithTax: number
     unitPriceWithTax: number
     productVariant: {
@@ -3325,6 +3357,15 @@ export type OrderResumeFragment = {
       product: { __typename?: 'Product'; description: string }
     }
     featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+    items: Array<{
+      __typename?: 'OrderItem'
+      fulfillment?: {
+        __typename?: 'Fulfillment'
+        state: string
+        method: string
+        trackingCode?: string | null
+      } | null
+    }>
   }>
 }
 
@@ -3377,6 +3418,7 @@ export type AddItemToOrderMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -3393,6 +3435,7 @@ export type AddItemToOrderMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3426,6 +3469,7 @@ export type AddItemToOrderMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3488,6 +3532,7 @@ export type AddPaymentToOrderMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -3504,6 +3549,7 @@ export type AddPaymentToOrderMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3537,6 +3583,7 @@ export type AddPaymentToOrderMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3614,6 +3661,7 @@ export type AdjustOrderLineMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -3630,6 +3678,7 @@ export type AdjustOrderLineMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3663,6 +3712,7 @@ export type AdjustOrderLineMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3856,6 +3906,7 @@ export type RemoveOrderLineMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -3872,6 +3923,7 @@ export type RemoveOrderLineMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -3905,6 +3957,7 @@ export type RemoveOrderLineMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4019,6 +4072,7 @@ export type SetCustomerForOrderMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -4035,6 +4089,7 @@ export type SetCustomerForOrderMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4068,6 +4123,7 @@ export type SetCustomerForOrderMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4119,6 +4175,7 @@ export type SetOrderBillingAddressMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -4135,6 +4192,7 @@ export type SetOrderBillingAddressMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4168,6 +4226,7 @@ export type SetOrderBillingAddressMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4279,6 +4338,7 @@ export type TransitionOrderToStateMutation = {
         currencyCode: CurrencyCode
         discounts: Array<{
           __typename?: 'Discount'
+          type: AdjustmentType
           description: string
           amountWithTax: number
         }>
@@ -4295,6 +4355,7 @@ export type TransitionOrderToStateMutation = {
           }
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4328,6 +4389,7 @@ export type TransitionOrderToStateMutation = {
           proratedLinePriceWithTax: number
           discounts: Array<{
             __typename?: 'Discount'
+            type: AdjustmentType
             description: string
             amountWithTax: number
           }>
@@ -4449,19 +4511,47 @@ export type ActiveCustomerQuery = {
         orderPlacedAt?: any | null
         shippingWithTax: number
         state: string
+        subTotalWithTax: number
         totalWithTax: number
         currencyCode: CurrencyCode
+        discounts: Array<{
+          __typename?: 'Discount'
+          type: AdjustmentType
+          description: string
+          amountWithTax: number
+        }>
         shippingAddress?: {
           __typename?: 'OrderAddress'
+          fullName?: string | null
+          company?: string | null
           streetLine1?: string | null
           city?: string | null
           province?: string | null
+          postalCode?: string | null
           country?: string | null
+          phoneNumber?: string | null
         } | null
+        shippingLines: Array<{
+          __typename?: 'ShippingLine'
+          priceWithTax: number
+          discountedPriceWithTax: number
+          shippingMethod: {
+            __typename?: 'ShippingMethod'
+            name: string
+            description: string
+          }
+          discounts: Array<{
+            __typename?: 'Discount'
+            type: AdjustmentType
+            description: string
+            amountWithTax: number
+          }>
+        }>
         lines: Array<{
           __typename?: 'OrderLine'
           id: string
           quantity: number
+          linePriceWithTax: number
           discountedUnitPriceWithTax: number
           unitPriceWithTax: number
           productVariant: {
@@ -4470,6 +4560,15 @@ export type ActiveCustomerQuery = {
             product: { __typename?: 'Product'; description: string }
           }
           featuredAsset?: { __typename?: 'Asset'; preview: string } | null
+          items: Array<{
+            __typename?: 'OrderItem'
+            fulfillment?: {
+              __typename?: 'Fulfillment'
+              state: string
+              method: string
+              trackingCode?: string | null
+            } | null
+          }>
         }>
       }>
     }
@@ -4561,6 +4660,7 @@ export type ActiveOrderQuery = {
     currencyCode: CurrencyCode
     discounts: Array<{
       __typename?: 'Discount'
+      type: AdjustmentType
       description: string
       amountWithTax: number
     }>
@@ -4577,6 +4677,7 @@ export type ActiveOrderQuery = {
       }
       discounts: Array<{
         __typename?: 'Discount'
+        type: AdjustmentType
         description: string
         amountWithTax: number
       }>
@@ -4610,6 +4711,7 @@ export type ActiveOrderQuery = {
       proratedLinePriceWithTax: number
       discounts: Array<{
         __typename?: 'Discount'
+        type: AdjustmentType
         description: string
         amountWithTax: number
       }>

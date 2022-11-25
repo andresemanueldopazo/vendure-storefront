@@ -87,6 +87,7 @@ const StripeSidebarView: FC = () => {
                       <LineItem
                         key={item.id}
                         item={item}
+                        quantity={item.quantity}
                         withDescription={false}
                         currencyCode={cart?.currency.code!}
                       />
