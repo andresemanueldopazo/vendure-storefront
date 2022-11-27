@@ -167,6 +167,7 @@ const OrderResume = ({
                           return [
                             ...previousValue,
                             <Discount
+                              key={currentValue.description}
                               className="flex flex-row justify-between"
                               description={currentValue.description}
                               value={currentValue.value}
